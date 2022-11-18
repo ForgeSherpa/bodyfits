@@ -82,7 +82,7 @@ export default function Login() {
                 Sign In
             </PrimaryButton>
             <WhiteText textAlign="center" mt={1}>
-                Don't an account?{" "}
+                Don't have an account?{" "}
                 <Link to="register" fontWeight="bold">
                     Register
                 </Link>
