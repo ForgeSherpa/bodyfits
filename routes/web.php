@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,6 +17,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

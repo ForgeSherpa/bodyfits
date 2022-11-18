@@ -1,16 +1,18 @@
 import { Image as ImageChakra } from "@chakra-ui/react";
 
-export default function Image({ src, outSide = null, ...props }) {
-    let link = "storage/images/";
-    if (!outSide) {
-        link += src;
-    }
-
+export default function Image({ src, outSide = null, query = null, ...props }) {
     return (
         <ImageChakra
-            src={outSide ? outSide : link}
+            src={
+                outSide
+                    ? outSide
+                    : route("image", {
+                          path: src,
+                          fm: "webp",
+                      }) + `${query ? `&${query}` : ""}`
+            }
             {...props}
-            fallbackSrc="storage/images/fallback.webp"
+            fallbackSrc={route("image", "fallback.webp")}
         />
     );
 }
