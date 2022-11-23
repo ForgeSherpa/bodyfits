@@ -3,7 +3,7 @@ import UnderlineLink from "@/Components/UnderlineLink";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import MainLayout from "@/Layouts/MainLayout";
-import { Box, CardBody, Divider, Flex } from "@chakra-ui/react";
+import { Box, Button, ColorModeScript, Divider, Flex } from "@chakra-ui/react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
@@ -13,6 +13,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/pagination.css";
 import { COLORS } from "@/Utils/colors";
+import Course from "@/Components/Home/Course";
+import Trainer from "@/Components/Home/Trainer";
+import { FiArrowDown } from "react-icons/fi";
+import WhiteLink from "@/Components/Topbar/WhiteLink";
 
 export default function Home({ auth }) {
     useCustomBg();
@@ -46,7 +50,12 @@ export default function Home({ auth }) {
                 <Image w="full" src="bodyfits.png" />
             </Flex>
             <Box>
-                <Flex justifyContent="space-between" mx={15} alignItems="end">
+                <Flex
+                    justifyContent="space-between"
+                    mx={15}
+                    mb={10}
+                    alignItems="end"
+                >
                     <WhiteText
                         fontSize={60}
                         fontWeight={700}
@@ -71,130 +80,11 @@ export default function Home({ auth }) {
                     }}
                     initialSlide={1}
                 >
-                    <SwiperSlide>
-                        <Card w={582} h={342}>
-                            <CardBody py={2} px={1}>
-                                <Image
-                                    src="courses/example.jpg"
-                                    query="fit=crop-top&crop=577,159&w=577&h=159"
-                                    rounded={40}
-                                    borderBottomRadius={0}
-                                />
-                                <Box position="relative" px={35} py={3}>
-                                    <WhiteText fontWeight="bold" fontSize={36}>
-                                        Chest
-                                    </WhiteText>
-                                    <WhiteText>
-                                        Bulking your half by doing 3-4 weeks
-                                        exercises
-                                    </WhiteText>
-                                    <UnderlineLink
-                                        to="home"
-                                        fontWeight="bold"
-                                        fontSize={36}
-                                        position="absolute"
-                                        right={10}
-                                        bottom={-14}
-                                    >
-                                        Go
-                                    </UnderlineLink>
-                                </Box>
-                            </CardBody>
-                        </Card>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Card w={582} h={342}>
-                            <CardBody py={2} px={1}>
-                                <Image
-                                    src="courses/example.jpg"
-                                    query="fit=crop-top&crop=577,159&w=577&h=159"
-                                    rounded={40}
-                                    borderBottomRadius={0}
-                                />
-                                <Box position="relative" px={35} py={3}>
-                                    <WhiteText fontWeight="bold" fontSize={36}>
-                                        Chest
-                                    </WhiteText>
-                                    <WhiteText>
-                                        Bulking your half by doing 3-4 weeks
-                                        exercises
-                                    </WhiteText>
-                                    <UnderlineLink
-                                        to="home"
-                                        fontWeight="bold"
-                                        fontSize={36}
-                                        position="absolute"
-                                        right={10}
-                                        bottom={-14}
-                                    >
-                                        Go
-                                    </UnderlineLink>
-                                </Box>
-                            </CardBody>
-                        </Card>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Card w={582} h={342}>
-                            <CardBody py={2} px={1}>
-                                <Image
-                                    src="courses/example.jpg"
-                                    query="fit=crop-top&crop=577,159&w=577&h=159"
-                                    rounded={40}
-                                    borderBottomRadius={0}
-                                />
-                                <Box position="relative" px={35} py={3}>
-                                    <WhiteText fontWeight="bold" fontSize={36}>
-                                        Chest
-                                    </WhiteText>
-                                    <WhiteText>
-                                        Bulking your half by doing 3-4 weeks
-                                        exercises
-                                    </WhiteText>
-                                    <UnderlineLink
-                                        to="home"
-                                        fontWeight="bold"
-                                        fontSize={36}
-                                        position="absolute"
-                                        right={10}
-                                        bottom={-14}
-                                    >
-                                        Go
-                                    </UnderlineLink>
-                                </Box>
-                            </CardBody>
-                        </Card>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Card w={582} h={342}>
-                            <CardBody py={2} px={1}>
-                                <Image
-                                    src="courses/example.jpg"
-                                    query="fit=crop-top&crop=577,159&w=577&h=159"
-                                    rounded={40}
-                                    borderBottomRadius={0}
-                                />
-                                <Box position="relative" px={35} py={3}>
-                                    <WhiteText fontWeight="bold" fontSize={36}>
-                                        Chest
-                                    </WhiteText>
-                                    <WhiteText>
-                                        Bulking your half by doing 3-4 weeks
-                                        exercises
-                                    </WhiteText>
-                                    <UnderlineLink
-                                        to="home"
-                                        fontWeight="bold"
-                                        fontSize={36}
-                                        position="absolute"
-                                        right={10}
-                                        bottom={-14}
-                                    >
-                                        Go
-                                    </UnderlineLink>
-                                </Box>
-                            </CardBody>
-                        </Card>
-                    </SwiperSlide>
+                    {[1, 2, 3, 4].map((item) => (
+                        <SwiperSlide key={item}>
+                            <Course />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </Box>
             <Box pr={39}>
@@ -268,9 +158,35 @@ export default function Home({ auth }) {
                     </Flex>
                 </Box>
             </Box>
-            <Box mt={136} px={30}>
-                <WhiteText></WhiteText>
+            <Box mt={136} px={30} mb={10}>
+                <WhiteText fontWeight="bold" fontSize={60}>
+                    OUR TRAINERS
+                </WhiteText>
+                <Flex gap={10} justifyContent="center">
+                    {[1, 2, 3].map((item) => (
+                        <Trainer key={item} />
+                    ))}
+                </Flex>
             </Box>
+            <Flex
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                mb={81}
+            >
+                <Button
+                    bg={COLORS.itemSoft}
+                    minH="fit-content"
+                    maxW="fit-content"
+                    rounded="full"
+                    color={COLORS.putih}
+                    fontSize={30}
+                    py={8}
+                >
+                    <FiArrowDown />
+                </Button>
+                <WhiteText textDecoration="underline">Show All</WhiteText>
+            </Flex>
         </MainLayout>
     );
 }
