@@ -9,7 +9,7 @@ export default function TopBar({ auth }) {
         <Flex px={65} py={25} flexDirection="row" alignItems="center" gap={10}>
             <Logo />
             <Flex flexDirection="row" gap={14} ml={10}>
-                <WhiteLink to="home">Courses</WhiteLink>
+                <WhiteLink to="courses.index">Courses</WhiteLink>
                 <WhiteLink to="home">Settings</WhiteLink>
                 <WhiteLink to="home">FAQ</WhiteLink>
             </Flex>

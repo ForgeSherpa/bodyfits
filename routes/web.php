@@ -20,6 +20,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    require __DIR__ . '/courses.php';
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

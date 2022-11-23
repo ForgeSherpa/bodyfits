@@ -1,8 +1,8 @@
 import { COLORS } from "@/Utils/colors";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 export default function useCustomBg() {
-    useEffect(() => {
+    useLayoutEffect(() => {
         document.body.style.backgroundColor = COLORS.itemTerang;
     }, []);
 }

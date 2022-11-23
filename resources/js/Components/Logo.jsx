@@ -1,9 +1,9 @@
-import WhiteText from "./WhiteText";
+import WhiteLink from "./Topbar/WhiteLink";
 
 export default function Logo() {
     return (
-        <WhiteText fontWeight="bold" fontSize={40}>
+        <WhiteLink to="home" _hover={{}} fontWeight="bold" fontSize={40}>
             BodyFits
-        </WhiteText>
+        </WhiteLink>
     );
 }

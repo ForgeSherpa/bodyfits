@@ -3,7 +3,7 @@ import UnderlineLink from "@/Components/UnderlineLink";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import MainLayout from "@/Layouts/MainLayout";
-import { Box, Button, ColorModeScript, Divider, Flex } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex } from "@chakra-ui/react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
@@ -16,7 +16,6 @@ import { COLORS } from "@/Utils/colors";
 import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
 import { FiArrowDown } from "react-icons/fi";
-import WhiteLink from "@/Components/Topbar/WhiteLink";
 
 export default function Home({ auth }) {
     useCustomBg();
