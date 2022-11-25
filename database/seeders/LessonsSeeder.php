@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Lessons;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class LessonsSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Lessons::factory(100)->create();
     }
 }

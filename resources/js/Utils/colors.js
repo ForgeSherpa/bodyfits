@@ -7,4 +7,5 @@ export const COLORS = {
     merah: "#FF0000",
     bayangan: "#D9D9D9",
     ijoLebihSoft: "rgba(58, 92, 98, 0.17)",
+    putihTransparan: "rgba(255, 255, 255, 0.21)",
 };

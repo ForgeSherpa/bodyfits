@@ -3,7 +3,13 @@ import UnderlineLink from "@/Components/UnderlineLink";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import MainLayout from "@/Layouts/MainLayout";
-import { Box, Button, Divider, Flex } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Divider,
+    Flex,
+    Grid as ChakraGrid,
+} from "@chakra-ui/react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
@@ -16,10 +22,17 @@ import { COLORS } from "@/Utils/colors";
 import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
 import { FiArrowDown } from "react-icons/fi";
+import usePagination from "@/Hooks/usePagination";
 
-export default function Home({ auth }) {
+export default function Home({ auth, trainers }) {
+    const {
+        lists: trainersList,
+        next: showMore,
+        hasNext,
+        loading,
+    } = usePagination(trainers);
+
     useCustomBg();
-
     return (
         <MainLayout auth={auth}>
             <Flex>
@@ -161,31 +174,39 @@ export default function Home({ auth }) {
                 <WhiteText fontWeight="bold" fontSize={60}>
                     OUR TRAINERS
                 </WhiteText>
-                <Flex gap={10} justifyContent="center">
-                    {[1, 2, 3].map((item) => (
-                        <Trainer key={item} />
-                    ))}
-                </Flex>
-            </Box>
-            <Flex
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                mb={81}
-            >
-                <Button
-                    bg={COLORS.itemSoft}
-                    minH="fit-content"
-                    maxW="fit-content"
-                    rounded="full"
-                    color={COLORS.putih}
-                    fontSize={30}
-                    py={8}
+                <ChakraGrid
+                    templateColumns="repeat(3, 1fr)"
+                    gap={10}
+                    justifyContent="center"
                 >
-                    <FiArrowDown />
-                </Button>
-                <WhiteText textDecoration="underline">Show All</WhiteText>
-            </Flex>
+                    {trainersList.map((item) => (
+                        <Trainer key={item.id} data={item} />
+                    ))}
+                </ChakraGrid>
+            </Box>
+            {hasNext && (
+                <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    flexDirection="column"
+                    mb={81}
+                >
+                    <Button
+                        bg={COLORS.itemSoft}
+                        minH="fit-content"
+                        maxW="fit-content"
+                        rounded="full"
+                        color={COLORS.putih}
+                        fontSize={30}
+                        py={8}
+                        onClick={showMore}
+                        isLoading={loading}
+                    >
+                        <FiArrowDown />
+                    </Button>
+                    <WhiteText textDecoration="underline">Show More</WhiteText>
+                </Flex>
+            )}
         </MainLayout>
     );
 }

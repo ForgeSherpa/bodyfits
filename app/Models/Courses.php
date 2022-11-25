@@ -9,7 +9,7 @@ class Courses extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'trainer_id', 'ranting_id'];
+    protected $guarded = ['id'];
 
     public function trainer()
     {
@@ -19,5 +19,10 @@ class Courses extends Model
     public function lessons()
     {
         return $this->belongsTo(Lessons::class, 'course_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasOne(Categories::class, 'category_id');
     }
 }

@@ -48,7 +48,12 @@ class User extends Authenticatable
     protected function photo(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? "storage/$value" : null
+            get: fn ($value) => $value ? "profiles/{$value}" : "profiles/default.jpg"
         );
+    }
+
+    public function trainers()
+    {
+        return $this->belongsToMany(Trainers::class, 'trainer_user', 'trainer_id', 'user_id');
     }
 }

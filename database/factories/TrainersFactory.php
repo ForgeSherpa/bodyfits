@@ -17,7 +17,13 @@ class TrainersFactory extends Factory
     public function definition()
     {
         return [
-            ''
+            'name' => fake()->name(),
+            'age' => rand(1, 100),
+            'nationality' => fake()->country(),
+            'job' => fake()->jobTitle(),
+            'contact' => fake()->phoneNumber(),
+            'description' => fake()->paragraph(1),
+            'photo' => null
         ];
     }
 }

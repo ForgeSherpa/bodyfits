@@ -26,11 +26,7 @@ export default function TopBar({ auth }) {
             >
                 {auth.user !== null ? (
                     <Image
-                        src={
-                            auth.user.photo
-                                ? auth.user.photo
-                                : "profiles/default.jpg"
-                        }
+                        src={auth.user.photo}
                         className="w-14 rounded-full"
                     />
                 ) : (

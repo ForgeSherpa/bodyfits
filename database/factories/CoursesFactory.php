@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Courses;
+use App\Models\Categories;
+use App\Models\Trainers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,9 @@ class CoursesFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'trainer_id' => Trainers::factory()->create(),
+            'category_id' => Categories::factory()->create(),
+            'description' => fake()->paragraph(2)
         ];
     }
 }
