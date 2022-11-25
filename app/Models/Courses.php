@@ -13,16 +13,16 @@ class Courses extends Model
 
     public function trainer()
     {
-        return $this->hasOne(Trainers::class, 'trainer_id');
+        return $this->hasOne(Trainers::class, 'id', 'trainer_id');
     }
 
     public function lessons()
     {
-        return $this->belongsTo(Lessons::class, 'course_id');
+        return $this->hasMany(Lessons::class, 'course_id', 'id');
     }
 
     public function categories()
     {
-        return $this->hasOne(Categories::class, 'category_id');
+        return $this->hasOne(Categories::class, 'id', 'category_id');
     }
 }

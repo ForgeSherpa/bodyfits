@@ -10,9 +10,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $offset = $request->offset;
-
-
         $trainers = Trainers::paginate($request->per_page ?? 3);
 
         if ($request->wantsJson()) {

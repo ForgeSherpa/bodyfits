@@ -13,30 +13,17 @@ class CoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Authed/Courses/Courses');
-    }
+        $courses = Courses::with(['trainer', 'categories'])->paginate($request->per_page ?? 3);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        if ($request->wantsJson()) {
+            return $courses;
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Inertia::render('Authed/Courses/Courses', [
+            'courses' => $courses
+        ]);
     }
 
     /**
@@ -47,40 +34,19 @@ class CoursesController extends Controller
      */
     public function show(Courses $courses)
     {
-        //
+        $course = $courses->with(['trainer', 'lessons'])->first();
+
+        return Inertia::render('Authed/Courses/Detail', [
+            'course' => $course
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Courses  $courses
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Courses $courses)
+    public function search(Request $request)
     {
-        //
-    }
+        $request->validate(['search' => 'required']);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Courses  $courses
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Courses $courses)
-    {
-        //
-    }
+        $courses = Courses::with(['trainer', 'categories'])->where('title', 'LIKE', "%{$request->search}%")->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Courses  $courses
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Courses $courses)
-    {
-        //
+        return $courses;
     }
 }
