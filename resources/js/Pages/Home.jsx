@@ -4,7 +4,7 @@ import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import MainLayout from "@/Layouts/MainLayout";
 import { Box, Divider, Flex, Grid as ChakraGrid } from "@chakra-ui/react";
-import { Pagination } from "swiper";
+import { FreeMode, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
 import Calendar from "react-calendar";
@@ -12,6 +12,7 @@ import Calendar from "react-calendar";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/pagination.css";
+import "swiper/css/free-mode";
 import { COLORS } from "@/Utils/colors";
 import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
@@ -67,21 +68,24 @@ export default function Home({ auth, trainers, courses }) {
                     <UnderlineLink to="home">Show All</UnderlineLink>
                 </Flex>
                 <Swiper
-                    modules={[Pagination]}
+                    modules={[Pagination, FreeMode]}
                     pagination={{
                         clickable: true,
                     }}
-                    slidesPerView={3}
-                    spaceBetween={300}
-                    centeredSlides={true}
+                    slidesPerView="auto"
+                    spaceBetween={10}
                     style={{
                         marginBottom: 135,
                         paddingLeft: 5,
                     }}
                     initialSlide={1}
+                    freeMode={true}
                 >
                     {courses.map((item) => (
-                        <SwiperSlide key={item.id}>
+                        <SwiperSlide
+                            style={{ width: "fit-content" }}
+                            key={item.id}
+                        >
                             <Course item={item} />
                         </SwiperSlide>
                     ))}
