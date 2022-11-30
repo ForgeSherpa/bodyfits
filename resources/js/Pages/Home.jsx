@@ -3,13 +3,7 @@ import UnderlineLink from "@/Components/UnderlineLink";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import MainLayout from "@/Layouts/MainLayout";
-import {
-    Box,
-    Button,
-    Divider,
-    Flex,
-    Grid as ChakraGrid,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, Grid as ChakraGrid } from "@chakra-ui/react";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
@@ -21,16 +15,10 @@ import "../../css/pagination.css";
 import { COLORS } from "@/Utils/colors";
 import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
-import { FiArrowDown } from "react-icons/fi";
 import usePagination from "@/Hooks/usePagination";
 
 export default function Home({ auth, trainers }) {
-    const {
-        lists: trainersList,
-        next: showMore,
-        hasNext,
-        loading,
-    } = usePagination(trainers);
+    const { lists: trainersList, element } = usePagination(trainers);
 
     useCustomBg();
     return (
@@ -184,29 +172,7 @@ export default function Home({ auth, trainers }) {
                     ))}
                 </ChakraGrid>
             </Box>
-            {hasNext && (
-                <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    flexDirection="column"
-                    mb={81}
-                >
-                    <Button
-                        bg={COLORS.itemSoft}
-                        minH="fit-content"
-                        maxW="fit-content"
-                        rounded="full"
-                        color={COLORS.putih}
-                        fontSize={30}
-                        py={8}
-                        onClick={showMore}
-                        isLoading={loading}
-                    >
-                        <FiArrowDown />
-                    </Button>
-                    <WhiteText textDecoration="underline">Show More</WhiteText>
-                </Flex>
-            )}
+            {element}
         </MainLayout>
     );
 }

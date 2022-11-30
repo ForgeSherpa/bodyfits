@@ -1,4 +1,8 @@
+import WhiteText from "@/Components/WhiteText";
+import { COLORS } from "@/Utils/colors";
+import { Button, Flex } from "@chakra-ui/react";
 import { useState, useEffect, useReducer } from "react";
+import { FiArrowDown } from "react-icons/fi";
 
 const listsReducer = (state, action) => {
     switch (action.type) {
@@ -53,10 +57,35 @@ export default function usePagination(item, initialNotSame = true) {
         }
     }, [item, lists]);
 
+    const element = hasNext && (
+        <Flex
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            mb={81}
+        >
+            <Button
+                bg={COLORS.itemSoft}
+                minH="fit-content"
+                maxW="fit-content"
+                rounded="full"
+                color={COLORS.putih}
+                fontSize={30}
+                py={8}
+                onClick={next}
+                isLoading={loading}
+            >
+                <FiArrowDown />
+            </Button>
+            <WhiteText textDecoration="underline">Show More</WhiteText>
+        </Flex>
+    );
+
     return {
         hasNext,
         next,
         loading,
         lists: lists.data,
+        element,
     };
 }

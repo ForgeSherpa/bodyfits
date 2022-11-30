@@ -3,7 +3,6 @@ import {
     Box,
     Button,
     CardBody,
-    Divider,
     Flex,
     Modal,
     ModalBody,
@@ -15,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Card from "../Card";
 import Image from "../Image";
+import WhiteDivider from "../WhiteDivider";
 import WhiteText from "../WhiteText";
 
 export default function Trainer({ data }) {
@@ -74,7 +74,7 @@ export default function Trainer({ data }) {
                                 <Text>Nationality: {data.nationality}</Text>
                                 <Text>Job: {data.job}</Text>
                                 <Text>Contact: {data.contact}</Text>
-                                <Divider mt={5} borderColor={COLORS.putih} />
+                                <WhiteDivider mt={5} />
                             </Box>
                         </Flex>
                         <Text mt={3}>{data.description}</Text>
