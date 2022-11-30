@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Courses;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,14 +16,14 @@ class CoursesController extends Controller
      */
     public function index(Request $request)
     {
-        $courses = Courses::with(['trainer', 'categories'])->paginate($request->per_page ?? 3);
+        $category = Categories::with('courses')->paginate($request->per_page ?? 5);
 
         if ($request->wantsJson()) {
-            return $courses;
+            return $category;
         }
 
         return Inertia::render('Authed/Courses/Courses', [
-            'courses' => $courses
+            'courses' => $category
         ]);
     }
 
@@ -34,18 +35,14 @@ class CoursesController extends Controller
      */
     public function show(Courses $courses)
     {
-        $course = $courses->with(['trainer', 'lessons'])->first();
-
         return Inertia::render('Authed/Courses/Detail', [
-            'course' => $course
+            'course' => $courses->load('trainer', 'lessons')
         ]);
     }
 
     public function search(Request $request)
     {
-        $request->validate(['search' => 'required']);
-
-        $courses = Courses::with(['trainer', 'categories'])->where('title', 'LIKE', "%{$request->search}%")->get();
+        $courses = Courses::where('title', 'LIKE', "%{$request->search}%")->limit(20)->get();
 
         return $courses;
     }

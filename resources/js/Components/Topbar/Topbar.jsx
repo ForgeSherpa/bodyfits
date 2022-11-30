@@ -3,6 +3,7 @@ import {
     Box,
     Button,
     Flex,
+    List,
     Menu,
     MenuButton,
     MenuItem,
@@ -60,7 +61,7 @@ export default function TopBar({ auth }) {
                                     />
                                 </Flex>
                             </MenuItem>
-                            <MenuItem bg={COLORS.itemTerang}>
+                            <MenuItem as={List} bg={COLORS.itemTerang}>
                                 <Button
                                     bg={COLORS.itemSoft}
                                     color={COLORS.putih}

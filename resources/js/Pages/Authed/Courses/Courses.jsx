@@ -2,11 +2,12 @@ import List from "@/Components/Courses/List";
 import SearchBar from "@/Components/Searchbar";
 import WhiteDivider from "@/Components/WhiteDivider";
 import WhiteText from "@/Components/WhiteText";
+import usePagination from "@/Hooks/usePagination";
 import MainLayout from "@/Layouts/MainLayout";
 import { Box } from "@chakra-ui/react";
 
 export default function Courses({ auth, courses }) {
-    console.log(courses);
+    const { element, lists } = usePagination(courses);
 
     return (
         <MainLayout auth={auth}>
@@ -15,9 +16,14 @@ export default function Courses({ auth, courses }) {
                 <WhiteText fontSize={48} fontWeight={700}>
                     WHAT DO YOU WANT TO TRAIN
                 </WhiteText>
-                <SearchBar />
+                <SearchBar path="courses.search" placeholder="Search courses" />
             </Box>
-            <List />
+            <WhiteDivider />
+            {lists.map((item) => (
+                <List key={item.id} item={item} />
+            ))}
+            <Box my={100} />
+            {element}
         </MainLayout>
     );
 }

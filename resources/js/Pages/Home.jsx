@@ -17,7 +17,7 @@ import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
 import usePagination from "@/Hooks/usePagination";
 
-export default function Home({ auth, trainers }) {
+export default function Home({ auth, trainers, courses }) {
     const { lists: trainersList, element } = usePagination(trainers);
 
     useCustomBg();
@@ -80,9 +80,9 @@ export default function Home({ auth, trainers }) {
                     }}
                     initialSlide={1}
                 >
-                    {[1, 2, 3, 4].map((item) => (
-                        <SwiperSlide key={item}>
-                            <Course />
+                    {courses.map((item) => (
+                        <SwiperSlide key={item.id}>
+                            <Course item={item} />
                         </SwiperSlide>
                     ))}
                 </Swiper>

@@ -4,7 +4,7 @@ import Image from "../Image";
 import UnderlineLink from "../UnderlineLink";
 import WhiteText from "../WhiteText";
 
-export default function Course() {
+export default function Course({ item }) {
     return (
         <Card w={582} h={342}>
             <CardBody py={2} px={1}>
@@ -16,18 +16,20 @@ export default function Course() {
                 />
                 <Box position="relative" px={35} py={3}>
                     <WhiteText fontWeight="bold" fontSize={36}>
-                        Chest
+                        {item.title}
                     </WhiteText>
                     <WhiteText>
-                        Bulking your half by doing 3-4 weeks exercises
+                        {item.description.length > 100
+                            ? item.description.substring(0, 100) + "..."
+                            : item.description}
                     </WhiteText>
                     <UnderlineLink
-                        to="home"
+                        to="courses.detail"
+                        params={item.id}
                         fontWeight="bold"
                         fontSize={36}
                         position="absolute"
                         right={10}
-                        bottom={-14}
                     >
                         Go
                     </UnderlineLink>
