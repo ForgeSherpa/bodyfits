@@ -78,7 +78,6 @@ export default function Home({ auth, trainers, courses }) {
                         marginBottom: 135,
                         paddingLeft: 5,
                     }}
-                    initialSlide={1}
                     freeMode={true}
                 >
                     {courses.map((item) => (

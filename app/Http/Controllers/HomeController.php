@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $trainers = Trainers::paginate($request->per_page ?? 3);
-        $courses = Courses::inRandomOrder()->limit(4)->get();
+        $courses = Courses::limit(4)->inRandomOrder()->get();
 
         if ($request->wantsJson()) {
             return $trainers;

@@ -1,19 +1,8 @@
 import { COLORS } from "@/Utils/colors";
-import {
-    Box,
-    Button,
-    Flex,
-    List,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-} from "@chakra-ui/react";
-import { FiChevronDown } from "react-icons/fi";
-import Image from "../Image";
+import { Flex } from "@chakra-ui/react";
 import Logo from "../Logo";
+import Profile from "../Profile";
 import WhiteDivider from "../WhiteDivider";
-import WhiteText from "../WhiteText";
 import WhiteLink from "./WhiteLink";
 
 export default function TopBar({ auth }) {
@@ -33,51 +22,7 @@ export default function TopBar({ auth }) {
                 alignItems="center"
             >
                 {auth.user !== null ? (
-                    <Menu>
-                        <Box as={MenuButton}>
-                            <Flex alignItems="center" gap={3}>
-                                <Image
-                                    src={auth.user.photo}
-                                    className="w-14 rounded-full"
-                                />
-                                <FiChevronDown color={COLORS.putih} />
-                            </Flex>
-                        </Box>
-                        <MenuList bg={COLORS.itemTerang}>
-                            <MenuItem bg={COLORS.itemTerang}>
-                                <Flex
-                                    alignItems="center"
-                                    flexDirection="column"
-                                    mx="auto"
-                                    py={2}
-                                    gap={5}
-                                >
-                                    <WhiteText fontWeight={700} fontSize={20}>
-                                        {auth.user.name}
-                                    </WhiteText>
-                                    <Image
-                                        src={auth.user.photo}
-                                        className="w-24 rounded-full"
-                                    />
-                                </Flex>
-                            </MenuItem>
-                            <MenuItem as={List} bg={COLORS.itemTerang}>
-                                <Button
-                                    bg={COLORS.itemSoft}
-                                    color={COLORS.putih}
-                                    _hover={{
-                                        opacity: 0.9,
-                                    }}
-                                    w="full"
-                                    _active={{
-                                        opacity: 0.5,
-                                    }}
-                                >
-                                    Manage Account
-                                </Button>
-                            </MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <Profile auth={auth} />
                 ) : (
                     <>
                         <WhiteLink to="home">Sign Up</WhiteLink>

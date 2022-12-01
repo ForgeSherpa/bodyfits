@@ -9,7 +9,6 @@ import {
     PopoverHeader,
     PopoverTrigger,
     PopoverBody,
-    Button,
     Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -17,7 +16,13 @@ import { FiSearch } from "react-icons/fi";
 import Link from "./Link";
 import WhiteText from "./WhiteText";
 
-export default function SearchBar({ path, placeholder }) {
+export default function SearchBar({
+    path,
+    placeholder,
+    q = {},
+    customParam = null,
+    to = "courses.detail",
+}) {
     const { isOpen, onToggle, onClose } = useDisclosure();
     const [lists, setLists] = useState([]);
 
@@ -26,7 +31,7 @@ export default function SearchBar({ path, placeholder }) {
             return;
         }
 
-        const res = await fetch(route(path, { search: e.target.value }), {
+        const res = await fetch(route(path, { search: e.target.value, ...q }), {
             headers: {
                 Accept: "application/json",
             },
@@ -60,7 +65,12 @@ export default function SearchBar({ path, placeholder }) {
                     />
                 </InputGroup>
             </PopoverTrigger>
-            <PopoverContent bg="gray.800" w="full" maxH={500} overflowY="auto">
+            <PopoverContent
+                bg={COLORS.itemTerang}
+                w="full"
+                maxH={500}
+                overflowY="auto"
+            >
                 <PopoverHeader>
                     <WhiteText>Search Result</WhiteText>
                 </PopoverHeader>
@@ -71,10 +81,14 @@ export default function SearchBar({ path, placeholder }) {
                         )}
                         {lists.map((item) => (
                             <Link
-                                bg="gray.600"
+                                bg={COLORS.itemSoft}
                                 color={COLORS.putih}
-                                to="courses.detail"
-                                params={item.id}
+                                to={to}
+                                params={
+                                    customParam
+                                        ? customParam(item)
+                                        : { courses: item.id, lessons: 1 }
+                                }
                                 key={item.id}
                                 rounded="lg"
                                 py={2}
