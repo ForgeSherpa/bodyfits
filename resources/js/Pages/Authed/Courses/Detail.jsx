@@ -15,8 +15,8 @@ import {
     MenuItem,
     MenuList,
     Grid,
-    Button,
 } from "@chakra-ui/react";
+import HTMLReactParser from "html-react-parser";
 import { FiChevronDown } from "react-icons/fi";
 
 export default function Detail({
@@ -25,6 +25,8 @@ export default function Detail({
     randomCourses,
     lesson,
     nextCourseId,
+    nextLessonId,
+    totalDuration,
 }) {
     console.log(lesson);
     useCustomBg();
@@ -56,7 +58,10 @@ export default function Detail({
                             >
                                 <WhiteLink
                                     to="courses.detail"
-                                    params={{ courses: item.id, lessons: 1 }}
+                                    params={{
+                                        courses: item.id,
+                                        lessons: item.lessons[0].id,
+                                    }}
                                 >
                                     {item.title}
                                 </WhiteLink>
@@ -115,8 +120,9 @@ export default function Detail({
                                 overflowY="auto"
                                 minH="full"
                                 maxH="xl"
+                                color={COLORS.putih}
                             >
-                                <WhiteText>{lesson.content}</WhiteText>
+                                {HTMLReactParser(lesson.content)}
                             </Box>
                         ) : (
                             <WhiteText>Coming Soon</WhiteText>
@@ -125,14 +131,19 @@ export default function Detail({
                     <Box h="full" maxH="md">
                         <Box
                             border="1px solid"
-                            py={9}
-                            px={2}
+                            py={4}
+                            px={3}
                             borderColor={COLORS.putih}
                             w="full"
                             rounded={10}
                             h="full"
                             overflowY="auto"
                         >
+                            <WhiteText>
+                                {course.lessons.length} Lesson
+                                {course.lessons.length > 1 ? "s" : ""} (
+                                {totalDuration})
+                            </WhiteText>
                             {course.lessons.map((item, index) => (
                                 <Link
                                     key={item.id}
@@ -141,7 +152,11 @@ export default function Detail({
                                         courses: course.id,
                                         lessons: item.id,
                                     }}
-                                    bg={COLORS.itemSoft}
+                                    bg={
+                                        item.id === lesson.id
+                                            ? COLORS.itemSoft
+                                            : undefined
+                                    }
                                     px={5}
                                     py={2}
                                     color={COLORS.putih}
@@ -174,7 +189,10 @@ export default function Detail({
                                     opacity: 0.4,
                                 }}
                                 to="courses.detail"
-                                params={{ courses: nextCourseId, lessons: 1 }}
+                                params={{
+                                    courses: nextCourseId,
+                                    lessons: nextLessonId,
+                                }}
                             >
                                 Next Course
                             </Link>

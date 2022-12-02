@@ -17,7 +17,7 @@ class CoursesController extends Controller
      */
     public function index(Request $request)
     {
-        $category = Categories::with('courses')->paginate($request->per_page ?? 5);
+        $category = Categories::with(['courses' => fn ($q) => $q->with('lessons')->whereHas('lessons')])->paginate($request->per_page ?? 5);
 
         if ($request->wantsJson()) {
             return $category;
@@ -28,6 +28,21 @@ class CoursesController extends Controller
         ]);
     }
 
+    private function parseInt($string)
+    {
+        return preg_replace('/[^0-9]/', '', $string);
+    }
+
+    private function findNextLesson($currentId)
+    {
+        $searchId = $currentId + 1;
+        $query = Courses::with('lessons')->whereHas('lessons')->find($searchId);
+        if (!$query) {
+            return $this->findNextLesson($searchId + 1);
+        }
+        return $query;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -36,11 +51,21 @@ class CoursesController extends Controller
      */
     public function show(Courses $courses, Lessons $lessons)
     {
+        $course = $courses->load('trainer', 'lessons');
+
+        $totalDuration = $course->lessons->map(fn ($item) => $this->parseInt($item->length))->reduce(function ($first, $second) {
+            return $first + $second;
+        }, 0);
+
+        $next = $this->findNextLesson($course->id);
+
         return Inertia::render('Authed/Courses/Detail', [
-            'course' => $courses->load('trainer', 'lessons'),
-            'randomCourses' => Courses::limit(4)->inRandomOrder()->get(),
+            'course' => $course,
+            'randomCourses' => Courses::with('lessons')->limit(4)->inRandomOrder()->get(),
             'lesson' => $lessons,
-            'nextCourseId' => Courses::find($courses->id + 1)->exists() ? $courses->id + 1 : null
+            'nextCourseId' => $next->id,
+            'nextLessonId' => $next->lessons->first()->id,
+            'totalDuration' => $totalDuration . "m"
         ]);
     }
 

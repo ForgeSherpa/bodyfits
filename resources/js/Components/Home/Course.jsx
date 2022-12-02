@@ -25,7 +25,10 @@ export default function Course({ item }) {
                     </WhiteText>
                     <UnderlineLink
                         to="courses.detail"
-                        params={{ courses: item.id, lessons: 1 }}
+                        params={{
+                            courses: item.id,
+                            lessons: item.lessons[0].id,
+                        }}
                         fontWeight="bold"
                         fontSize={36}
                         position="absolute"
