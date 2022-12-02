@@ -1,3 +1,4 @@
+import Video from "@/Components/Courses/Video";
 import Link from "@/Components/Link";
 import Logo from "@/Components/Logo";
 import Profile from "@/Components/Profile";
@@ -17,6 +18,7 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import HTMLReactParser from "html-react-parser";
+import { useRef } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
 export default function Detail({
@@ -28,8 +30,21 @@ export default function Detail({
     nextLessonId,
     totalDuration,
 }) {
-    console.log(lesson);
+    const playerRef = useRef(null);
     useCustomBg();
+
+    const handlePlayerReady = (player) => {
+        playerRef.current = player;
+
+        // You can handle player events here, for example:
+        player.on("waiting", () => {
+            videojs.log("player is waiting");
+        });
+
+        player.on("dispose", () => {
+            videojs.log("player will dispose");
+        });
+    };
 
     return (
         <>
@@ -125,7 +140,7 @@ export default function Detail({
                                 {HTMLReactParser(lesson.content)}
                             </Box>
                         ) : (
-                            <WhiteText>Coming Soon</WhiteText>
+                            <Video src={lesson.link} />
                         )}
                     </Box>
                     <Box h="full" maxH="md">
