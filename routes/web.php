@@ -24,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     require __DIR__ . '/courses.php';
 });
 
+Route::get('/faq', fn () => Inertia::render('FAQ'));
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
