@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { FiChevronDown } from "react-icons/fi";
 import Image from "./Image";
+import Link from "./Link";
 import WhiteText from "./WhiteText";
 
 export default function Profile({ auth }) {
@@ -43,8 +44,14 @@ export default function Profile({ auth }) {
                         />
                     </Flex>
                 </MenuItem>
-                <MenuItem as={List} bg={COLORS.itemTerang}>
-                    <Button
+                <MenuItem
+                    as={List}
+                    bg={COLORS.itemTerang}
+                    display="flex"
+                    flexDirection="column"
+                    gap={2}
+                >
+                    <Link
                         bg={COLORS.itemSoft}
                         color={COLORS.putih}
                         _hover={{
@@ -54,9 +61,33 @@ export default function Profile({ auth }) {
                         _active={{
                             opacity: 0.5,
                         }}
+                        to="home"
+                        py={2}
+                        px={3}
+                        rounded={10}
+                        textAlign="center"
                     >
                         Manage Account
-                    </Button>
+                    </Link>
+                    <Link
+                        bg={COLORS.itemSoft}
+                        color={COLORS.putih}
+                        _hover={{
+                            opacity: 0.9,
+                        }}
+                        w="full"
+                        _active={{
+                            opacity: 0.5,
+                        }}
+                        to="logout"
+                        py={2}
+                        px={3}
+                        rounded={10}
+                        textAlign="center"
+                        method="post"
+                    >
+                        Logout
+                    </Link>
                 </MenuItem>
             </MenuList>
         </Menu>

@@ -1,6 +1,12 @@
 import { Image as ImageChakra } from "@chakra-ui/react";
 
-export default function Image({ src, outSide = null, query = null, ...props }) {
+export default function Image({
+    src,
+    outSide = null,
+    query = null,
+    noWebp = false,
+    ...props
+}) {
     return (
         <ImageChakra
             src={
@@ -8,7 +14,7 @@ export default function Image({ src, outSide = null, query = null, ...props }) {
                     ? outSide
                     : route("image", {
                           path: src,
-                          fm: "webp",
+                          fm: noWebp ? undefined : "webp",
                       }) + `${query ? `&${query}` : ""}`
             }
             {...props}

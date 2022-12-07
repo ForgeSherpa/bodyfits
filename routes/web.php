@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
@@ -20,14 +21,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    require __DIR__ . '/courses.php';
+require __DIR__ . '/courses.php';
+
+Route::get('/faq', fn () => Inertia::render('FAQ'))->name('faq');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+    Route::post('/feedback', [FeedbackController::class, 'sendFeedback']);
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard'));
 });
-
-Route::get('/faq', fn () => Inertia::render('FAQ'));
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

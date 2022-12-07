@@ -19,6 +19,7 @@ import Trainer from "@/Components/Home/Trainer";
 import usePagination from "@/Hooks/usePagination";
 
 export default function Home({ auth, trainers, courses }) {
+    console.log(trainers);
     const { lists: trainersList, element } = usePagination(trainers);
 
     useCustomBg();

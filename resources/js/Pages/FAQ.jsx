@@ -1,18 +1,38 @@
+import QA from "@/Components/FAQ/QA";
+import Image from "@/Components/Image";
 import TopBar from "@/Components/Topbar/Topbar";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
-import MainLayout from "@/Layouts/MainLayout";
 import { COLORS } from "@/Utils/colors";
-import { Box, color, Flex } from "@chakra-ui/react";
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
-} from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react";
-import { pull } from "lodash";
+import { Box, Flex, Accordion, Grid } from "@chakra-ui/react";
+
+const questionsCollection = [
+    {
+        question: "Is there any free trial?",
+        answer: "Are you dump? Did you ever see pricing page? No right! Because we're free.",
+    },
+    {
+        question: "Can't I change my plan later?",
+        answer: "To what? what kind of plan we're talking about?",
+    },
+    {
+        question: "What can I get from the course?",
+        answer: "A video and a text.",
+    },
+    {
+        question: "What is tracking fits?",
+        answer: "It's our tracking system. It's just a decoration though.",
+    },
+    {
+        question: "How does bodyfits work?",
+        answer: "We built on top of Laravel, Inertia, and React. And We are not the developers of these technology. Better ask Taylor eh?",
+    },
+    {
+        question: "How long the course will take?",
+        answer: "We have these length features. Figure it on your own!",
+    },
+];
+
 export default function FAQ({ auth }) {
     useCustomBg();
 
@@ -36,9 +56,9 @@ export default function FAQ({ auth }) {
                 fontWeight={40}
                 mt={10}
             >
-                Apapun yang ingin Anda ketahui terkait pelayanan yang diberikan
-                baik itu penggunaan maupun layanan yang disediakan di website
-                ada disini{" "}
+                Whatever you want to ask. It's here. It's just here. I don't
+                know why. But it's exist for a reason. Because a lotta people
+                keep asking these dumb question.
             </WhiteText>
 
             <Accordion
@@ -52,142 +72,39 @@ export default function FAQ({ auth }) {
                     gridTemplateColumns="repeat(3, 1fr)"
                     gridTemplateRows="repeat(2, 1fr)"
                     gap={6}
+                    p={55}
                 >
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box flex="1" textAlign="left">
-                                        <WhiteText>
-                                            Is there any free trial?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel>
-                                <WhiteText>
-                                    yes, we are offering free courses, and 2
-                                    consultation a month.
-                                </WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box textAlign="left">
-                                        <WhiteText>
-                                            Can I change my plan later?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <WhiteText>yes, absolutely.</WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box textAlign="left">
-                                        <WhiteText>
-                                            What Can I get From the Course?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <WhiteText>
-                                    you will get a virtual coaching from our
-                                    best trainer.
-                                </WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box textAlign="left">
-                                        <WhiteText>
-                                            What is Tracking Fits?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <WhiteText>
-                                    it will track days you spend in the website.
-                                </WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
-
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box textAlign="left">
-                                        <WhiteText>
-                                            How does BodyFits work?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <WhiteText>
-                                    we will provide you our service.
-                                </WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
-                    <GridItem>
-                        <AccordionItem border="none">
-                            <h2>
-                                <AccordionButton>
-                                    <Box textAlign="left">
-                                        <WhiteText>
-                                            How long the course will take?
-                                        </WhiteText>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <WhiteText>
-                                    mostly it will take 3 weeks to fully
-                                    complete the course.
-                                </WhiteText>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </GridItem>
+                    {questionsCollection.map((item, i) => (
+                        <QA {...item} key={i} />
+                    ))}
                 </Grid>
-                <Flex
-                    bg={COLORS.ijoSoft}
-                    w="full"
-                    p={10}
-                    flexDirection="column"
-                >
-                    <WhiteText
-                        fontSize={16}
-                        fontWeight={700}
-                        textAlign="center"
+                <Box p={7}>
+                    <Flex
+                        bg={COLORS.ijoSoft}
+                        w="full"
+                        p={6}
+                        flexDirection="column"
                     >
-                        still have questions?
-                    </WhiteText>
-                    <WhiteText fontSize={13} fontWeight={40} textAlign="center">
-                        can’t find the answer you’re looking for? Please chat to
-                        our friendly team
-                    </WhiteText>
-                </Flex>
+                        <Box mx="auto" mb={2}>
+                            <img src="someWhiteThingy.svg" width={130} />
+                        </Box>
+                        <WhiteText
+                            fontSize={16}
+                            fontWeight={700}
+                            textAlign="center"
+                        >
+                            still have questions?
+                        </WhiteText>
+                        <WhiteText
+                            fontSize={13}
+                            fontWeight={40}
+                            textAlign="center"
+                        >
+                            can't find the answer you're looking for? Please
+                            chat to our friendly team
+                        </WhiteText>
+                    </Flex>
+                </Box>
             </Accordion>
         </>
     );

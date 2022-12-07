@@ -11,8 +11,8 @@ export default function TopBar({ auth }) {
             <Logo />
             <Flex flexDirection="row" gap={14} ml={10}>
                 <WhiteLink to="courses.index">Courses</WhiteLink>
-                <WhiteLink to="home">Settings</WhiteLink>
-                <WhiteLink to="home">FAQ</WhiteLink>
+                <WhiteLink to="feedback">Feedback</WhiteLink>
+                <WhiteLink to="faq">FAQ</WhiteLink>
             </Flex>
             <WhiteDivider borderBottomWidth={3} width="full" />
             <Flex

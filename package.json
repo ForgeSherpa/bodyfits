@@ -25,6 +25,7 @@
         "@emotion/styled": "^11.10.5",
         "framer-motion": "^7.6.6",
         "html-react-parser": "^3.0.4",
+        "picocolors": "^1.0.0",
         "react-calendar": "^4.0.0",
         "react-icons": "^4.6.0",
         "swiper": "^8.4.4"
