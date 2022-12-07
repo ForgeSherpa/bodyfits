@@ -16,6 +16,10 @@ class FeedbackFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'title' => fake()->word(),
+            'content' => fake()->paragraph(2),
+            'user_id' => 1
+        ];
     }
 }

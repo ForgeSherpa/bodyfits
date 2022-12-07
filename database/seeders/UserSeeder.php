@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Feedback;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class FeedbackSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,10 @@ class FeedbackSeeder extends Seeder
      */
     public function run()
     {
-        Feedback::factory(20)->create();
+        User::create([
+            'email' => 'agung@mail.com',
+            'password' => bcrypt('agung12345'),
+            'name' => 'Agung Suragung'
+        ]);
     }
 }

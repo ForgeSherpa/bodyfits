@@ -170,6 +170,7 @@ export default function Home({ auth, trainers, courses }) {
                     templateColumns="repeat(3, 1fr)"
                     gap={10}
                     justifyContent="center"
+                    justifyItems="center"
                 >
                     {trainersList.map((item) => (
                         <Trainer key={item.id} data={item} />

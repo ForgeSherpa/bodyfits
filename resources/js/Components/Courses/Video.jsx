@@ -2,7 +2,6 @@ import React from "react";
 import "video.js/dist/video-js.css";
 
 function Video({ src }) {
-    console.log("re render");
     const renderVideoPlayer = () => {
         return (
             <video

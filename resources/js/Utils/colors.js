@@ -8,4 +8,5 @@ export const COLORS = {
     bayangan: "#D9D9D9",
     ijoLebihSoft: "rgba(58, 92, 98, 0.17)",
     putihTransparan: "rgba(255, 255, 255, 0.21)",
+    putihSgtTransparan: "rgba(217, 217, 217, 0.1)"
 };
