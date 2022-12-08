@@ -1,4 +1,3 @@
-import CourseLoading from "@/Components/Courses/CourseLoading";
 import List from "@/Components/Courses/List";
 import SearchBar from "@/Components/Searchbar";
 import WhiteDivider from "@/Components/WhiteDivider";

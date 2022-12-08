@@ -1,14 +1,14 @@
-import FormControlInput from "@/Components/FormControlInput";
-import FormControlTextarea from "@/Components/FormControlTextArea";
-import TopBar from "@/Components/Topbar/Topbar";
-import TransparentInput from "@/Components/TransparentInput";
-import WhiteDivider from "@/Components/WhiteDivider";
 import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import { COLORS } from "@/Utils/colors";
-import { Box, Button, useToast } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { Head, useForm, usePage } from "@inertiajs/inertia-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import TopBar from "@/Components/Topbar/Topbar";
+import WhiteDivider from "@/Components/WhiteDivider";
+import FormControlInput from "@/Components/FormControlInput";
+import FormControlTextarea from "@/Components/FormControlTextArea";
+import { toast } from "@/Utils/toast";
 
 const initialErrorState = {
     title: false,
@@ -20,22 +20,22 @@ export default function Feedback({ auth }) {
 
     const { flash } = usePage().props;
 
-    const toast = useToast();
-
     const { data, setData, post, processing, reset } = useForm({
         title: "",
         content: "",
     });
 
-    if (flash) {
-        toast({
-            title: flash.message,
-            status: flash.status,
-            description: "We've created your account for you.",
-            duration: 9000,
-            isClosable: true,
-        });
-    }
+    useEffect(() => {
+        if (!Object.values(flash).some((item) => item === null)) {
+            toast({
+                position: "top-right",
+                title: flash.message,
+                status: flash.status,
+                duration: 9000,
+                isClosable: true,
+            });
+        }
+    }, [flash]);
 
     const [error, setError] = useState(initialErrorState);
 
@@ -54,7 +54,10 @@ export default function Feedback({ auth }) {
                 }
 
                 if ("content" in data) {
-                    setError((prev) => ({ ...prev, content: data.content }));
+                    setError((prev) => ({
+                        ...prev,
+                        content: data.content,
+                    }));
                 }
             },
             onSuccess: () => {
@@ -127,12 +130,17 @@ export default function Feedback({ auth }) {
                                 name: "content",
                                 onChange: inputChangeHandler,
                                 value: data.content,
+                                color: COLORS.putih,
                             }}
                             validation={error.content}
                         >
                             please leave your feedback here :
                         </FormControlTextarea>
                         <Button
+                            data={{
+                                title: data.title,
+                                content: data.content,
+                            }}
                             bg={COLORS.putihTransparan}
                             py={2}
                             px={16}

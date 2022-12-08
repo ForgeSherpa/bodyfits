@@ -28,7 +28,7 @@ Route::get('/faq', fn () => Inertia::render('FAQ'))->name('faq');
 
 Route::middleware('auth')->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
-    Route::post('/feedback', [FeedbackController::class, 'sendFeedback']);
+    Route::post('/feedback', [FeedbackController::class, 'sendFeedback'])->middleware('throttle:3,1');
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'));
     Route::get('/profiles', [UserController::class, 'index'])->name('profile');
     Route::put('/profiles', [UserController::class, 'updateProfile']);

@@ -7,6 +7,7 @@ import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ChakraProvider } from "@chakra-ui/react";
+import { ToastContainer } from "./Utils/toast";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "BodyFits";
@@ -24,6 +25,7 @@ createInertiaApp({
         root.render(
             <ChakraProvider>
                 <App {...props} />
+                <ToastContainer />
             </ChakraProvider>
         );
     },
