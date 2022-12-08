@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendFeedbackRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class SendFeedbackRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:16', 'min:3'],
-            'content' => ['required', 'string', 'min:3']
+            'name' => ['required', 'string', 'min:3'],
+            'email' => ['required', 'email', 'unique:users,id,' . auth()->user()->id],
+            'photo' => ['nullable', 'file', 'mimes:png,jpg,webp', 'max:4096']
         ];
     }
 }

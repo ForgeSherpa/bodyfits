@@ -30,6 +30,5 @@
         "react-icons": "^4.6.0",
         "swiper": "^8.4.4",
         "video.js": "^7.20.3"
-    },
-    "packageManager": "yarn@3.3.0"
+    }
 }

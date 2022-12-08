@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function trainers()
     {
-        return $this->belongsToMany(Trainers::class, 'trainer_user', 'trainer_id', 'user_id');
+        return $this->hasManyThrough(Trainers::class, 'trainer_user', 'trainer_id', 'user_id');
     }
 }

@@ -18,8 +18,6 @@
         }
     </style>
 
-    <link ref="stylesheet" href="{{ asset('videojs/video-js.min.css') }}">
-
     <!-- Scripts -->
     @routes
     @viteReactRefresh

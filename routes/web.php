@@ -3,6 +3,7 @@
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
     Route::post('/feedback', [FeedbackController::class, 'sendFeedback']);
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'));
+    Route::get('/profiles', [UserController::class, 'index'])->name('profile');
+    Route::put('/profiles', [UserController::class, 'updateProfile']);
 });
 
 require __DIR__ . '/auth.php';

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SendFeedbackRequest;
 use App\Models\Feedback;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class FeedbackController extends Controller
@@ -16,7 +15,10 @@ class FeedbackController extends Controller
 
     public function sendFeedback(SendFeedbackRequest $sendFeedbackRequest)
     {
-        Feedback::create($sendFeedbackRequest);
-        return to_route('feedback');
+        Feedback::create(array_merge($sendFeedbackRequest->validated(), ['user_id' => auth()->user()->id]));
+        return to_route('feedback')->with([
+            'message' => 'Feedback sended! Thanks for your concern.',
+            'status' => 'success'
+        ]);
     }
 }
