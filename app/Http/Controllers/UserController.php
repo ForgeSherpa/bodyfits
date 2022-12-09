@@ -16,20 +16,30 @@ class UserController extends Controller
         return Inertia::render('Authed/Profiles');
     }
 
-    public function updateProfile(UpdateProfileRequest $updateProfileRequest)
+    public function updateProfileOnly($updateProfileRequest)
     {
-        $data = $updateProfileRequest;
+        $data = $updateProfileRequest->all();
 
         $photo = $updateProfileRequest->photo;
 
+        $user = User::find(auth()->user()->id);
+
         // handle kalau ada foto.
-        if ($photo) {
-            $name = time().$photo->getClientOriginalName();
+        if ($photo && trim($photo) !== "") {
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
+            if ($user->photo && trim($user->photo) !== "") {
+                Storage::delete('images/' . $user->photo);
+            }
         }
 
-        User::find(auth()->user()->id)->update();
+        User::find(auth()->user()->id)->update($data);
+    }
+
+    public function updateProfile(UpdateProfileRequest $updateProfileRequest)
+    {
+        $this->updateProfileOnly($updateProfileRequest);
 
         return to_route('profile')->with([
             'message' => 'Profile Updated Successfully',

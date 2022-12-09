@@ -7,9 +7,12 @@ import { Checkbox, Flex } from "@chakra-ui/react";
 import BaseAuth from "./BaseAuth";
 import useAuthBg from "@/Hooks/useAuthBg";
 import resetter from "@/Utils/Resetter";
+import useToast from "@/Hooks/useToast";
 
 export default function Login() {
     useAuthBg();
+    useToast();
+    
     const { data, setData, post, processing, reset } = useForm({
         email: "",
         password: "",
