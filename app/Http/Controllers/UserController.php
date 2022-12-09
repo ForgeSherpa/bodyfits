@@ -25,12 +25,12 @@ class UserController extends Controller
         $user = User::find(auth()->user()->id);
 
         // handle kalau ada foto.
-        if ($photo && trim($photo) !== "") {
-            $name = time() . $photo->getClientOriginalName();
+        if ($photo && trim($photo) !== '') {
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
-            if ($user->photo && trim($user->photo) !== "") {
-                Storage::delete('images/' . $user->photo);
+            if ($user->photo && trim($user->photo) !== '') {
+                Storage::delete('images/'.$user->photo);
             }
         }
 

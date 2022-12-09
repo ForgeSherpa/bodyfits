@@ -16,10 +16,10 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->role !== "admin") {
+        if ($request->user()->role !== 'admin') {
             $sessions = [
                 'message' => "You don't have the authority to do so.",
-                'status' => 'error'
+                'status' => 'error',
             ];
 
             return to_route('home')->with($sessions);
