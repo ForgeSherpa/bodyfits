@@ -14,10 +14,12 @@ import {
     MenuList,
     Text,
 } from "@chakra-ui/react";
+import { Link as InertiaLink } from "@inertiajs/inertia-react";
 import {
     FiBookmark,
     FiHome,
     FiList,
+    FiLogOut,
     FiMenu,
     FiMessageSquare,
     FiUsers,
@@ -92,6 +94,24 @@ export default function AdminLayout({ children, auth }) {
                             <Link to={item.link}>{item.name}</Link>
                         </Flex>
                     ))}
+                    <Flex
+                        bg={COLORS.admin.selected}
+                        className="border border-zinc-500"
+                        rounded="lg"
+                        alignItems="center"
+                        py={2}
+                        px={3}
+                        gap={3}
+                    >
+                        <FiLogOut />
+                        <InertiaLink
+                            as="button"
+                            method="post"
+                            href={route("logout")}
+                        >
+                            Logout
+                        </InertiaLink>
+                    </Flex>
                 </Box>
                 <Flex
                     display={{ base: "flex", lg: "none" }}
