@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users')->ignore(auth()->user()->id)],
-            'photo' => ['nullable', 'file', 'mimes:png,jpg,webp', 'max:4096']
+            'photo' => ['nullable', 'file', 'mimes:png,jpg,webp', 'max:4096'],
         ];
     }
 }

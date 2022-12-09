@@ -19,7 +19,7 @@ class FeedbackFactory extends Factory
         return [
             'title' => fake()->word(),
             'content' => fake()->paragraph(2),
-            'user_id' => 1
+            'user_id' => 1,
         ];
     }
 }

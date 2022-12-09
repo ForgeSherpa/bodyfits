@@ -34,7 +34,7 @@ class FeedbackControllerTest extends TestCase
     {
         $response = $this->post('/feedback', [
             'title' => 'Website bagus',
-            'content' => "Pasti yang buat kelompok 2"
+            'content' => 'Pasti yang buat kelompok 2',
         ]);
 
         $response->assertRedirect()->assertSessionHas('status', 'success');

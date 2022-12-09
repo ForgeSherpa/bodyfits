@@ -19,6 +19,7 @@ class CoursesControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function courseIsRendered()

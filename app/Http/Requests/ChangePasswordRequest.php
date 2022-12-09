@@ -26,7 +26,7 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'old_password' => ['required', 'min:8', 'string', new CheckOldPassword()],
-            'new_password' => ['required', 'confirmed', 'min:8']
+            'new_password' => ['required', 'confirmed', 'min:8'],
         ];
     }
 }

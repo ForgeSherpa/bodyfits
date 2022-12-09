@@ -25,7 +25,7 @@ class Trainers extends Model
     protected function photo(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? "trainers/{$value}" : "trainers/default.png"
+            get: fn ($value) => $value ? "trainers/{$value}" : 'trainers/default.png'
         );
     }
 }

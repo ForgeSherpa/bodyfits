@@ -13,10 +13,10 @@ class ImageController extends Controller
     {
         $server = ServerFactory::create([
             'response' => new LaravelResponseFactory(app('request')),
-            'source' => new Filesystem(new LocalFilesystemAdapter("../storage/app/images")),
-            'cache' => new Filesystem(new LocalFilesystemAdapter("../storage/app/cache")),
+            'source' => new Filesystem(new LocalFilesystemAdapter('../storage/app/images')),
+            'cache' => new Filesystem(new LocalFilesystemAdapter('../storage/app/cache')),
             'cache_path_prefix' => 'cache',
-            'base_url' => 'images'
+            'base_url' => 'images',
         ]);
 
         return $server->getImageResponse($path, request()->all());

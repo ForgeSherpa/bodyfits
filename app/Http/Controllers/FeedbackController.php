@@ -16,9 +16,10 @@ class FeedbackController extends Controller
     public function sendFeedback(SendFeedbackRequest $sendFeedbackRequest)
     {
         Feedback::create(array_merge($sendFeedbackRequest->validated(), ['user_id' => auth()->user()->id]));
+
         return to_route('feedback')->with([
             'message' => 'Feedback sended! Thanks for your concern.',
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 }

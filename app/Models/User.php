@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'photo'
+        'photo',
     ];
 
     /**
@@ -48,7 +48,7 @@ class User extends Authenticatable
     protected function photo(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? "profiles/{$value}" : "profiles/default.jpg"
+            get: fn ($value) => $value ? "profiles/{$value}" : 'profiles/default.jpg'
         );
     }
 

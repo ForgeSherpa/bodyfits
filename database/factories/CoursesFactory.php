@@ -22,7 +22,7 @@ class CoursesFactory extends Factory
             'title' => fake()->title(),
             'trainer_id' => Trainers::factory()->create(),
             'category_id' => Categories::factory()->create(),
-            'description' => fake()->paragraph(2)
+            'description' => fake()->paragraph(2),
         ];
     }
 }

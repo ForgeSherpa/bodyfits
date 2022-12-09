@@ -29,8 +29,8 @@ class Setup extends Command
     public function handle()
     {
         $this->info("Note: It's highly encouraged to start this project in Docker Container.");
-        $this->info("Setting Up...");
-        $this->info("BodyFits by Kelompok 2: Albet, Vincent, Wira, Delvin, Atnan, Jeffry");
+        $this->info('Setting Up...');
+        $this->info('BodyFits by Kelompok 2: Albet, Vincent, Wira, Delvin, Atnan, Jeffry');
         if ($this->option('init')) {
             Artisan::call('key:generate');
             Artisan::call('migrate:photo');

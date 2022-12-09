@@ -31,6 +31,7 @@ class MigratePhoto extends Command
     {
         if (File::exists('storage/app/images')) {
             $this->error('Target folder already exists.');
+
             return Command::FAILURE;
         }
 
@@ -44,7 +45,8 @@ class MigratePhoto extends Command
         }
 
         $end = Carbon::now();
-        $this->info("Migration finished in: " . $start->diffInMicroseconds($end) . " ms");
+        $this->info('Migration finished in: '.$start->diffInMicroseconds($end).' ms');
+
         return Command::SUCCESS;
     }
 }

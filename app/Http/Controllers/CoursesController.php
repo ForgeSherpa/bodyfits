@@ -24,7 +24,7 @@ class CoursesController extends Controller
         }
 
         return Inertia::render('Authed/Courses/Courses', [
-            'courses' => $category
+            'courses' => $category,
         ]);
     }
 
@@ -37,9 +37,10 @@ class CoursesController extends Controller
     {
         $searchId = $currentId + 1;
         $query = Courses::with('lessons')->whereHas('lessons')->find($searchId);
-        if (!$query) {
+        if (! $query) {
             return $this->findNextLesson($searchId + 1);
         }
+
         return $query;
     }
 
@@ -65,13 +66,13 @@ class CoursesController extends Controller
             'lesson' => $lessons,
             'nextCourseId' => $next->id,
             'nextLessonId' => $next->lessons->first()->id,
-            'totalDuration' => $totalDuration . "m"
+            'totalDuration' => $totalDuration.'m',
         ]);
     }
 
     public function search(Request $request)
     {
-        if (isset($request->type) && $request->type === "lesson") {
+        if (isset($request->type) && $request->type === 'lesson') {
             $request->validate(['course_id' => 'required|exists:courses,id']);
 
             return Courses::with(['lessons' => fn ($q) => $q->where('title', 'LIKE', "%{$request->search}%")])

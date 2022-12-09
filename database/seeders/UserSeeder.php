@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -18,7 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'agung@mail.com',
             'password' => bcrypt('agung12345'),
-            'name' => 'Agung Suragung'
+            'name' => 'Agung Suragung',
         ]);
     }
 }

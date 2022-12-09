@@ -23,7 +23,7 @@ class TrainersFactory extends Factory
             'job' => fake()->jobTitle(),
             'contact' => fake()->phoneNumber(),
             'description' => fake()->paragraph(1),
-            'photo' => null
+            'photo' => null,
         ];
     }
 }

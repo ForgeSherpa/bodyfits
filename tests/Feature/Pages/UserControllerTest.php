@@ -19,7 +19,9 @@ class UserControllerTest extends TestCase
 
     /**
      * A basic feature test example.
+     *
      * @test
+     *
      * @return void
      */
     public function profileIsRendered()
@@ -36,7 +38,7 @@ class UserControllerTest extends TestCase
     {
         $response = $this->put('/profile', [
             'name' => 'delvin',
-            'email' => 'delvinganteng@mail.com'
+            'email' => 'delvinganteng@mail.com',
         ]);
 
         $response->assertRedirect('/profile')->assertSessionHas('status', 'success');
@@ -54,7 +56,7 @@ class UserControllerTest extends TestCase
         // make email si random user (duplikat)
         $response = $this->actingAs($user)->put('/profile', [
             // 'name' => 'delvin',
-            'email' => $dummyUser->email
+            'email' => $dummyUser->email,
         ]);
 
         // cek ada ga error terkait email.
@@ -71,12 +73,12 @@ class UserControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $password = "okelaaaaaaa";
+        $password = 'okelaaaaaaa';
 
         $response = $this->actingAs($user)->put('/profile/changePassword', [
             'old_password' => 'password',
             'new_password' => $password,
-            'new_password_confirmation' => $password
+            'new_password_confirmation' => $password,
         ]);
 
         $response->assertRedirect()->assertSessionHas('status', 'success')->assertValid();
@@ -90,14 +92,14 @@ class UserControllerTest extends TestCase
         $response = $this->put('/profile/changePassword', [
             'old_password' => 'aowkowkowkoaowkokfoker',
             'new_password' => 'capek',
-            'new_password_confirmation' => 'capekuy'
+            'new_password_confirmation' => 'capekuy',
         ]);
 
         $response->assertRedirect()->assertSessionHasErrors(['old_password', 'new_password']);
     }
 
     /**
-     * @test 
+     * @test
      * */
     public function userDeleteAccount()
     {
