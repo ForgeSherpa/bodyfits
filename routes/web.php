@@ -30,8 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
     Route::post('/feedback', [FeedbackController::class, 'sendFeedback'])->middleware('throttle:3,1');
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'));
-    Route::get('/profiles', [UserController::class, 'index'])->name('profile');
-    Route::put('/profiles', [UserController::class, 'updateProfile']);
+
+    Route::prefix('/profile')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('profile');
+        Route::put('/', 'updateProfile');
+        Route::put('/changePassword', 'changePassword')->name('profile.changePassword');
+        Route::delete('/delete', 'deleteAccount')->name('profile.deleteAccount');
+    });
 });
 
 require __DIR__ . '/auth.php';

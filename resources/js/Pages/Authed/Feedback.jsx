@@ -2,13 +2,13 @@ import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import { COLORS } from "@/Utils/colors";
 import { Box, Button } from "@chakra-ui/react";
-import { Head, useForm, usePage } from "@inertiajs/inertia-react";
-import { useState, useEffect } from "react";
+import { Head, useForm } from "@inertiajs/inertia-react";
+import { useState } from "react";
 import TopBar from "@/Components/Topbar/Topbar";
 import WhiteDivider from "@/Components/WhiteDivider";
 import FormControlInput from "@/Components/FormControlInput";
 import FormControlTextarea from "@/Components/FormControlTextArea";
-import { toast } from "@/Utils/toast";
+import useToast from "@/Hooks/useToast";
 
 const initialErrorState = {
     title: false,
@@ -17,25 +17,12 @@ const initialErrorState = {
 
 export default function Feedback({ auth }) {
     useCustomBg();
-
-    const { flash } = usePage().props;
+    useToast();
 
     const { data, setData, post, processing, reset } = useForm({
         title: "",
         content: "",
     });
-
-    useEffect(() => {
-        if (!Object.values(flash).some((item) => item === null)) {
-            toast({
-                position: "top-right",
-                title: flash.message,
-                status: flash.status,
-                duration: 9000,
-                isClosable: true,
-            });
-        }
-    }, [flash]);
 
     const [error, setError] = useState(initialErrorState);
 

@@ -1,1 +1,3 @@
-export default function Profiles() {}
+export default function Profile() {
+    return <p>BodyFits</p>
+}

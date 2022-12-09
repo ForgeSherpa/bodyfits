@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -38,7 +40,23 @@ class UserController extends Controller
 
     public function changePassword(ChangePasswordRequest $changePasswordRequest)
     {
+
+
         User::find(auth()->user()->id)->update(['password' => bcrypt($changePasswordRequest->new_password)]);
-        auth()->logout();
+
+        return (new AuthenticatedSessionController())->destroy($changePasswordRequest)->with([
+            'message' => 'Change Password Success, Logging out!',
+            'status' => 'success'
+        ]);
+    }
+
+    public function deleteAccount()
+    {
+        User::find(auth()->user()->id)->delete();
+
+        return (new AuthenticatedSessionController())->destroy(request())->with([
+            'message' => 'Account Deleted',
+            'status' => 'success'
+        ]);
     }
 }

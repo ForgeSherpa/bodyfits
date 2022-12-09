@@ -17,12 +17,13 @@ import { COLORS } from "@/Utils/colors";
 import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
 import usePagination from "@/Hooks/usePagination";
+import useToast from "@/Hooks/useToast";
 
 export default function Home({ auth, trainers, courses }) {
-    console.log(trainers);
     const { lists: trainersList, element } = usePagination(trainers);
 
     useCustomBg();
+    useToast();
     return (
         <MainLayout auth={auth}>
             <Flex>
