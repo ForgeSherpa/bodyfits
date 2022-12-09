@@ -10,4 +10,7 @@ class Feedback extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    const FEEDBACK_UNREAD = "UNREAD";
+    const FEEDBACK_READ = "READ";
 }

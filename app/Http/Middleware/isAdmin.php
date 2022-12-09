@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->role !== 'admin') {
+        if ($request->user()->role !== User::ROLE_ADMIN) {
             $sessions = [
                 'message' => "You don't have the authority to do so.",
                 'status' => 'error',

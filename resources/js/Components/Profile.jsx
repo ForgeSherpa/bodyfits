@@ -8,6 +8,7 @@ import {
     MenuItem,
     MenuList,
 } from "@chakra-ui/react";
+import { Link as InertiaLink } from "@inertiajs/inertia-react";
 import { FiChevronDown } from "react-icons/fi";
 import Image from "./Image";
 import Link from "./Link";
@@ -50,6 +51,26 @@ export default function Profile({ auth }) {
                     flexDirection="column"
                     gap={2}
                 >
+                    {auth.user.role === "admin" && (
+                        <Link
+                            bg={COLORS.itemSoft}
+                            color={COLORS.putih}
+                            _hover={{
+                                opacity: 0.9,
+                            }}
+                            w="full"
+                            _active={{
+                                opacity: 0.5,
+                            }}
+                            to="admin.dashboard"
+                            py={2}
+                            px={3}
+                            rounded={10}
+                            textAlign="center"
+                        >
+                            Admin Dashboard
+                        </Link>
+                    )}
                     <Link
                         bg={COLORS.itemSoft}
                         color={COLORS.putih}
@@ -68,25 +89,19 @@ export default function Profile({ auth }) {
                     >
                         Manage Account
                     </Link>
-                    <Link
-                        bg={COLORS.itemSoft}
-                        color={COLORS.putih}
-                        _hover={{
-                            opacity: 0.9,
+                    <InertiaLink
+                        as="button"
+                        style={{
+                            background: COLORS.itemSoft,
+                            color: COLORS.putih,
+                            borderRadius: 10,
                         }}
-                        w="full"
-                        _active={{
-                            opacity: 0.5,
-                        }}
-                        to="logout"
-                        py={2}
-                        px={3}
-                        rounded={10}
-                        textAlign="center"
+                        className="hover:opacity-90 active:opacity-50 py-2 px-3 text-center w-full"
+                        href={route("logout")}
                         method="post"
                     >
                         Logout
-                    </Link>
+                    </InertiaLink>
                 </MenuItem>
             </MenuList>
         </Menu>

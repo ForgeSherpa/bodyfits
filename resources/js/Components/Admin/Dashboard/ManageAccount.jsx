@@ -2,11 +2,12 @@ import { COLORS } from "@/Utils/colors";
 import { GridItem, Progress, Text } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/inertia-react";
 import { useEffect } from "react";
-import Image from "../Image";
-import Button from "./Button";
-import OutlineCard from "./OutlineCard";
-import OutlineInput from "./OutlineInput";
-import TwoColumn from "./TwoColumn";
+import Image from "../../Image";
+import Button from "../Button";
+import OutlineCard from "../OutlineCard";
+import OutlineInput from "../OutlineInput";
+import ShadowBox from "../ShadowBox";
+import TwoColumn from "../TwoColumn";
 
 export default function ManageAccount({ auth }) {
     // kita ga pake reset ygy, soalnya nanti balik ke initial.
@@ -41,13 +42,7 @@ export default function ManageAccount({ auth }) {
     };
 
     return (
-        <OutlineCard
-            header="Accounts"
-            body="Manage Account"
-            shadow={COLORS.admin.boxShadow}
-            w="full"
-            mt={10}
-        >
+        <ShadowBox header="Accounts" body="Manage Account">
             <form onSubmit={profileChangeHandler}>
                 <TwoColumn gap={3}>
                     <GridItem>
@@ -99,6 +94,6 @@ export default function ManageAccount({ auth }) {
                     Submit
                 </Button>
             </form>
-        </OutlineCard>
+        </ShadowBox>
     );
 }

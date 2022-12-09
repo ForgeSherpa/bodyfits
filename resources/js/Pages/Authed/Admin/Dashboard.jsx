@@ -1,4 +1,4 @@
-import ManageAccount from "@/Components/Admin/ManageAccount";
+import ManageAccount from "@/Components/Admin/Dashboard/ManageAccount";
 import OutlineCard from "@/Components/Admin/OutlineCard";
 import StatsCard from "@/Components/Admin/StatsCard";
 import AdminLayout from "@/Layouts/AdminLayout";

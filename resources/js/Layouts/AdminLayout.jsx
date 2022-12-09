@@ -8,6 +8,7 @@ import {
     Flex,
     Grid,
     GridItem,
+    List,
     Menu,
     MenuButton,
     MenuItem,
@@ -35,7 +36,7 @@ const menus = [
     {
         icon: FiMessageSquare,
         name: "Feedback",
-        link: "admin.dashboard",
+        link: "admin.feedback.index",
     },
     {
         icon: FiUsers,
@@ -150,6 +151,21 @@ export default function AdminLayout({ children, auth }) {
                                             </Link>
                                         </MenuItem>
                                     ))}
+                                    <MenuItem
+                                        display="flex"
+                                        alignItems="center"
+                                        gap={3}
+                                        as={List}
+                                    >
+                                        <FiLogOut />
+                                        <InertiaLink
+                                            as="button"
+                                            method="post"
+                                            href={route("logout")}
+                                        >
+                                            Logout
+                                        </InertiaLink>
+                                    </MenuItem>
                                 </MenuList>
                             </>
                         )}

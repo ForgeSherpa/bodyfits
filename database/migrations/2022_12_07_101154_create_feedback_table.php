@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->foreignId('user_id')->constrained('users');
+            $table->enum('status', ["UNREAD", "READ"]);
             $table->timestamps();
         });
     }
