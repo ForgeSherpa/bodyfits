@@ -1,66 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# BodyFits
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Is a project that created by a bunch of kids for finishing their assignment xD.
 
-## About Laravel
+# Installation (Docker)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+BodyFits make it painless to install this app. All you need simply:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Docker
+-   PHP
+-   Composer
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+And nothing else. Just that.
 
-## Learning Laravel
+Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   Fire up your docker
+-   Clone this repository
+-   composer install
+-   execute `./vendor/bin/sail build && ./vendor/bin/sail up`.
+-   Your app should up and running. Don't forget to execute `./vendor/bin/sail yarn dev` to start vite server.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Manual Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Requirements:
 
-## Laravel Sponsors
+-   PHP
+-   Composer
+-   MySQL
+-   Yarn
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+If you have them all, then simply follow steps below:
 
-### Premium Partners
+-   Clone this repository
+-   composer install
+-   That's it.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+> I know manual one looks much simpler and fewer steps. But using dockerized one is better since it's container based. So you won't get installation problem, etc.
 
-## Contributing
+# Setting Up
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Yes your project is running, but it shows error. That's a expected behaviour.
 
-## Code of Conduct
+To fix it simply run.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`php artisan setup --init`.
 
-## Security Vulnerabilities
+If you're using sail (docker) then:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+`sail php artisan setup --init`
 
-## License
+Command above will run installation it's needs to make sure your app up and running.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Finally, if you get vite manifest error, make sure to run `yarn dev` or `sail yarn dev`.
+
+# Credits
+
+-   [Albet](https://github.com/albetnov) (Developer)
+-   [Wira](https://www.instagram.com/wirango/) (Developer)
+-   [Vincent](https://www.instagram.com/vincen_vincentt/) (UI/UX + Tester)
+-   [Delvin](https://instagram.com/d.jason_28?igshid=YmMyMTA2M2Y=) (Calon Kentang + Calon Ketua HMPS + Developer)
+-   [Atnan](https://instagram.com/4tnan?igshid=MWM2YjBjM2Q=) (UI/UX)
+-   [Jeffry](https://instagram.com/jefrryarisprtma?igshid=ZDdkNTZiNTM=) (UI/UX)
