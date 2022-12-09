@@ -11,6 +11,7 @@ class Feedback extends Model
 
     protected $guarded = ['id'];
 
-    const FEEDBACK_UNREAD = "UNREAD";
-    const FEEDBACK_READ = "READ";
+    const FEEDBACK_UNREAD = 'UNREAD';
+
+    const FEEDBACK_READ = 'READ';
 }

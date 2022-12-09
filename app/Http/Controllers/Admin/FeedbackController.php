@@ -21,14 +21,14 @@ class FeedbackController extends Controller
         }
 
         return Inertia::render('Authed/Admin/Feedback', [
-            'data' => $feedback
+            'data' => $feedback,
         ]);
     }
 
     public function detail(Feedback $feedback)
     {
         return Inertia::render('Authed/Admin/Feedback', [
-            'singleData' => $feedback
+            'singleData' => $feedback,
         ]);
     }
 

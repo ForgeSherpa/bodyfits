@@ -21,7 +21,7 @@ class FeedbackFactory extends Factory
             'title' => fake()->word(),
             'content' => fake()->paragraph(2),
             'user_id' => 1,
-            'status' => Feedback::FEEDBACK_UNREAD
+            'status' => Feedback::FEEDBACK_UNREAD,
         ];
     }
 }
