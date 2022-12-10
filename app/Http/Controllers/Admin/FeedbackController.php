@@ -31,7 +31,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (!$internal) {
+        if (! $internal) {
             session()->flash('message', 'Marked as read!');
             session()->flash('status', 'success');
         }
@@ -44,7 +44,7 @@ class FeedbackController extends Controller
         $this->markAsRead($feedback, true);
 
         return Inertia::render('Authed/Admin/Feedback/Detail', [
-            'data' => $data
+            'data' => $data,
         ]);
     }
 }
