@@ -10,6 +10,7 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'isAdmin'])->group(fun
     Route::prefix('feedback')->as('feedback.')->controller(FeedbackController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/{feedback}', 'detail')->name('detail');
-        Route::put('/mark/{feedback}', 'markAsRead')->name('mark');
+        Route::put('/{feedback}', 'markAsRead')->name('mark');
+        Route::delete('/{feedback}', 'delete')->name('delete');
     });
 });

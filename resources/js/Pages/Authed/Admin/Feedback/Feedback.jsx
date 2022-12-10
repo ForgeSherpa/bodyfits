@@ -1,5 +1,7 @@
 import Button from "@/Components/Admin/Button";
 import ShadowBox from "@/Components/Admin/ShadowBox";
+import useDelete from "@/Hooks/Admin/useDelete";
+import useOpenDetail from "@/Hooks/Admin/useOpenDetail";
 import useNextLeftPagination from "@/Hooks/useNextLeftPagination";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { COLORS } from "@/Utils/colors";
@@ -10,9 +12,7 @@ import { FiCheck, FiEye, FiTrash2 } from "react-icons/fi";
 export default function Feedback({ data }) {
     const { element, lists } = useNextLeftPagination(data);
 
-    const openDetail = (id) => {
-        Inertia.get(route("admin.feedback.detail", id));
-    };
+    const openDetail = useOpenDetail("admin.feedback.detail");
 
     const markAsRead = async (id) => {
         Inertia.put(route("admin.feedback.mark", id), {
@@ -20,8 +20,14 @@ export default function Feedback({ data }) {
         });
     };
 
+    const { fn: openDeleteModal, modal } = useDelete(
+        "admin.feedback.delete",
+        "Feedback"
+    );
+
     return (
         <AdminLayout>
+            {modal}
             <Text fontSize="3xl" mb={3} fontStyle="italic">
                 Feedback
             </Text>
@@ -51,19 +57,24 @@ export default function Feedback({ data }) {
                                     justifyContent="center"
                                     gap={3}
                                 >
-                                    <Button
-                                        shadow="none"
-                                        onClick={() => markAsRead(item.id)}
-                                    >
-                                        <FiCheck />
-                                    </Button>
+                                    {item.status === "UNREAD" && (
+                                        <Button
+                                            shadow="none"
+                                            onClick={() => markAsRead(item.id)}
+                                        >
+                                            <FiCheck />
+                                        </Button>
+                                    )}
                                     <Button
                                         onClick={() => openDetail(item.id)}
                                         shadow="none"
                                     >
                                         <FiEye />
                                     </Button>
-                                    <Button shadow="none">
+                                    <Button
+                                        shadow="none"
+                                        onClick={() => openDeleteModal(item.id)}
+                                    >
                                         <FiTrash2 />
                                     </Button>
                                 </Td>

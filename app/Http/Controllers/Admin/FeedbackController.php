@@ -47,4 +47,11 @@ class FeedbackController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function delete(Feedback $feedback)
+    {
+        $feedback->delete();
+        session()->flash('message', 'Feedback Deleted!');
+        session()->flash('status', 'success');
+    }
 }

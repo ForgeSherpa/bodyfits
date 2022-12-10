@@ -33,22 +33,22 @@ const listsReducer = (state, action) => {
 
 export default function usePagination(
     item,
-    { initialNotSame = true, replace = false, perPage = 15, startPage = 0 }
+    config = { initialNotSame: true, replace: false, perPage: 15, startPage: 0 }
 ) {
     const [hasNext, setHasNext] = useState(true);
     const [lists, dispatchLists] = useReducer(listsReducer, {
         data: item.data,
-        firstFetch: initialNotSame,
-        replace: replace,
+        firstFetch: config.initialNotSame,
+        replace: config.replace,
     });
     const [loading, setLoading] = useState(false);
     const [limit, setLimit] = useState(false);
-    const [current, setCurrent] = useState(startPage);
+    const [current, setCurrent] = useState(config.startPage);
 
     const next = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current + 1}&per_page=${perPage}`,
+            `${item.path}?page=${current + 1}&per_page=${config.perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -60,13 +60,13 @@ export default function usePagination(
         setLimit(json.last_page);
         setLoading(false);
         dispatchLists({ type: "setData", payload: json.data });
-        console.log(item.path, current, perPage);
+        console.log(item.path, current, config.perPage);
     };
 
     const previous = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current - 1}&per_page=${perPage}`,
+            `${item.path}?page=${current - 1}&per_page=${config.perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -84,7 +84,7 @@ export default function usePagination(
         const refetch = async () => {
             setLoading(true);
             const res = await fetch(
-                `${item.path}?page=${current}&per_page=${perPage}`,
+                `${item.path}?page=${current}&per_page=${config.perPage}`,
                 {
                     headers: {
                         Accept: "application/json",
@@ -142,7 +142,7 @@ export default function usePagination(
         lists: lists.data,
         element,
         previous,
-        hasPrevious: current > startPage,
+        hasPrevious: current > config.startPage,
         current,
     };
 }

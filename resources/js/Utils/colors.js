@@ -14,5 +14,6 @@ export const COLORS = {
         selected: "#EEE6E2",
         black: "#1C1C1C",
         boxShadow: "rgba(64, 64, 64, 0.8) 5px 5px",
+        whiteBoxShadow: "rgba(64, 64, 64, 0.2) 5px 5px",
     },
 };
