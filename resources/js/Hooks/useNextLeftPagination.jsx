@@ -4,7 +4,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import usePagination from "./usePagination";
 
 export default function useNextLeftPagination(data, perPage = 5) {
-    const { lists, loading, hasNext, next, hasPrevious, previous } =
+    const { lists, loading, hasNext, next, hasPrevious, previous, current } =
         usePagination(data, {
             perPage,
             startPage: 1,
@@ -36,5 +36,6 @@ export default function useNextLeftPagination(data, perPage = 5) {
         next,
         hasPrevious,
         previous,
+        startCount: current > 1 ? (current - 1) * perPage : 0,
     };
 }

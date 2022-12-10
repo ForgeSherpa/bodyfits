@@ -41,7 +41,7 @@ const menus = [
     {
         icon: FiUsers,
         name: "Manage Users",
-        link: "admin.dashboard",
+        link: "admin.users.index",
     },
     {
         icon: GrUserWorker,
@@ -49,13 +49,13 @@ const menus = [
         link: "admin.dashboard",
     },
     {
-        icon: FiBookmark,
-        name: "Manage Courses",
+        icon: FiList,
+        name: "Manage Category",
         link: "admin.dashboard",
     },
     {
-        icon: FiList,
-        name: "Manage Category",
+        icon: FiBookmark,
+        name: "Manage Courses",
         link: "admin.dashboard",
     },
 ];
@@ -119,7 +119,7 @@ export default function AdminLayout({ children, auth }) {
                     alignItems="center"
                     gap={3}
                     bg="orange.200"
-                    minW="full"
+                    w="full"
                     p={3}
                 >
                     <Menu>

@@ -6,7 +6,7 @@ export default function ShadowBox(props) {
         <OutlineCard
             {...props}
             shadow={COLORS.admin.boxShadow}
-            w="full"
+            minW="full"
             mt={10}
         />
     );

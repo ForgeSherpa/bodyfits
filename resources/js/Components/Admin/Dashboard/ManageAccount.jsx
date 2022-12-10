@@ -8,6 +8,7 @@ import OutlineCard from "../OutlineCard";
 import OutlineInput from "../OutlineInput";
 import ShadowBox from "../ShadowBox";
 import TwoColumn from "../TwoColumn";
+import ChangePassword from "./ChangePassword";
 
 export default function ManageAccount({ auth }) {
     // kita ga pake reset ygy, soalnya nanti balik ke initial.
@@ -43,7 +44,7 @@ export default function ManageAccount({ auth }) {
 
     return (
         <ShadowBox header="Accounts" body="Manage Account">
-            <form onSubmit={profileChangeHandler}>
+            <form id="manageAccount" onSubmit={profileChangeHandler}>
                 <TwoColumn gap={3}>
                     <GridItem>
                         <OutlineInput
@@ -90,10 +91,11 @@ export default function ManageAccount({ auth }) {
                         )}
                     </GridItem>
                 </TwoColumn>
-                <Button type="submit" isLoading={processing}>
-                    Submit
-                </Button>
             </form>
+            <ChangePassword />
+            <Button form="manageAccount" type="submit" isLoading={processing}>
+                Submit
+            </Button>
         </ShadowBox>
     );
 }

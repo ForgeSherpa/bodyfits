@@ -9,6 +9,8 @@ use Inertia\Inertia;
 
 class FeedbackController extends Controller
 {
+    use ToastTrait;
+
     public function index(Request $request)
     {
         $feedback = Feedback::orderBy('status')
@@ -31,9 +33,8 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (! $internal) {
-            session()->flash('message', 'Marked as read!');
-            session()->flash('status', 'success');
+        if (!$internal) {
+            $this->cast('Marked as read!', 'success');
         }
     }
 
@@ -51,7 +52,6 @@ class FeedbackController extends Controller
     public function delete(Feedback $feedback)
     {
         $feedback->delete();
-        session()->flash('message', 'Feedback Deleted!');
-        session()->flash('status', 'success');
+        $this->deleted("Feedback");
     }
 }
