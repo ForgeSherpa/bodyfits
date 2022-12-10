@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
-require __DIR__.'/courses.php';
+require __DIR__ . '/courses.php';
 
 Route::get('/faq', fn () => Inertia::render('FAQ'))->name('faq');
 
@@ -39,5 +39,5 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
