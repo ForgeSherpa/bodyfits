@@ -5,7 +5,7 @@ import FormSelect from "@/Components/Admin/FormSelect";
 import GenericPreview from "@/Components/Admin/GenericPreview";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import Image from "@/Components/Image";
-import { Box, Progress, Text } from "@chakra-ui/react";
+import { Alert, Box, Progress, Text } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/inertia-react";
 
 export default function Form({ user }) {
@@ -16,6 +16,7 @@ export default function Form({ user }) {
         photo: "",
         password: "",
         password_confirmation: "",
+        _method: user ? "put" : "post",
     });
 
     const inputChangeHandler = (e) => {
@@ -26,30 +27,54 @@ export default function Form({ user }) {
         setData("photo", e.target.files[0]);
     };
 
+    const submitHandler = (e) => {
+        e.preventDefault();
+        post(
+            route(
+                !user ? "admin.users.store" : "admin.users.update",
+                user ? user.id : ""
+            ),
+            {
+                forceFormData: true,
+            }
+        );
+
+        if (!errors) {
+            setData({
+                name: "",
+                role: "user",
+                email: "",
+                photo: "",
+                password: "",
+                password_confirmation: "",
+            });
+        }
+    };
+
     return (
         <GenericPreview name={`${user ? "Edit" : "Create"} User`}>
-            <Text>{user ? "Current" : "Preview"} Photo</Text>
-            <Image
-                outSide={
-                    (data.photo && URL.createObjectURL(data.photo)) || user
-                        ? route("image", user.photo)
-                        : route("image", "fallback.webp")
-                }
-            />
-            <FormInput
-                title="Photo"
-                placeholder="Your photo"
-                value={data.photo}
-                name="name"
-                onChange={onPhotoChange}
-                mt={3}
-                type="file"
-                error={errors.photo}
-            />
-            {progress && (
-                <Progress colorScheme="yellow" size="xs" isIndeterminate />
-            )}
-            <form id="formUser">
+            <form id="formUser" onSubmit={submitHandler}>
+                <Text>{user ? "Current" : "Preview"} Photo</Text>
+                <Image
+                    outSide={
+                        (data.photo && URL.createObjectURL(data.photo)) ||
+                        (user
+                            ? route("image", user.photo)
+                            : route("image", "fallback.webp"))
+                    }
+                />
+                <FormInput
+                    title="Photo"
+                    placeholder="Your photo"
+                    name="name"
+                    onChange={onPhotoChange}
+                    mt={3}
+                    type="file"
+                    error={errors.photo}
+                />
+                {progress && (
+                    <Progress colorScheme="yellow" size="xs" isIndeterminate />
+                )}
                 <TwoColumn gap={3}>
                     <FormInput
                         title="Name"
@@ -69,6 +94,14 @@ export default function Form({ user }) {
                         mt={3}
                         error={errors.email}
                     />
+                    {user && (
+                        <>
+                            <Alert>
+                                Empty Password if you don't want to update it.
+                            </Alert>
+                            <Box></Box>
+                        </>
+                    )}
                     <FormInput
                         title="Password"
                         placeholder="Your password"

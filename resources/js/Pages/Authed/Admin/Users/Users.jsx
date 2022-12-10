@@ -22,6 +22,7 @@ export default function Feedback({ data }) {
     const { element, lists, startCount } = useNextLeftPagination(data);
     let count = startCount;
     const openDetail = useOpenDetail("admin.users.show");
+    const openEdit = useOpenDetail("admin.users.edit");
 
     const { fn: openDeleteModal, modal } = useDelete(
         "admin.users.destroy",
@@ -83,7 +84,7 @@ export default function Feedback({ data }) {
                                             <Button
                                                 shadow="none"
                                                 onClick={() =>
-                                                    markAsRead(item.id)
+                                                    openEdit(item.id)
                                                 }
                                             >
                                                 <FiEdit />

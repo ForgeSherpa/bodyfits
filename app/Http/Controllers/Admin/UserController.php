@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -45,12 +48,21 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $photo = $request->photo;
+
+        if ($photo && trim($photo) !== '') {
+            $name = time() . $photo->getClientOriginalName();
+            Storage::putFileAs('images/profiles', $photo, $name);
+            $data['photo'] = $name;
+        }
+
+        User::create($request->except('password_confirmation'));
+
+        return $this->created("admin.users.index", "User");
     }
 
     /**
@@ -72,9 +84,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return Inertia::render('Authed/Admin/Users/Form', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -84,9 +98,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user, UpdateUserRequest $updateUserRequest)
     {
-        //
+        $data = $updateUserRequest->except(['password', 'password_confirmation']);
+
+        $photo = $updateUserRequest->photo;
+
+        // handle kalau ada foto.
+        if ($photo && trim($photo) !== '') {
+            $name = time() . $photo->getClientOriginalName();
+            Storage::putFileAs('images/profiles', $photo, $name);
+            $data['photo'] = $name;
+            if ($user->photo && trim($user->photo) !== '') {
+                Storage::delete('images/' . $user->photo);
+            }
+        }
+
+        if ($updateUserRequest->password && trim($updateUserRequest->password) !== "") {
+            $data['password'] = bcrypt($updateUserRequest->password);
+        }
+
+        $user->update($data);
+
+        return $this->edited("admin.users.index", "User");
     }
 
     /**

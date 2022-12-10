@@ -10,13 +10,24 @@ trait ToastTrait
         session()->flash('status', $status);
     }
 
-    public function edited($name)
+    function edited($url, $name)
     {
-        $this->cast("$name Edited Successfully", 'success');
+        return to_route($url)->with([
+            'message' => "$name edited Successfully",
+            'status' => 'success'
+        ]);
     }
 
-    public function deleted($name)
+    function deleted($name)
     {
-        $this->cast("$name Deleted Successfully", 'success');
+        $this->cast("$name Deleted Successfully", "success");
+    }
+
+    function created($url, $name)
+    {
+        return to_route($url)->with([
+            'message' => "$name Created Successfully",
+            'status' => 'success'
+        ]);
     }
 }

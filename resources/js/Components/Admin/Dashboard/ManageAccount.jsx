@@ -1,10 +1,8 @@
-import { COLORS } from "@/Utils/colors";
 import { GridItem, Progress, Text } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/inertia-react";
 import { useEffect } from "react";
 import Image from "../../Image";
 import Button from "../Button";
-import OutlineCard from "../OutlineCard";
 import OutlineInput from "../OutlineInput";
 import ShadowBox from "../ShadowBox";
 import TwoColumn from "../TwoColumn";
