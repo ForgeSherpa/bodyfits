@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 trait ToastTrait
 {
-    function cast($message, $status)
+    public function cast($message, $status)
     {
         session()->flash('message', $message);
         session()->flash('status', $status);
     }
 
-    function edited($name)
+    public function edited($name)
     {
-        $this->cast("$name Edited Successfully", "success");
+        $this->cast("$name Edited Successfully", 'success');
     }
 
-    function deleted($name)
+    public function deleted($name)
     {
-        $this->cast("$name Deleted Successfully", "success");
+        $this->cast("$name Deleted Successfully", 'success');
     }
 }

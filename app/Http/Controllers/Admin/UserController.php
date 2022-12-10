@@ -10,6 +10,7 @@ use Inertia\Inertia;
 class UserController extends Controller
 {
     use ToastTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -61,7 +62,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         return Inertia::render('Authed/Admin/Users/Detail', [
-            'data' => $user
+            'data' => $user,
         ]);
     }
 
@@ -97,6 +98,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        $this->deleted("User");
+        $this->deleted('User');
     }
 }

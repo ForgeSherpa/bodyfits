@@ -33,7 +33,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (!$internal) {
+        if (! $internal) {
             $this->cast('Marked as read!', 'success');
         }
     }
@@ -52,6 +52,6 @@ class FeedbackController extends Controller
     public function delete(Feedback $feedback)
     {
         $feedback->delete();
-        $this->deleted("Feedback");
+        $this->deleted('Feedback');
     }
 }
