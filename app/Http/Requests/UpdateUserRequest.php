@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
             'photo' => ['nullable', 'max:4096', 'mimes:jpg,png,jpeg,webp'],
             'email' => ['email', 'required', Rule::unique('users')->ignore($this->route('user'))],
             'password' => ['nullable', 'confirmed', 'min:8'],
-            'role' => ['required', 'in:user,admin']
+            'role' => ['required', 'in:user,admin'],
         ];
     }
 }

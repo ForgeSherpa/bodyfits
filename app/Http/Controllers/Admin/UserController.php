@@ -55,14 +55,14 @@ class UserController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
 
         User::create($request->except('password_confirmation'));
 
-        return $this->created("admin.users.index", "User");
+        return $this->created('admin.users.index', 'User');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Authed/Admin/Users/Form', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -106,21 +106,21 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/' . $user->photo);
+                Storage::delete('images/'.$user->photo);
             }
         }
 
-        if ($updateUserRequest->password && trim($updateUserRequest->password) !== "") {
+        if ($updateUserRequest->password && trim($updateUserRequest->password) !== '') {
             $data['password'] = bcrypt($updateUserRequest->password);
         }
 
         $user->update($data);
 
-        return $this->edited("admin.users.index", "User");
+        return $this->edited('admin.users.index', 'User');
     }
 
     /**
