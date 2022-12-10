@@ -4,15 +4,21 @@ import useNextLeftPagination from "@/Hooks/useNextLeftPagination";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { COLORS } from "@/Utils/colors";
 import { Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { FiEye, FiTrash2 } from "react-icons/fi";
+import { Inertia } from "@inertiajs/inertia";
+import { FiCheck, FiEye, FiTrash2 } from "react-icons/fi";
 
-export default function Feedback({ data, singleData }) {
+export default function Feedback({ data }) {
     const { element, lists } = useNextLeftPagination(data);
 
-    useEffect(() => {
-        // TODO
-    }, [singleData]);
+    const openDetail = (id) => {
+        Inertia.get(route("admin.feedback.detail", id));
+    };
+
+    const markAsRead = async (id) => {
+        Inertia.put(route("admin.feedback.mark", id), {
+            preserveState: true,
+        });
+    };
 
     return (
         <AdminLayout>
@@ -45,7 +51,16 @@ export default function Feedback({ data, singleData }) {
                                     justifyContent="center"
                                     gap={3}
                                 >
-                                    <Button shadow="none">
+                                    <Button
+                                        shadow="none"
+                                        onClick={() => markAsRead(item.id)}
+                                    >
+                                        <FiCheck />
+                                    </Button>
+                                    <Button
+                                        onClick={() => openDetail(item.id)}
+                                        shadow="none"
+                                    >
                                         <FiEye />
                                     </Button>
                                     <Button shadow="none">

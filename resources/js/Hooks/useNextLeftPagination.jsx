@@ -5,7 +5,11 @@ import usePagination from "./usePagination";
 
 export default function useNextLeftPagination(data, perPage = 5) {
     const { lists, loading, hasNext, next, hasPrevious, previous } =
-        usePagination(data, { perPage, startPage: 1, replace: true });
+        usePagination(data, {
+            perPage,
+            startPage: 1,
+            replace: true,
+        });
 
     return {
         element: (

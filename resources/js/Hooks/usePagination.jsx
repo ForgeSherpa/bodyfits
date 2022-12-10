@@ -33,31 +33,22 @@ const listsReducer = (state, action) => {
 
 export default function usePagination(
     item,
-    config = {
-        initialNotSame: true,
-        replace: false,
-        perPage: 15,
-        startPage: 0,
-    }
+    { initialNotSame = true, replace = false, perPage = 15, startPage = 0 }
 ) {
     const [hasNext, setHasNext] = useState(true);
     const [lists, dispatchLists] = useReducer(listsReducer, {
         data: item.data,
-        firstFetch: config.initialNotSame,
-        replace: config.replace,
+        firstFetch: initialNotSame,
+        replace: replace,
     });
     const [loading, setLoading] = useState(false);
     const [limit, setLimit] = useState(false);
-    const [current, setCurrent] = useState(config.startPage);
-
-    useEffect(() => {
-        setLimit(item.last_page);
-    }, []);
+    const [current, setCurrent] = useState(startPage);
 
     const next = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current + 1}&per_page=${config.perPage}`,
+            `${item.path}?page=${current + 1}&per_page=${perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -69,12 +60,13 @@ export default function usePagination(
         setLimit(json.last_page);
         setLoading(false);
         dispatchLists({ type: "setData", payload: json.data });
+        console.log(item.path, current, perPage);
     };
 
     const previous = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current - 1}&per_page=${config.perPage}`,
+            `${item.path}?page=${current - 1}&per_page=${perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -87,6 +79,28 @@ export default function usePagination(
         setLoading(false);
         dispatchLists({ type: "setData", payload: json.data });
     };
+
+    useEffect(() => {
+        const refetch = async () => {
+            setLoading(true);
+            const res = await fetch(
+                `${item.path}?page=${current}&per_page=${perPage}`,
+                {
+                    headers: {
+                        Accept: "application/json",
+                    },
+                }
+            );
+            const json = await res.json();
+            dispatchLists({ type: "setData", payload: json.data });
+            setLimit(json.last_page);
+            setLoading(false);
+        };
+
+        if (item) {
+            refetch();
+        }
+    }, [item]);
 
     useEffect(() => {
         console.log(current, limit);
@@ -128,6 +142,7 @@ export default function usePagination(
         lists: lists.data,
         element,
         previous,
-        hasPrevious: current > config.startPage,
+        hasPrevious: current > startPage,
+        current,
     };
 }

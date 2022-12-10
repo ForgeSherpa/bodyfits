@@ -14,4 +14,9 @@ class Feedback extends Model
     const FEEDBACK_UNREAD = 'UNREAD';
 
     const FEEDBACK_READ = 'READ';
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

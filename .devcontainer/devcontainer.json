@@ -1,6 +1,6 @@
 // https://aka.ms/devcontainer.json
 {
-	"name": "Existing Docker Compose (Extend)",
+	"name": "Docker BodyFits",
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
@@ -17,7 +17,7 @@
 		"esbenp.prettier-vscode"
 	],
 	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/html"
+	"postCreateCommand": "chown -R 1000:1000 /var/www/html && yarn dev"
 	// "forwardPorts": [],
 	// "runServices": [],
 	// "shutdownAction": "none",

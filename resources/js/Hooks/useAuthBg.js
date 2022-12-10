@@ -8,7 +8,7 @@ export default function useAuthBg() {
         document.body.style.backgroundAttachment = "fixed";
 
         return () => {
-            document.body.style.background = COLORS.itemTerang;
+            document.body.style.background = "white";
         };
     }, []);
 }

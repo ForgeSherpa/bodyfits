@@ -20,20 +20,31 @@ class FeedbackController extends Controller
             return $feedback;
         }
 
-        return Inertia::render('Authed/Admin/Feedback', [
+        return Inertia::render('Authed/Admin/Feedback/Feedback', [
             'data' => $feedback,
         ]);
     }
 
-    public function detail(Feedback $feedback)
+    public function markAsRead(Feedback $feedback, $internal = false)
     {
-        return Inertia::render('Authed/Admin/Feedback', [
-            'singleData' => $feedback,
-        ]);
+        if ($feedback->status !== Feedback::FEEDBACK_READ) {
+            $feedback->update(['status' => Feedback::FEEDBACK_READ]);
+        }
+
+        if (!$internal) {
+            session()->flash('message', 'Marked as read!');
+            session()->flash('status', 'success');
+        }
     }
 
-    public function closeDetail()
+    public function detail(Feedback $feedback)
     {
-        return to_route('admin.feedback.index');
+        $data = clone $feedback->load('user');
+
+        $this->markAsRead($feedback, true);
+
+        return Inertia::render('Authed/Admin/Feedback/Detail', [
+            'data' => $data
+        ]);
     }
 }
