@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreLessonsRequest;
-use App\Http\Requests\UpdateLessonsRequest;
+use App\Http\Requests\LessonsRequest;
 use App\Models\Lessons;
 use Inertia\Inertia;
 
@@ -34,10 +33,10 @@ class LessonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLessonsRequest  $request
+     * @param  \App\Http\Requests\LessonsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLessonsRequest $request)
+    public function store(LessonsRequest $request)
     {
         if (Lessons::where('id', $request->id)->count() > 15) {
             $this->cast("Lesson Limit: <= 15", "error");
@@ -80,11 +79,11 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateLessonsRequest  $request
+     * @param  \App\Http\Requests\LessonsRequest  $request
      * @param  \App\Models\Lessons  $lessons
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLessonsRequest $request, Lessons $lessons)
+    public function update(LessonsRequest $request, Lessons $lessons)
     {
         $lessons->update($request->validated());
 

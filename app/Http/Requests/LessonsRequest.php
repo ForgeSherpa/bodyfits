@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateLessonsRequest extends FormRequest
+class LessonsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UpdateLessonsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,11 @@ class UpdateLessonsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'course_id' => ['required', 'exists:courses'],
+            'type' => ['required', Rule::in(["text", "video"])],
+            'content' => ['required_if:type,text', 'min:10', 'string'],
+            'link' => ['required_if:type,video', 'string', 'url'],
+            'length' => ['string', 'required', 'regex:/[0-9]/']
         ];
     }
 }
