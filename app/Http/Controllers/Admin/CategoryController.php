@@ -11,6 +11,7 @@ use Inertia\Inertia;
 class CategoryController extends Controller
 {
     use ToastTrait, SearchableModel;
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +37,7 @@ class CategoryController extends Controller
         }
 
         return Inertia::render('Authed/Admin/Categories/Categories', [
-            'data' => $categories
+            'data' => $categories,
         ]);
     }
 
@@ -60,7 +61,7 @@ class CategoryController extends Controller
     {
         Categories::create($request->validated());
 
-        return $this->created("admin.categories.index", "Category");
+        return $this->created('admin.categories.index', 'Category');
     }
 
     /**
@@ -72,7 +73,7 @@ class CategoryController extends Controller
     public function edit(Categories $categories)
     {
         return Inertia::render('Authed/Admin/Categories/Form', [
-            'category' => $categories
+            'category' => $categories,
         ]);
     }
 
@@ -87,7 +88,7 @@ class CategoryController extends Controller
     {
         $categories->update($request->validated());
 
-        return $this->edited("admin.categories.index", "Category");
+        return $this->edited('admin.categories.index', 'Category');
     }
 
     /**
@@ -100,6 +101,6 @@ class CategoryController extends Controller
     {
         $categories->delete();
 
-        $this->deleted("Category");
+        $this->deleted('Category');
     }
 }
