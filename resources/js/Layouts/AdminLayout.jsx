@@ -56,7 +56,7 @@ const menus = [
     {
         icon: FiBookmark,
         name: "Manage Courses",
-        link: "admin.dashboard",
+        link: "admin.courses.index",
     },
 ];
 

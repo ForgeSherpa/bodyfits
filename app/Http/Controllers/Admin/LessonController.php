@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLessonsRequest;
+use App\Http\Requests\UpdateLessonsRequest;
+use App\Models\Lessons;
+use Inertia\Inertia;
+
+class LessonController extends Controller
+{
+    use SearchableModel, ToastTrait;
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return Inertia::render('Authed/Admin/Lessons/Form');
+    }
+
+    private function redirectBack($request)
+    {
+        if ($request->from) {
+            return to_route("admin.courses.show", $request->from);
+        }
+
+        $this->cast("Previous Course Not Found. Redirecting to List.", "error");
+        return to_route("admin.courses.index");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreLessonsRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreLessonsRequest $request)
+    {
+        if (Lessons::where('id', $request->id)->count() > 15) {
+            $this->cast("Lesson Limit: <= 15", "error");
+            return back();
+        }
+
+        Lessons::create($request->validated());
+
+        $this->cast("Lesson Created!", "success");
+
+        return $this->redirectBack($request);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Lessons  $lessons
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Lessons $lessons)
+    {
+        return Inertia::render("Authed/Admin/Lessons/Detail", [
+            'data' => $lessons->with('course')
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Lessons  $lessons
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Lessons $lessons)
+    {
+        return Inertia::render('Authed/Admin/Lessons/Form', [
+            'lesson' => $lessons->with('course')
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateLessonsRequest  $request
+     * @param  \App\Models\Lessons  $lessons
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateLessonsRequest $request, Lessons $lessons)
+    {
+        $lessons->update($request->validated());
+
+        $this->cast("Lesson updated", "success");
+
+        return $this->redirectBack($request);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Lessons  $lessons
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Lessons $lessons)
+    {
+        $lessons->delete();
+
+        $this->deleted("Lesson");
+    }
+}
