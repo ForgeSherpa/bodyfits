@@ -4,27 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 trait SearchableModel
 {
-    protected $model, $currentModel;
+    protected $model;
 
-    function setSearchableModel($model)
+    protected $currentModel;
+
+    public function setSearchableModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
-    function addSearch($field, $keyword)
+    public function addSearch($field, $keyword)
     {
-        if (!$this->currentModel) {
+        if (! $this->currentModel) {
             $this->currentModel = $this->model->where($field, 'LIKE', "%$keyword%");
+
             return $this;
         }
 
         $this->currentModel = $this->model->orWhere($field, 'LIKE', "%$keyword%");
+
         return $this;
     }
 
-    function search()
+    public function search()
     {
-        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route("admin.feedback.index", ['search' => request()->search]));
+        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route('admin.feedback.index', ['search' => request()->search]));
     }
 }
