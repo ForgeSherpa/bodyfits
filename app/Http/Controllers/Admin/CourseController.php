@@ -12,6 +12,7 @@ use Inertia\Inertia;
 class CourseController extends Controller
 {
     use SearchableModel, ToastTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -33,8 +34,9 @@ class CourseController extends Controller
                 ->addSearch('description', $request->search)
                 ->search();
         }
+
         return Inertia::render('Authed/Admin/Courses/Courses', [
-            'data' => $courses
+            'data' => $courses,
         ]);
     }
 
@@ -58,7 +60,7 @@ class CourseController extends Controller
     {
         Courses::create($request->validated());
 
-        return $this->created("admin.courses.index", "Course");
+        return $this->created('admin.courses.index', 'Course');
     }
 
     /**
@@ -70,7 +72,7 @@ class CourseController extends Controller
     public function show(Courses $courses)
     {
         return Inertia::render('Authed/Admin/Courses/Detail', [
-            'data' => $courses->load(['lessons', 'trainer', 'categories'])
+            'data' => $courses->load(['lessons', 'trainer', 'categories']),
         ]);
     }
 
@@ -83,7 +85,7 @@ class CourseController extends Controller
     public function edit(Courses $courses)
     {
         return Inertia::render('Authed/Admin/Courses/Form', [
-            'course' => $courses->load(['trainer', 'categories'])
+            'course' => $courses->load(['trainer', 'categories']),
         ]);
     }
 
@@ -98,7 +100,7 @@ class CourseController extends Controller
     {
         $courses->update($request->validated());
 
-        return $this->edited("admin.courses.index", "Course");
+        return $this->edited('admin.courses.index', 'Course');
     }
 
     /**
@@ -111,6 +113,6 @@ class CourseController extends Controller
     {
         $courses->delete();
 
-        $this->deleted("Course");
+        $this->deleted('Course');
     }
 }

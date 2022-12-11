@@ -26,10 +26,10 @@ class LessonsRequest extends FormRequest
     {
         return [
             'course_id' => ['required', 'exists:courses'],
-            'type' => ['required', Rule::in(["text", "video"])],
+            'type' => ['required', Rule::in(['text', 'video'])],
             'content' => ['required_if:type,text', 'min:10', 'string'],
             'link' => ['required_if:type,video', 'string', 'url'],
-            'length' => ['string', 'required', 'regex:/[0-9]/']
+            'length' => ['string', 'required', 'regex:/[0-9]/'],
         ];
     }
 }

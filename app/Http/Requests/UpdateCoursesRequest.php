@@ -28,7 +28,7 @@ class UpdateCoursesRequest extends FormRequest
             'title' => ['required', 'string', Rule::unique('courses')->ignore($this->route('courses'))],
             'description' => ['required', 'string'],
             'trainer_id' => ['required', 'exists:trainers,id'],
-            'category_id' => ['required', 'exists:categories,id']
+            'category_id' => ['required', 'exists:categories,id'],
         ];
     }
 }

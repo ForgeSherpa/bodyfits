@@ -10,6 +10,7 @@ use Inertia\Inertia;
 class LessonController extends Controller
 {
     use SearchableModel, ToastTrait;
+
     /**
      * Show the form for creating a new resource.
      *
@@ -23,11 +24,12 @@ class LessonController extends Controller
     private function redirectBack($request)
     {
         if ($request->from) {
-            return to_route("admin.courses.show", $request->from);
+            return to_route('admin.courses.show', $request->from);
         }
 
-        $this->cast("Previous Course Not Found. Redirecting to List.", "error");
-        return to_route("admin.courses.index");
+        $this->cast('Previous Course Not Found. Redirecting to List.', 'error');
+
+        return to_route('admin.courses.index');
     }
 
     /**
@@ -39,13 +41,14 @@ class LessonController extends Controller
     public function store(LessonsRequest $request)
     {
         if (Lessons::where('id', $request->id)->count() > 15) {
-            $this->cast("Lesson Limit: <= 15", "error");
+            $this->cast('Lesson Limit: <= 15', 'error');
+
             return back();
         }
 
         Lessons::create($request->validated());
 
-        $this->cast("Lesson Created!", "success");
+        $this->cast('Lesson Created!', 'success');
 
         return $this->redirectBack($request);
     }
@@ -58,8 +61,8 @@ class LessonController extends Controller
      */
     public function show(Lessons $lessons)
     {
-        return Inertia::render("Authed/Admin/Lessons/Detail", [
-            'data' => $lessons->with('course')
+        return Inertia::render('Authed/Admin/Lessons/Detail', [
+            'data' => $lessons->with('course'),
         ]);
     }
 
@@ -72,7 +75,7 @@ class LessonController extends Controller
     public function edit(Lessons $lessons)
     {
         return Inertia::render('Authed/Admin/Lessons/Form', [
-            'lesson' => $lessons->with('course')
+            'lesson' => $lessons->with('course'),
         ]);
     }
 
@@ -87,7 +90,7 @@ class LessonController extends Controller
     {
         $lessons->update($request->validated());
 
-        $this->cast("Lesson updated", "success");
+        $this->cast('Lesson updated', 'success');
 
         return $this->redirectBack($request);
     }
@@ -102,6 +105,6 @@ class LessonController extends Controller
     {
         $lessons->delete();
 
-        $this->deleted("Lesson");
+        $this->deleted('Lesson');
     }
 }
