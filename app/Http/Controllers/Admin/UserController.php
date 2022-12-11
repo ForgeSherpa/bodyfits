@@ -12,7 +12,7 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    use ToastTrait;
+    use ToastTrait, SearchableModel;
 
     /**
      * Display a listing of the resource.
@@ -21,13 +21,21 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('role')
+        $model = User::orderBy('role')
             ->orderByDesc('id')
-            ->groupBy('role', 'id')
-            ->paginate($request->per_page ?? 5);
+            ->groupBy('role', 'id');
+
+        $users = $model->paginate($request->per_page ?? 5);
 
         if ($request->wantsJson()) {
             return $users;
+        }
+
+        if ($request->search) {
+            $users = $this->setSearchableModel($model)
+                ->addSearch('email', $request->search)
+                ->addSearch('name', $request->search)
+                ->search();
         }
 
         return Inertia::render('Authed/Admin/Users/Users', [

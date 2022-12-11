@@ -10,16 +10,24 @@ use Inertia\Inertia;
 class FeedbackController extends Controller
 {
     use ToastTrait;
+    use SearchableModel;
 
     public function index(Request $request)
     {
-        $feedback = Feedback::orderBy('status')
+        $model = Feedback::orderBy('status')
             ->orderByDesc('id')
-            ->groupBy('status', 'id')
-            ->paginate($request->per_page ?? 5);
+            ->groupBy('status', 'id');
+
+        $feedback = $model->paginate($request->per_page ?? 5);
 
         if ($request->wantsJson()) {
             return $feedback;
+        }
+
+        if ($request->search) {
+            $feedback = $this->setSearchableModel($model)
+                ->addSearch('title', $request->search)
+                ->search();
         }
 
         return Inertia::render('Authed/Admin/Feedback/Feedback', [
@@ -33,7 +41,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (! $internal) {
+        if (!$internal) {
             $this->cast('Marked as read!', 'success');
         }
     }

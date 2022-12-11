@@ -44,11 +44,22 @@ export default function usePagination(
     const [loading, setLoading] = useState(false);
     const [limit, setLimit] = useState(false);
     const [current, setCurrent] = useState(config.startPage);
+    const [link, setLink] = useState("");
+
+    useEffect(() => {
+        if (item.path) {
+            if (item.path.includes("?")) {
+                setLink(item.path + "&");
+            } else {
+                setLink(item.path + "?");
+            }
+        }
+    }, []);
 
     const next = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current + 1}&per_page=${config.perPage}`,
+            `${link}page=${current + 1}&per_page=${config.perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -66,7 +77,7 @@ export default function usePagination(
     const previous = async () => {
         setLoading(true);
         const res = await fetch(
-            `${item.path}?page=${current - 1}&per_page=${config.perPage}`,
+            `${link}page=${current - 1}&per_page=${config.perPage}`,
             {
                 headers: {
                     Accept: "applicaton/json",
@@ -84,7 +95,7 @@ export default function usePagination(
         const refetch = async () => {
             setLoading(true);
             const res = await fetch(
-                `${item.path}?page=${current}&per_page=${config.perPage}`,
+                `${link}page=${current}&per_page=${config.perPage}`,
                 {
                     headers: {
                         Accept: "application/json",
@@ -97,10 +108,10 @@ export default function usePagination(
             setLoading(false);
         };
 
-        if (item) {
+        if (item && link) {
             refetch();
         }
-    }, [item]);
+    }, [item, config.perPage]);
 
     useEffect(() => {
         console.log(current, limit);
