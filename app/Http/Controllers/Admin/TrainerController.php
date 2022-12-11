@@ -12,6 +12,7 @@ use Inertia\Inertia;
 class TrainerController extends Controller
 {
     use ToastTrait, SearchableModel;
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +38,7 @@ class TrainerController extends Controller
         }
 
         return Inertia::render('Authed/Admin/Trainers/Trainers', [
-            'data' => $trainers
+            'data' => $trainers,
         ]);
     }
 
@@ -62,7 +63,7 @@ class TrainerController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
         }
@@ -109,11 +110,11 @@ class TrainerController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
             if ($trainers->photo && trim($trainers->photo) !== '') {
-                Storage::delete('images/' . $trainers->photo);
+                Storage::delete('images/'.$trainers->photo);
             }
         }
 

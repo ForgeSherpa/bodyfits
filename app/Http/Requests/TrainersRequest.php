@@ -30,7 +30,7 @@ class TrainersRequest extends FormRequest
             'nationality' => ['required', 'string'],
             'contact' => ['required', 'numeric', 'regex:[-]'],
             'description' => ['required', 'numeric'],
-            'photo' => ['nullable', 'mimes:png,jpg,webp', 'max:4096']
+            'photo' => ['nullable', 'mimes:png,jpg,webp', 'max:4096'],
         ];
     }
 }
