@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\TrainerController;
@@ -18,5 +19,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'isAdmin'])->group(fun
     });
 
     Route::resource('users', UserController::class)->names('users');
-    Route::resource('trainers', TrainerController::class)->names('trainers')->parameters(['trainers' => 'trainers']);
+    Route::resource('trainers', TrainerController::class)->names('trainers')->parameter('trainers', 'trainers');
+    Route::resource('categories', CategoryController::class)->names('categories')
+        ->except('show')
+        ->parameter('categories', 'categories');
 });

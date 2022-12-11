@@ -51,7 +51,7 @@ const menus = [
     {
         icon: FiList,
         name: "Manage Category",
-        link: "admin.dashboard",
+        link: "admin.categories.index",
     },
     {
         icon: FiBookmark,
@@ -60,7 +60,7 @@ const menus = [
     },
 ];
 
-export default function AdminLayout({ children, auth }) {
+export default function AdminLayout({ children }) {
     useToast();
     useCustomBg(COLORS.admin.background);
 
