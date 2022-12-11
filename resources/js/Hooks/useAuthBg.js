@@ -6,9 +6,5 @@ export default function useAuthBg() {
         document.body.style.background = "url('bgLogin.webp') no-repeat";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundAttachment = "fixed";
-
-        return () => {
-            document.body.style.background = "white";
-        };
     }, []);
 }

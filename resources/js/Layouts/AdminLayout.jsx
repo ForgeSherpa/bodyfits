@@ -46,7 +46,7 @@ const menus = [
     {
         icon: GrUserWorker,
         name: "Manage Trainers",
-        link: "admin.dashboard",
+        link: "admin.trainers.index",
     },
     {
         icon: FiList,
