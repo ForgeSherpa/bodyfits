@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\TrainerController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->middleware(['auth', 'isAdmin'])->group(function () {

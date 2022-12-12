@@ -51,7 +51,7 @@ class CourseController extends Controller
     {
         return Inertia::render('Authed/Admin/Courses/Form', [
             'trainers' => Trainers::all(),
-            'categories' => Categories::all()
+            'categories' => Categories::all(),
         ]);
     }
 
@@ -92,7 +92,7 @@ class CourseController extends Controller
         return Inertia::render('Authed/Admin/Courses/Form', [
             'course' => $courses,
             'trainers' => Trainers::all(),
-            'categories' => Categories::all()
+            'categories' => Categories::all(),
         ]);
     }
 
