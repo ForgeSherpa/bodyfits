@@ -7,7 +7,6 @@ use App\Models\Courses;
 use App\Models\Lessons;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Str;
 
 class CoursesController extends Controller
 {

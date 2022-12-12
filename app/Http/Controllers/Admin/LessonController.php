@@ -71,8 +71,8 @@ class LessonController extends Controller
     public function edit(Lessons $lessons)
     {
         $data = $lessons->load('course')->toArray();
-        $data['durationPlural'] = str_ends_with($data['length'], "s") ? "s" : "";
-        $data['duration'] = strtolower(substr(explode(" ", $data['length'])[1], 0, -1));
+        $data['durationPlural'] = str_ends_with($data['length'], 's') ? 's' : '';
+        $data['duration'] = strtolower(substr(explode(' ', $data['length'])[1], 0, -1));
         $data['length'] = parseInt($data['length']);
 
         return Inertia::render('Authed/Admin/Lessons/Form', [
