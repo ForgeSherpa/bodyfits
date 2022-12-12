@@ -26,7 +26,7 @@ export default function Home({ auth, trainers, courses }) {
     useToast();
     return (
         <MainLayout auth={auth}>
-            <Flex>
+            <Flex flexDir={{ base: "column", lg: "row" }}>
                 <Card
                     py={77}
                     px={63}
@@ -50,7 +50,11 @@ export default function Home({ auth, trainers, courses }) {
                         Start Now
                     </WhiteText>
                 </Card>
-                <Image w="full" src="bodyfits.png" />
+                <Image
+                    w="full"
+                    display={{ base: "none", lg: "block" }}
+                    src="bodyfits.png"
+                />
             </Flex>
             <Box>
                 <Flex
@@ -60,9 +64,9 @@ export default function Home({ auth, trainers, courses }) {
                     alignItems="end"
                 >
                     <WhiteText
-                        fontSize={60}
+                        fontSize={{ base: 25, lg: 60 }}
                         fontWeight={700}
-                        maxW="30%"
+                        maxW={{ base: "50%", lg: "30%" }}
                         lineHeight={1}
                     >
                         Choose Your Own Courses
