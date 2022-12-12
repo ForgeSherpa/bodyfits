@@ -23,6 +23,7 @@
         "@chakra-ui/react": "^2.4.1",
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
+        "@headlessui/react": "^1.7.5",
         "framer-motion": "^7.6.6",
         "html-react-parser": "^3.0.4",
         "picocolors": "^1.0.0",

@@ -90,7 +90,7 @@ class CourseController extends Controller
     public function edit(Courses $courses)
     {
         return Inertia::render('Authed/Admin/Courses/Form', [
-            'course' => $courses,
+            'course' => $courses->load(['trainer', 'categories']),
             'trainers' => Trainers::all(),
             'categories' => Categories::all(),
         ]);
