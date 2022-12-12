@@ -7,6 +7,7 @@ use App\Models\Courses;
 use App\Models\Lessons;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class CoursesController extends Controller
 {
@@ -26,11 +27,6 @@ class CoursesController extends Controller
         return Inertia::render('Authed/Courses/Courses', [
             'courses' => $category,
         ]);
-    }
-
-    private function parseInt($string)
-    {
-        return preg_replace('/[^0-9]/', '', $string);
     }
 
     private function findNextLesson($currentId)
@@ -54,7 +50,7 @@ class CoursesController extends Controller
     {
         $course = $courses->load('trainer', 'lessons');
 
-        $totalDuration = $course->lessons->map(fn ($item) => $this->parseInt($item->length))->reduce(function ($first, $second) {
+        $totalDuration = $course->lessons->map(fn ($item) => parseInt($item->length))->reduce(function ($first, $second) {
             return $first + $second;
         }, 0);
 

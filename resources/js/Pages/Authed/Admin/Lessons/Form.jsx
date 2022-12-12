@@ -19,13 +19,15 @@ export default function Form({ lesson }) {
         type: lesson ? lesson.type : "video",
         content: lesson ? lesson.content : "",
         link: lesson ? lesson.link : "",
-        length: lesson ? lesson.length : "",
+        length: lesson ? lesson["length"] : "",
         title: lesson ? lesson.title : "",
     };
 
     const { data, errors, post, put, processing, setData } = useForm(initial);
-    const [append, setAppend] = useState("");
-    const [duration, setDuration] = useState("second");
+    const [append, setAppend] = useState(lesson ? lesson.durationPlural : "");
+    const [duration, setDuration] = useState(
+        lesson ? lesson.duration : "second"
+    );
 
     const { element } = useCheckQuery();
 
@@ -63,7 +65,7 @@ export default function Form({ lesson }) {
                 }),
                 {
                     data: {
-                        length: `${data["length"]} ${duration}`,
+                        length: `${data["length"]} ${duration}${append}`,
                     },
                 }
             );
@@ -121,15 +123,9 @@ export default function Form({ lesson }) {
                                 onChange={onDurationChange}
                                 value={duration}
                             >
-                                <option value={`second${append}`}>
-                                    Second{append}
-                                </option>
-                                <option value={`minute${append}`}>
-                                    Minute{append}
-                                </option>
-                                <option value={`hour${append}`}>
-                                    Hour{append}
-                                </option>
+                                <option value={`second`}>Second{append}</option>
+                                <option value={`minute`}>Minute{append}</option>
+                                <option value={`hour`}>Hour{append}</option>
                             </FormSelect>
                         </Grid>
                         {errors["length"] && (
@@ -188,7 +184,7 @@ export default function Form({ lesson }) {
                 <Button
                     disabled={processing}
                     variant="clear"
-                    onClick={() => window.history.goBack()}
+                    onClick={() => history.back()}
                 >
                     <FiArrowLeft /> Back
                 </Button>
