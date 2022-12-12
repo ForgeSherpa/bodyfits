@@ -30,7 +30,7 @@ class TrainerController extends Controller
                 ->addSearch('nationality', $request->search)
                 ->addSearch('job', $request->search)
                 ->addSearch('contact', $request->search)
-                ->search("admin.trainers.index");
+                ->search('admin.trainers.index');
         }
 
         if ($request->wantsJson()) {
@@ -63,7 +63,7 @@ class TrainerController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
         }
@@ -110,11 +110,11 @@ class TrainerController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
             if ($trainers->photo && trim($trainers->photo) !== '') {
-                Storage::delete('images/' . $trainers->photo);
+                Storage::delete('images/'.$trainers->photo);
             }
         }
 

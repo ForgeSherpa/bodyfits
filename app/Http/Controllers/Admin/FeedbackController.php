@@ -23,7 +23,7 @@ class FeedbackController extends Controller
         if ($request->search) {
             $feedback = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
-                ->search("admin.feedback.index");
+                ->search('admin.feedback.index');
         }
 
         if ($request->wantsJson()) {
@@ -41,7 +41,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (!$internal) {
+        if (! $internal) {
             $this->cast('Marked as read!', 'success');
         }
     }

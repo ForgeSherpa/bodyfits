@@ -17,7 +17,7 @@ trait SearchableModel
 
     public function addSearch($field, $keyword)
     {
-        if (!$this->currentModel) {
+        if (! $this->currentModel) {
             $this->currentModel = $this->model->where($field, 'LIKE', "%$keyword%");
 
             return $this;

@@ -29,7 +29,7 @@ class CategoryController extends Controller
                 ->addSearch('nationality', $request->search)
                 ->addSearch('job', $request->search)
                 ->addSearch('contact', $request->search)
-                ->search("admin.categories.index");
+                ->search('admin.categories.index');
         }
 
         if ($request->wantsJson()) {

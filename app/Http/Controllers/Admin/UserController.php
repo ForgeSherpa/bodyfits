@@ -31,7 +31,7 @@ class UserController extends Controller
             $users = $this->setSearchableModel($model)
                 ->addSearch('email', $request->search)
                 ->addSearch('name', $request->search)
-                ->search("admin.users.index");
+                ->search('admin.users.index');
         }
 
         if ($request->wantsJson()) {
@@ -63,7 +63,7 @@ class UserController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -114,11 +114,11 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/' . $user->photo);
+                Storage::delete('images/'.$user->photo);
             }
         }
 

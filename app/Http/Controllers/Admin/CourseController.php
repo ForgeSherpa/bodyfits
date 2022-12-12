@@ -30,7 +30,7 @@ class CourseController extends Controller
             $courses = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
                 ->addSearch('description', $request->search)
-                ->search("admin.courses.index");
+                ->search('admin.courses.index');
         }
 
         if ($request->wantsJson()) {
@@ -82,12 +82,12 @@ class CourseController extends Controller
         if ($request->search) {
             $lessons = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
-                ->search("admin.courses.show");
+                ->search('admin.courses.show');
         }
 
         return Inertia::render('Authed/Admin/Courses/Detail', [
             'data' => $courses->load(['trainer', 'categories']),
-            'lessons' => $lessons
+            'lessons' => $lessons,
         ]);
     }
 
