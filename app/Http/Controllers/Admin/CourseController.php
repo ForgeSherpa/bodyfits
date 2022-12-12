@@ -92,15 +92,11 @@ class CourseController extends Controller
         if ($request->search) {
             $lessons = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
-<<<<<<< HEAD
-                ->search('admin.courses.show');
-=======
                 ->search("admin.courses.show", ['courses' => $courses->id]);
         }
 
         if ($request->wantsJson()) {
             return $lessons;
->>>>>>> b6aed13 (lupa anying kalau course make foto)
         }
 
         return Inertia::render('Authed/Admin/Courses/Detail', [
