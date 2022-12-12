@@ -114,7 +114,7 @@ class TrainerController extends Controller
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
             if ($trainers->photo && trim($trainers->photo) !== '') {
-                Storage::delete('images/trainers/' . $trainers->photo);
+                Storage::delete('images/trainers/'.$trainers->photo);
             }
         }
 

@@ -31,7 +31,7 @@ class LessonsRequest extends FormRequest
             'content' => ['required_if:type,text', 'nullable', 'min:10', 'string'],
             'link' => ['required_if:type,video', 'nullable', 'string', 'url'],
             'length' => ['string', 'required', 'regex:/[0-9]/'],
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
         ];
     }
 }

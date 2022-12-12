@@ -68,7 +68,7 @@ class CourseController extends Controller
         $data = $request->except('photo');
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/courses', $photo, $name);
             $data['photo'] = $name;
         }
@@ -92,7 +92,7 @@ class CourseController extends Controller
         if ($request->search) {
             $lessons = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
-                ->search("admin.courses.show", ['courses' => $courses->id]);
+                ->search('admin.courses.show', ['courses' => $courses->id]);
         }
 
         if ($request->wantsJson()) {
@@ -135,11 +135,11 @@ class CourseController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($courses->photo && trim($courses->photo) !== '') {
-                Storage::delete('images/courses/' . $courses->photo);
+                Storage::delete('images/courses/'.$courses->photo);
             }
         }
 

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonsRequest;
 use App\Models\Courses;
 use App\Models\Lessons;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class LessonController extends Controller
 {
@@ -106,13 +106,13 @@ class LessonController extends Controller
 
     public function check(Request $request)
     {
-        if (!$request->from) {
+        if (! $request->from) {
             return response()->json(['check' => false], 400);
         }
 
         $find = Courses::where('id', $request->from)->first();
 
-        if (!$find) {
+        if (! $find) {
             return response()->json(['check' => false], 404);
         }
 

@@ -37,7 +37,7 @@ class CoursesController extends Controller
     {
         $searchId = $currentId + 1;
         $query = Courses::with('lessons')->whereHas('lessons')->find($searchId);
-        if (!$query) {
+        if (! $query) {
             return $this->findNextLesson($searchId + 1);
         }
 
@@ -66,7 +66,7 @@ class CoursesController extends Controller
             'lesson' => $lessons,
             'nextCourseId' => $next->id,
             'nextLessonId' => $next->lessons->first()->id,
-            'totalDuration' => $totalDuration . 'm',
+            'totalDuration' => $totalDuration.'m',
         ]);
     }
 
