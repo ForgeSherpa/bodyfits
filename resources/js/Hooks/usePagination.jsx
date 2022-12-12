@@ -93,7 +93,6 @@ export default function usePagination(
 
     useEffect(() => {
         const refetch = async () => {
-            setLoading(true);
             const res = await fetch(
                 `${link}page=${current}&per_page=${config.perPage}`,
                 {
@@ -111,7 +110,7 @@ export default function usePagination(
         if (item && link) {
             refetch();
         }
-    }, [item, config.perPage]);
+    }, [item, config.perPage, link]);
 
     useEffect(() => {
         console.log(current, limit);

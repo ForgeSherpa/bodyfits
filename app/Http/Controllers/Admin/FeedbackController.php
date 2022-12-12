@@ -20,14 +20,14 @@ class FeedbackController extends Controller
 
         $feedback = $model->paginate($request->per_page ?? 5);
 
-        if ($request->wantsJson()) {
-            return $feedback;
-        }
-
         if ($request->search) {
             $feedback = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
-                ->search();
+                ->search("admin.feedback.index");
+        }
+
+        if ($request->wantsJson()) {
+            return $feedback;
         }
 
         return Inertia::render('Authed/Admin/Feedback/Feedback', [
@@ -41,7 +41,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (! $internal) {
+        if (!$internal) {
             $this->cast('Marked as read!', 'success');
         }
     }

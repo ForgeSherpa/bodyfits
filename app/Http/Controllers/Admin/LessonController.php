@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class LessonController extends Controller
 {
-    use SearchableModel, ToastTrait;
+    use ToastTrait;
 
     /**
      * Show the form for creating a new resource.

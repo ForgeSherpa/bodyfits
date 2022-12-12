@@ -1,36 +1,21 @@
 import GenericDetail from "@/Components/Admin/GenericDetail";
 import OutlineTextarea from "@/Components/Admin/OutlineTextarea";
-import Image from "@/Components/Image";
-import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import useTable from "@/Hooks/useTable";
+import { COLORS } from "@/Utils/colors";
+import { Divider, ListItem, UnorderedList } from "@chakra-ui/react";
 
-export default function Detail({ data }) {
+export default function Detail({ data, lessons }) {
+    const {} = useTable(lessons, "admin.courses.show");
+
     return (
-        <GenericDetail mainUrl="admin.trainers.index" name="Trainer">
-            <Flex
-                justifyContent={{ base: "initial", lg: "space-around" }}
-                alignItems={{ base: "initial", lg: "center" }}
-                flexDirection={{ base: "column", lg: "row" }}
-            >
-                <Box>
-                    <Text ml={{ base: 0, lg: 3 }} mb={{ base: 0, lg: 5 }}>
-                        Photo:
-                    </Text>
-                    <Image
-                        mb={3}
-                        src={data.photo}
-                        rounded={{ base: 20, lg: "full" }}
-                        maxW={{ base: "full", lg: 200 }}
-                    />
-                </Box>
-                <UnorderedList mt={3}>
-                    <ListItem>Name: {data.name}</ListItem>
-                    <ListItem>Age: {data.age}</ListItem>
-                    <ListItem>Nationality: {data.nationality}</ListItem>
-                    <ListItem>Job: {data.job}</ListItem>
-                    <ListItem>Contact: {data.contact}</ListItem>
-                </UnorderedList>
-            </Flex>
-            <OutlineTextarea readOnly defaultValue={data.description} />
+        <GenericDetail mainUrl="admin.courses.index" name="Course">
+            <UnorderedList mt={3}>
+                <ListItem>Title: {data.title}</ListItem>
+                <ListItem>Trained By: {data.trainer.name}</ListItem>
+                <ListItem>Categorized under: {data.categories.name}</ListItem>
+            </UnorderedList>
+            <OutlineTextarea mt={5} readOnly defaultValue={data.description} />
+            <Divider my={5} borderColor={COLORS.admin.black} />
         </GenericDetail>
     );
 }

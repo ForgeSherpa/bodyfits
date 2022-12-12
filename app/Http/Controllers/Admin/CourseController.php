@@ -26,15 +26,15 @@ class CourseController extends Controller
 
         $courses = $model->paginate($request->per_page ?? 5);
 
-        if ($request->wantsJson()) {
-            return $courses;
-        }
-
         if ($request->search) {
             $courses = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
                 ->addSearch('description', $request->search)
-                ->search();
+                ->search("admin.courses.index");
+        }
+
+        if ($request->wantsJson()) {
+            return $courses;
         }
 
         return Inertia::render('Authed/Admin/Courses/Courses', [
@@ -74,10 +74,20 @@ class CourseController extends Controller
      * @param  \App\Models\Courses  $courses
      * @return \Illuminate\Http\Response
      */
-    public function show(Courses $courses)
+    public function show(Courses $courses, Request $request)
     {
+        $model = $courses->lessons();
+        $lessons = $model->paginate($request->per_page ?? 5);
+
+        if ($request->search) {
+            $lessons = $this->setSearchableModel($model)
+                ->addSearch('title', $request->search)
+                ->search("admin.courses.show");
+        }
+
         return Inertia::render('Authed/Admin/Courses/Detail', [
-            'data' => $courses->load(['lessons', 'trainer', 'categories']),
+            'data' => $courses->load(['trainer', 'categories']),
+            'lessons' => $lessons
         ]);
     }
 

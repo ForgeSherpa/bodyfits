@@ -17,7 +17,7 @@ trait SearchableModel
 
     public function addSearch($field, $keyword)
     {
-        if (! $this->currentModel) {
+        if (!$this->currentModel) {
             $this->currentModel = $this->model->where($field, 'LIKE', "%$keyword%");
 
             return $this;
@@ -28,8 +28,8 @@ trait SearchableModel
         return $this;
     }
 
-    public function search()
+    public function search($path)
     {
-        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route('admin.feedback.index', ['search' => request()->search]));
+        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route($path, ['search' => request()->search]));
     }
 }

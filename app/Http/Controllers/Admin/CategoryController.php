@@ -23,17 +23,17 @@ class CategoryController extends Controller
 
         $categories = $model->paginate($request->per_page ?? 5);
 
-        if ($request->wantsJson()) {
-            return $categories;
-        }
-
         if ($request->search) {
             $categories = $this->setSearchableModel($model)
                 ->addSearch('name', $request->search)
                 ->addSearch('nationality', $request->search)
                 ->addSearch('job', $request->search)
                 ->addSearch('contact', $request->search)
-                ->search();
+                ->search("admin.categories.index");
+        }
+
+        if ($request->wantsJson()) {
+            return $categories;
         }
 
         return Inertia::render('Authed/Admin/Categories/Categories', [

@@ -27,15 +27,15 @@ class UserController extends Controller
 
         $users = $model->paginate($request->per_page ?? 5);
 
-        if ($request->wantsJson()) {
-            return $users;
-        }
-
         if ($request->search) {
             $users = $this->setSearchableModel($model)
                 ->addSearch('email', $request->search)
                 ->addSearch('name', $request->search)
-                ->search();
+                ->search("admin.users.index");
+        }
+
+        if ($request->wantsJson()) {
+            return $users;
         }
 
         return Inertia::render('Authed/Admin/Users/Users', [
@@ -63,7 +63,7 @@ class UserController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -114,11 +114,11 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/'.$user->photo);
+                Storage::delete('images/' . $user->photo);
             }
         }
 
