@@ -15,7 +15,7 @@ export default function Categories({ data }) {
 
     const { fn: openDeleteModal, modal } = useDelete(
         "admin.categories.destroy",
-        "User"
+        "Category"
     );
 
     return (

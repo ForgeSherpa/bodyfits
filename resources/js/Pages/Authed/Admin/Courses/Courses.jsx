@@ -16,7 +16,7 @@ export default function Courses({ data }) {
 
     const { fn: openDeleteModal, modal } = useDelete(
         "admin.courses.destroy",
-        "User"
+        "Course (All Lessons Will Be Deleted)"
     );
 
     return (
@@ -44,7 +44,7 @@ export default function Courses({ data }) {
                             <Tr key={item.id}>
                                 <Td textAlign="center">{++count}</Td>
                                 <Td textAlign="center">{item.title}</Td>
-                                <Td textAlign="center">{item.trainers.name}</Td>
+                                <Td textAlign="center">{item.trainer.name}</Td>
                                 <Td textAlign="center">
                                     {item.categories.name}
                                 </Td>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoursesRequest;
 use App\Http\Requests\UpdateCoursesRequest;
+use App\Models\Categories;
 use App\Models\Courses;
+use App\Models\Trainers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -47,7 +49,10 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Authed/Admin/Courses/Form');
+        return Inertia::render('Authed/Admin/Courses/Form', [
+            'trainers' => Trainers::all(),
+            'categories' => Categories::all()
+        ]);
     }
 
     /**
@@ -85,7 +90,9 @@ class CourseController extends Controller
     public function edit(Courses $courses)
     {
         return Inertia::render('Authed/Admin/Courses/Form', [
-            'course' => $courses->load(['trainer', 'categories']),
+            'course' => $courses,
+            'trainers' => Trainers::all(),
+            'categories' => Categories::all()
         ]);
     }
 
@@ -111,6 +118,10 @@ class CourseController extends Controller
      */
     public function destroy(Courses $courses)
     {
+        if ($courses->loadCount('lessons')->lessons_count > 0) {
+            $courses->lessons()->delete(); // delete semua course nya dulu
+        }
+
         $courses->delete();
 
         $this->deleted('Course');

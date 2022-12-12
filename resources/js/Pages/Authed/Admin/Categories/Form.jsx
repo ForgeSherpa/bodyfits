@@ -11,8 +11,7 @@ export default function Form({ category }) {
         name: category ? category.name : "",
     };
 
-    const { data, errors, post, put, processing, progress, setData } =
-        useForm(initial);
+    const { data, errors, post, put, processing, setData } = useForm(initial);
 
     const inputChangeHandler = (e) => {
         setData(e.target.name, e.target.value);

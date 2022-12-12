@@ -16,7 +16,7 @@ export default function Trainers({ data }) {
 
     const { fn: openDeleteModal, modal } = useDelete(
         "admin.trainers.destroy",
-        "User"
+        "Trainer"
     );
 
     return (
