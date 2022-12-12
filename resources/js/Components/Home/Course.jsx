@@ -9,7 +9,7 @@ export default function Course({ item }) {
         <Card w={582} h={342}>
             <CardBody py={2} px={1}>
                 <Image
-                    src="courses/example.jpg"
+                    src={item.photo}
                     query="fit=crop-top&crop=577,159&w=577&h=159"
                     rounded={40}
                     borderBottomRadius={0}

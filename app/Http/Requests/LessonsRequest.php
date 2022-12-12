@@ -24,12 +24,14 @@ class LessonsRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->all());
         return [
-            'course_id' => ['required', 'exists:courses'],
+            'course_id' => ['required', 'exists:courses,id'],
             'type' => ['required', Rule::in(['text', 'video'])],
-            'content' => ['required_if:type,text', 'min:10', 'string'],
-            'link' => ['required_if:type,video', 'string', 'url'],
+            'content' => ['required_if:type,text', 'nullable', 'min:10', 'string'],
+            'link' => ['required_if:type,video', 'nullable', 'string', 'url'],
             'length' => ['string', 'required', 'regex:/[0-9]/'],
+            'title' => ['required', 'string']
         ];
     }
 }

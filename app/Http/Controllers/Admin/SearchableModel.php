@@ -28,8 +28,8 @@ trait SearchableModel
         return $this;
     }
 
-    public function search($path)
+    public function search($path, $parameters = [])
     {
-        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route($path, ['search' => request()->search]));
+        return $this->currentModel->paginate(request()->per_page ?? 5)->withPath(route($path, array_merge($parameters, ['search' => request()->search])));
     }
 }

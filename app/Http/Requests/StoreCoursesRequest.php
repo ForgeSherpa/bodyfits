@@ -28,6 +28,7 @@ class StoreCoursesRequest extends FormRequest
             'description' => ['required', 'string'],
             'trainer_id' => ['required', 'exists:trainers,id'],
             'category_id' => ['required', 'exists:categories,id'],
+            'photo' => ['nullable', 'mimes:jpg,png,webp', 'max:4096']
         ];
     }
 }

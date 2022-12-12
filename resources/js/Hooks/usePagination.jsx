@@ -93,18 +93,24 @@ export default function usePagination(
 
     useEffect(() => {
         const refetch = async () => {
-            const res = await fetch(
-                `${link}page=${current}&per_page=${config.perPage}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
-            const json = await res.json();
-            dispatchLists({ type: "setData", payload: json.data });
-            setLimit(json.last_page);
-            setLoading(false);
+            try {
+                const res = await fetch(
+                    `${link}page=${current}&per_page=${config.perPage}`,
+                    {
+                        headers: {
+                            Accept: "application/json",
+                        },
+                    }
+                );
+                const json = await res.json();
+                dispatchLists({ type: "setData", payload: json.data });
+                setLimit(json.last_page);
+            } catch (err) {
+                console.error("Something went wrong: ", err);
+                setLimit(config.startPage);
+            } finally {
+                setLoading(false);
+            }
         };
 
         if (item && link) {
@@ -113,13 +119,12 @@ export default function usePagination(
     }, [item, config.perPage, link]);
 
     useEffect(() => {
-        console.log(current, limit);
         if (limit !== false && current === limit) {
             setHasNext(false);
         } else {
             setHasNext(true);
         }
-    }, [item, lists]);
+    }, [item, lists, limit]);
 
     const element = hasNext && (
         <Flex

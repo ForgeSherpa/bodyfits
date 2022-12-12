@@ -9,6 +9,7 @@ use App\Models\Categories;
 use App\Models\Courses;
 use App\Models\Trainers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class CourseController extends Controller
@@ -63,7 +64,16 @@ class CourseController extends Controller
      */
     public function store(StoreCoursesRequest $request)
     {
-        Courses::create($request->validated());
+        $photo = $request->photo;
+        $data = $request->except('photo');
+
+        if ($photo && trim($photo) !== '') {
+            $name = time() . $photo->getClientOriginalName();
+            Storage::putFileAs('images/courses', $photo, $name);
+            $data['photo'] = $name;
+        }
+
+        Courses::create($data);
 
         return $this->created('admin.courses.index', 'Course');
     }
@@ -82,7 +92,15 @@ class CourseController extends Controller
         if ($request->search) {
             $lessons = $this->setSearchableModel($model)
                 ->addSearch('title', $request->search)
+<<<<<<< HEAD
                 ->search('admin.courses.show');
+=======
+                ->search("admin.courses.show", ['courses' => $courses->id]);
+        }
+
+        if ($request->wantsJson()) {
+            return $lessons;
+>>>>>>> b6aed13 (lupa anying kalau course make foto)
         }
 
         return Inertia::render('Authed/Admin/Courses/Detail', [
@@ -115,7 +133,21 @@ class CourseController extends Controller
      */
     public function update(UpdateCoursesRequest $request, Courses $courses)
     {
-        $courses->update($request->validated());
+        $data = $request->except('photo');
+
+        $photo = $request->photo;
+
+        // handle kalau ada foto.
+        if ($photo && trim($photo) !== '') {
+            $name = time() . $photo->getClientOriginalName();
+            Storage::putFileAs('images/profiles', $photo, $name);
+            $data['photo'] = $name;
+            if ($courses->photo && trim($courses->photo) !== '') {
+                Storage::delete('images/courses/' . $courses->photo);
+            }
+        }
+
+        $courses->update($data);
 
         return $this->edited('admin.courses.index', 'Course');
     }

@@ -61,6 +61,7 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         $photo = $request->photo;
+        $data = $request->except(['password_confirmation', 'photo']);
 
         if ($photo && trim($photo) !== '') {
             $name = time().$photo->getClientOriginalName();
@@ -68,7 +69,7 @@ class UserController extends Controller
             $data['photo'] = $name;
         }
 
-        User::create($request->except('password_confirmation'));
+        User::create($data);
 
         return $this->created('admin.users.index', 'User');
     }

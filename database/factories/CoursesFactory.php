@@ -23,6 +23,7 @@ class CoursesFactory extends Factory
             'trainer_id' => Trainers::factory()->create(),
             'category_id' => Categories::factory()->create(),
             'description' => fake()->paragraph(2),
+            'photo' => null
         ];
     }
 }

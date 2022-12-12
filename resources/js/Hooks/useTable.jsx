@@ -11,7 +11,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
 import useNextLeftPagination from "./useNextLeftPagination";
 
-export default function useTable(data, url) {
+export default function useTable(data, url, parameters = {}) {
     const [perPage, setPerpage] = useState(5);
     const { element, lists, startCount } = useNextLeftPagination(data, perPage);
     let count = startCount;
@@ -27,6 +27,7 @@ export default function useTable(data, url) {
 
         return Inertia.get(
             route(url, {
+                ...parameters,
                 search: e.target.value,
             })
         );
@@ -37,7 +38,11 @@ export default function useTable(data, url) {
 
     const topTable = (
         <Grid templateColumns={{ base: "70px 1fr", lg: "120px 1fr" }}>
-            <OutlineSelect onChange={onPerPageChange} value={perPage}>
+            <OutlineSelect
+                borderRight="none"
+                onChange={onPerPageChange}
+                value={perPage}
+            >
                 <option>5</option>
                 <option>10</option>
                 <option>15</option>

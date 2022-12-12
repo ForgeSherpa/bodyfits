@@ -18,7 +18,6 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import HTMLReactParser from "html-react-parser";
-import { useRef } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
 export default function Detail({
@@ -31,7 +30,7 @@ export default function Detail({
     totalDuration,
 }) {
     useCustomBg();
-    
+
     return (
         <>
             <Flex gap={10} p={5} alignItems="center">

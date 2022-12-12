@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonsRequest;
+use App\Models\Courses;
 use App\Models\Lessons;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -40,12 +42,6 @@ class LessonController extends Controller
      */
     public function store(LessonsRequest $request)
     {
-        if (Lessons::where('id', $request->id)->count() > 15) {
-            $this->cast('Lesson Limit: <= 15', 'error');
-
-            return back();
-        }
-
         Lessons::create($request->validated());
 
         $this->cast('Lesson Created!', 'success');
@@ -106,5 +102,20 @@ class LessonController extends Controller
         $lessons->delete();
 
         $this->deleted('Lesson');
+    }
+
+    public function check(Request $request)
+    {
+        if (!$request->from) {
+            return response()->json(['check' => false], 400);
+        }
+
+        $find = Courses::where('id', $request->from)->first();
+
+        if (!$find) {
+            return response()->json(['check' => false], 404);
+        }
+
+        return response()->json(['check' => true]);
     }
 }

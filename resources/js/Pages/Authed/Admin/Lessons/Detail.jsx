@@ -1,13 +1,10 @@
 import ButtonLink from "@/Components/Admin/ButtonLink";
 import GenericDetail from "@/Components/Admin/GenericDetail";
 import OutlineTextarea from "@/Components/Admin/OutlineTextarea";
-import Image from "@/Components/Image";
 import useTable from "@/Hooks/useTable";
 import { COLORS } from "@/Utils/colors";
 import {
-    Box,
     Divider,
-    Flex,
     ListItem,
     Td,
     Text,
@@ -25,30 +22,11 @@ export default function Detail({ data, lessons }) {
 
     return (
         <GenericDetail mainUrl="admin.courses.index" name="Course">
-            <Flex
-                justifyContent={{ base: "initial", lg: "space-around" }}
-                alignItems={{ base: "initial", lg: "center" }}
-                flexDirection={{ base: "column", lg: "row" }}
-            >
-                <Box>
-                    <Text ml={{ base: 0, lg: 3 }} mb={{ base: 0, lg: 5 }}>
-                        Photo:
-                    </Text>
-                    <Image
-                        mb={3}
-                        src={data.photo}
-                        rounded={{ base: 20, lg: "xl" }}
-                        maxW={{ base: "full", lg: 200 }}
-                    />
-                </Box>
-                <UnorderedList mt={3}>
-                    <ListItem>Title: {data.title}</ListItem>
-                    <ListItem>Trained By: {data.trainer.name}</ListItem>
-                    <ListItem>
-                        Categorized under: {data.categories.name}
-                    </ListItem>
-                </UnorderedList>
-            </Flex>
+            <UnorderedList mt={3}>
+                <ListItem>Title: {data.title}</ListItem>
+                <ListItem>Trained By: {data.trainer.name}</ListItem>
+                <ListItem>Categorized under: {data.categories.name}</ListItem>
+            </UnorderedList>
             <OutlineTextarea mt={5} readOnly defaultValue={data.description} />
             <Divider my={5} borderColor={COLORS.admin.black} />
             <ButtonLink

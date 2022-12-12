@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description');
             $table->foreignId('trainer_id')->constrained('trainers');
             $table->foreignId('category_id')->constrained('categories');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
