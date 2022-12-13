@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
-require __DIR__.'/courses.php';
+require __DIR__ . '/courses.php';
 
 Route::get('/faq', fn () => Inertia::render('FAQ'))->name('faq');
 
@@ -31,13 +31,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/feedback', [FeedbackController::class, 'sendFeedback'])->middleware('throttle:3,1');
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'));
 
-    Route::prefix('/profile')->controller(UserController::class)->group(function () {
-        Route::get('/', 'index')->name('profile');
-        Route::put('/', 'updateProfile');
-        Route::put('/changePassword', 'changePassword')->name('profile.changePassword');
-        Route::delete('/delete', 'deleteAccount')->name('profile.deleteAccount');
-    });
+    Route::prefix('/profile')->controller(UserController::class)->as('profile.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/changePhoto', 'changePhoto')->name('changePhoto');
+        Route::put('/changeName', 'changeName')->name('changeName');
+        Route::put('/changeEmail', 'changeEmail')->name('changeEmail');
+        Route::put('/changePassword', 'changePassword')->name('changePassword');
+        Route::delete('/delete', 'deleteAccount')->name('deleteAccount');
+    })->middleware('throttle:3,1');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

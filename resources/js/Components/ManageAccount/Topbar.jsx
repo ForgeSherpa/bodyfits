@@ -1,11 +1,10 @@
 import { COLORS } from "@/Utils/colors";
 import { Flex } from "@chakra-ui/react";
 import Logo from "../Logo";
-import Profile from "../Profile";
 import WhiteDivider from "../WhiteDivider";
-import WhiteLink from "./WhiteLink";
+import WhiteLink from "../Topbar/WhiteLink";
 
-export default function TopBar({ auth }) {
+export default function TopBar() {
     return (
         <Flex px={65} py={25} flexDirection="row" alignItems="center" gap={10}>
             <Logo />
@@ -24,6 +23,12 @@ export default function TopBar({ auth }) {
                         px={5}
                         rounded={36}
                         to="home"
+                        className="transition-all delay-100"
+                        _hover={{
+                            bg: COLORS.putih,
+                            color: "black",
+                            textDecoration: "none",
+                        }}
                     >
                         Back
                     </WhiteLink>

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -16,34 +16,55 @@ class UserController extends Controller
         return Inertia::render('Authed/Profiles');
     }
 
-    public function updateProfileOnly($updateProfileRequest)
+    public function changeName(Request $request)
     {
-        $data = $updateProfileRequest->all();
+        $data = $request->validate([
+            'name' => ['required', 'string']
+        ]);
 
-        $photo = $updateProfileRequest->photo;
+        User::find(auth()->user()->id)->update($data);
 
-        $user = User::find(auth()->user()->id);
+        return to_route('profile.index')->with([
+            'message' => 'Profile Name changed!',
+            'status' => 'success'
+        ]);
+    }
 
-        // handle kalau ada foto.
-        if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
-            Storage::putFileAs('images/profiles', $photo, $name);
-            $data['photo'] = $name;
-            if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/'.$user->photo);
-            }
+    public function changeEmail(Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email', 'unique:users,id'],
+        ]);
+
+        User::find(auth()->user()->id)->update($data);
+
+        return to_route('profile.index')->with([
+            'message' => 'Profile Email changed!',
+            'status' => 'success'
+        ]);
+    }
+
+    public function changePhoto(Request $request)
+    {
+        $data = $request->validate([
+            'photo' => ['required', 'image', 'mimes:png,jpg,webp', 'max:4096']
+        ]);
+
+        $name = time() . $request->photo->getClientOriginalName();
+        Storage::putFileAs('images/profiles', $request->photo, $name);
+        $data['photo'] = $name;
+
+        $user = auth()->user();
+
+        if ($user->photo && trim($user->photo) !== '') {
+            Storage::delete('images/' . $user->photo);
         }
 
         User::find(auth()->user()->id)->update($data);
-    }
 
-    public function updateProfile(UpdateProfileRequest $updateProfileRequest)
-    {
-        $this->updateProfileOnly($updateProfileRequest);
-
-        return to_route('profile')->with([
-            'message' => 'Profile Updated Successfully',
-            'status' => 'success',
+        return to_route('profile.index')->with([
+            'message' => 'Profile Picture changed!',
+            'status' => 'success'
         ]);
     }
 

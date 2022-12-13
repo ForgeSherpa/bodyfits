@@ -9,6 +9,9 @@ export const COLORS = {
     ijoLebihSoft: "rgba(58, 92, 98, 0.17)",
     putihTransparan: "rgba(255, 255, 255, 0.21)",
     putihSgtTransparan: "rgba(217, 217, 217, 0.1)",
+    ijoBuatModal: "rgba(20, 62, 68, 0.95)",
+    transparentInput: "rgba(255, 255, 255, 0.37)",
+    buttonChange: "rgba(19, 61, 91, 0.75)",
     admin: {
         background: "#FBF7F4",
         selected: "#EEE6E2",
