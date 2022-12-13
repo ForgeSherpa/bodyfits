@@ -81,7 +81,7 @@ export default function Profile({ auth }) {
                         _active={{
                             opacity: 0.5,
                         }}
-                        to="home"
+                        to="profile"
                         py={2}
                         px={3}
                         rounded={10}
