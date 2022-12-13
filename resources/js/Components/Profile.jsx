@@ -9,12 +9,12 @@ import {
     MenuList,
 } from "@chakra-ui/react";
 import { Link as InertiaLink } from "@inertiajs/inertia-react";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import Image from "./Image";
 import Link from "./Link";
 import WhiteText from "./WhiteText";
 
-export default function Profile({ auth }) {
+export default function Profile({ auth, isMobile = false }) {
     return (
         <Menu>
             <Box as={MenuButton}>
@@ -23,7 +23,11 @@ export default function Profile({ auth }) {
                         src={auth.user.photo}
                         className="w-14 rounded-full"
                     />
-                    <FiChevronDown color={COLORS.putih} />
+                    {isMobile ? (
+                        <FiChevronUp color={COLORS.putih} />
+                    ) : (
+                        <FiChevronDown color={COLORS.putih} />
+                    )}
                 </Flex>
             </Box>
             <MenuList bg={COLORS.itemTerang}>

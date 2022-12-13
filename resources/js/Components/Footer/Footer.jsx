@@ -9,14 +9,14 @@ export default function Footer() {
     return (
         <Flex
             backgroundColor={COLORS.ijoGelapKali}
-            h={270}
+            h={{ base: "fit-content", lg: 270 }}
             minW="full"
-            flexDirection="row"
-            px={59}
-            py={51}
-            gap={113}
-            justifyContent="space-between"
-            alignItems="center"
+            flexDirection={{ base: "column", lg: "row" }}
+            px={{ base: 3, lg: 59 }}
+            py={{ base: 3, lg: 51 }}
+            gap={{ base: 0, lg: 113 }}
+            justifyContent={{ base: "normal", lg: "space-between" }}
+            alignItems={{ base: "normal", lg: "center" }}
         >
             <Box>
                 <Logo />
@@ -29,7 +29,11 @@ export default function Footer() {
                     Your best workout assistant
                 </WhiteText>
             </Box>
-            <Box borderLeft="1px solid white" px={41}>
+            <Box
+                mt={{ base: 10, lg: 0 }}
+                borderLeft="1px solid white"
+                px={{ base: 10, lg: 41 }}
+            >
                 <WhiteText letterSpacing={5} fontSize={36} textAlign="center">
                     Menu
                 </WhiteText>
@@ -48,7 +52,11 @@ export default function Footer() {
                     </List>
                 </UnorderedList>
             </Box>
-            <Box borderLeft="1px solid white" px={41}>
+            <Box
+                mt={{ base: 10, lg: 0 }}
+                borderLeft="1px solid white"
+                px={{ base: 10, lg: 41 }}
+            >
                 <Flex flexDirection="row" gap={3} alignItems="center">
                     <FiInstagram color={COLORS.putih} fontSize={30} />
                     <WhiteText>@bodyfits.id</WhiteText>

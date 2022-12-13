@@ -57,7 +57,7 @@ export default function Feedback({ auth }) {
         <>
             <Head title="Feedback" />
             <TopBar auth={auth} />
-            <Box mt={14} px={130}>
+            <Box mt={14} px={{ base: 0, lg: 130 }}>
                 <Box
                     mb={10}
                     maxW={1144}

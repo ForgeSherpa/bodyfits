@@ -39,8 +39,9 @@ export default function Home({ auth, trainers, courses }) {
                     mt={70}
                     mb={66}
                     borderLeftRadius={0}
+                    borderRightRadius={{ base: 0, lg: 40 }}
                 >
-                    <WhiteText fontSize={60} fontWeight={700}>
+                    <WhiteText fontSize={{ base: 40, lg: 60 }} fontWeight={700}>
                         YOUR BEST IDEAL BODY TRAINER
                     </WhiteText>
                     <WhiteText
@@ -101,24 +102,24 @@ export default function Home({ auth, trainers, courses }) {
                     ))}
                 </Swiper>
             </Box>
-            <Box pr={39}>
+            <Box pr={{ base: 0, lg: 39 }}>
                 <WhiteText
-                    fontSize={60}
+                    fontSize={{ base: 40, lg: 60 }}
                     fontWeight={700}
                     mb={15}
                     lineHeight={1}
-                    ml={63}
+                    ml={{ base: 26, lg: 63 }}
                 >
                     YOUR <br /> PROGRESS
                 </WhiteText>
                 <Box
-                    ml={15}
+                    ml={{ base: 0, lg: 15 }}
                     rounded={40}
                     mb={10}
                     backgroundColor={COLORS.itemSoft}
                     overflow="hidden"
                 >
-                    <Flex>
+                    <Flex flexDir={{ base: "column", lg: "row" }}>
                         <Box p={25}>
                             <WhiteText fontWeight={600} fontSize={30}>
                                 Activity Tracking
@@ -136,7 +137,7 @@ export default function Home({ auth, trainers, courses }) {
                         <Box
                             backgroundColor={COLORS.ijoSoft}
                             h="full"
-                            w="40%"
+                            w={{ base: "full", lg: "40%" }}
                             p={35}
                         >
                             <Box
@@ -173,11 +174,11 @@ export default function Home({ auth, trainers, courses }) {
                 </Box>
             </Box>
             <Box mt={136} px={30} mb={10}>
-                <WhiteText fontWeight="bold" fontSize={60}>
+                <WhiteText fontWeight="bold" fontSize={{ base: 40, lg: 60 }}>
                     OUR TRAINERS
                 </WhiteText>
                 <ChakraGrid
-                    templateColumns="repeat(3, 1fr)"
+                    templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
                     gap={10}
                     justifyContent="center"
                     justifyItems="center"

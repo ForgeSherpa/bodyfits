@@ -41,7 +41,7 @@ export default function FAQ({ auth }) {
             <TopBar auth={auth} />
             <WhiteText
                 textDecoration="underline"
-                fontSize={64}
+                fontSize={{ base: 40, lg: 64 }}
                 fontWeight={700}
                 textAlign="center"
             >
@@ -69,8 +69,8 @@ export default function FAQ({ auth }) {
                 mt={83}
             >
                 <Grid
-                    gridTemplateColumns="repeat(3, 1fr)"
-                    gridTemplateRows="repeat(2, 1fr)"
+                    gridTemplateColumns={{ base: "none", lg: "repeat(3, 1fr)" }}
+                    gridTemplateRows={{ base: "none", lg: "repeat(2, 1fr)" }}
                     gap={6}
                     p={55}
                 >

@@ -33,7 +33,78 @@ export default function Detail({
 
     return (
         <>
-            <Flex gap={10} p={5} alignItems="center">
+            <Flex flexDir="column" display={{ base: "flex", lg: "none" }}>
+                <Flex
+                    gap={3}
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Logo />
+                    <Profile auth={auth} />
+                </Flex>
+                <Flex gap={3} my={3}>
+                    <Menu>
+                        <Flex gap={3} alignItems="center">
+                            <MenuButton
+                                fontSize={25}
+                                fontWeight={700}
+                                color={COLORS.putih}
+                            >
+                                Browse
+                            </MenuButton>
+                            <FiChevronDown fontSize={20} color={COLORS.putih} />
+                        </Flex>
+                        <MenuList bg={COLORS.itemTerang} px={1}>
+                            {randomCourses.map((item) => (
+                                <MenuItem
+                                    bg={COLORS.itemTerang}
+                                    _hover={{ bg: COLORS.itemSoft }}
+                                    className="transition-all delay-100"
+                                    my={1}
+                                    rounded="xl"
+                                    key={item.id}
+                                >
+                                    <WhiteLink
+                                        to="courses.detail"
+                                        params={{
+                                            courses: item.id,
+                                            lessons: item.lessons[0].id,
+                                        }}
+                                    >
+                                        {item.title}
+                                    </WhiteLink>
+                                </MenuItem>
+                            ))}
+                            <MenuItem
+                                bg={COLORS.itemTerang}
+                                _hover={{ bg: COLORS.itemSoft }}
+                                className="transition-all delay-100"
+                                my={1}
+                                rounded="xl"
+                            >
+                                <WhiteLink to="courses.index">
+                                    Show More
+                                </WhiteLink>
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                    <SearchBar
+                        placeholder="Search Lessons"
+                        path="courses.search"
+                        q={{ type: "lesson", course_id: course.id }}
+                        customParam={(item) => ({
+                            courses: course.id,
+                            lessons: item.id,
+                        })}
+                    />
+                </Flex>
+            </Flex>
+            <Flex
+                gap={10}
+                p={5}
+                display={{ base: "none", lg: "flex" }}
+                alignItems="center"
+            >
                 <Logo />
                 <Menu>
                     <Flex gap={3} alignItems="center">
@@ -105,7 +176,7 @@ export default function Detail({
                 </Flex>
                 <Grid
                     h="70vh"
-                    gridTemplateColumns="75% 1fr"
+                    gridTemplateColumns={{ base: "1fr", lg: "75% 1fr" }}
                     alignItems="center"
                     gap={10}
                 >

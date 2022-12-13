@@ -24,8 +24,8 @@ export default function Trainer({ data }) {
         <Card
             position="relative"
             bg={COLORS.itemSoft}
-            w={431}
-            h={520}
+            w={{ base: "fit-content", lg: 431 }}
+            h={{ base: "fit-content", lg: 520 }}
             overflow="hidden"
         >
             <CardBody>
@@ -60,7 +60,12 @@ export default function Trainer({ data }) {
                 <ModalContent bg={COLORS.ijoGelapKali} color={COLORS.putih}>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Flex maxW="full" gap={20} alignItems="center">
+                        <Flex
+                            flexDir={{ base: "column", lg: "row" }}
+                            maxW="full"
+                            gap={20}
+                            alignItems="center"
+                        >
                             <Image
                                 src={data.photo}
                                 query="w=200&h=300"

@@ -6,7 +6,7 @@ import WhiteText from "../WhiteText";
 
 export default function Course({ item }) {
     return (
-        <Card w={582} h={342}>
+        <Card w={{ base: "fit-content", lg: 582 }} h={342}>
             <CardBody py={2} px={1}>
                 <Image
                     src={item.photo}
