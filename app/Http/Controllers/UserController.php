@@ -19,14 +19,14 @@ class UserController extends Controller
     public function changeName(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string']
+            'name' => ['required', 'string'],
         ]);
 
         User::find(auth()->user()->id)->update($data);
 
         return to_route('profile.index')->with([
             'message' => 'Profile Name changed!',
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 
@@ -40,31 +40,31 @@ class UserController extends Controller
 
         return to_route('profile.index')->with([
             'message' => 'Profile Email changed!',
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 
     public function changePhoto(Request $request)
     {
         $data = $request->validate([
-            'photo' => ['required', 'image', 'mimes:png,jpg,webp', 'max:4096']
+            'photo' => ['required', 'image', 'mimes:png,jpg,webp', 'max:4096'],
         ]);
 
-        $name = time() . $request->photo->getClientOriginalName();
+        $name = time().$request->photo->getClientOriginalName();
         Storage::putFileAs('images/profiles', $request->photo, $name);
         $data['photo'] = $name;
 
         $user = auth()->user();
 
         if ($user->photo && trim($user->photo) !== '') {
-            Storage::delete('images/' . $user->photo);
+            Storage::delete('images/'.$user->photo);
         }
 
         User::find(auth()->user()->id)->update($data);
 
         return to_route('profile.index')->with([
             'message' => 'Profile Picture changed!',
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 

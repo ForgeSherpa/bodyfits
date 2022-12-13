@@ -41,7 +41,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (!$internal) {
+        if (! $internal) {
             $this->cast('Marked as read!', 'success');
         }
     }

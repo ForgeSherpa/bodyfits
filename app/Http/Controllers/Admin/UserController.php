@@ -66,7 +66,7 @@ class UserController extends Controller
         $data = $request->except(['password_confirmation', 'photo']);
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -117,11 +117,11 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/' . $user->photo);
+                Storage::delete('images/'.$user->photo);
             }
         }
 
@@ -144,7 +144,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return $this->deleted("User");
+        return $this->deleted('User');
     }
 
     public function restoreUser(RestoreUserRequest $restoreUserRequest)
@@ -154,6 +154,6 @@ class UserController extends Controller
             $user->restore();
         }
 
-        $this->cast("User restored!", "success");
+        $this->cast('User restored!', 'success');
     }
 }
