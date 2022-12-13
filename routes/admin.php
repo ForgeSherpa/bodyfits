@@ -20,7 +20,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'isAdmin'])->group(fun
         Route::delete('/{feedback}', 'delete')->name('delete');
     });
 
-    Route::resource('users', UserController::class)->names('users');
+    Route::put('restore/user', [UserController::class, 'restoreUser'])->name('users.restore');
+    Route::resource('users', UserController::class)->names('users')->withTrashed();
     Route::resource('trainers', TrainerController::class)->names('trainers')
         ->parameter('trainers', 'trainers');
     Route::resource('categories', CategoryController::class)->names('categories')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\RestoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class UserController extends Controller
     {
         $model = User::orderBy('role')
             ->orderByDesc('id')
-            ->groupBy('role', 'id');
+            ->groupBy('role', 'id')
+            ->withTrashed();
 
         $users = $model->paginate($request->per_page ?? 5);
 
@@ -64,7 +66,7 @@ class UserController extends Controller
         $data = $request->except(['password_confirmation', 'photo']);
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -115,11 +117,11 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
             if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/'.$user->photo);
+                Storage::delete('images/' . $user->photo);
             }
         }
 
@@ -141,6 +143,17 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        $this->deleted('User');
+
+        return $this->deleted("User");
+    }
+
+    public function restoreUser(RestoreUserRequest $restoreUserRequest)
+    {
+        $user = User::withTrashed()->find($restoreUserRequest->validated()['user_id']);
+        if ($user->trashed()) {
+            $user->restore();
+        }
+
+        $this->cast("User restored!", "success");
     }
 }

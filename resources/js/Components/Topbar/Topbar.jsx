@@ -36,7 +36,7 @@ export default function TopBar({ auth }) {
                         <Profile auth={auth} />
                     ) : (
                         <>
-                            <WhiteLink to="home">Sign Up</WhiteLink>
+                            <WhiteLink to="register">Sign Up</WhiteLink>
                             <WhiteLink
                                 border="1px solid white"
                                 py={2}

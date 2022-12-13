@@ -20,7 +20,12 @@ import usePagination from "@/Hooks/usePagination";
 import useToast from "@/Hooks/useToast";
 
 export default function Home({ auth, trainers, courses }) {
-    const { lists: trainersList, element } = usePagination(trainers);
+    const { lists: trainersList, element } = usePagination(trainers, {
+        perPage: 15,
+        startPage: 1,
+        initialNotSame: true,
+        preserveState: false,
+    });
 
     useCustomBg();
     useToast();

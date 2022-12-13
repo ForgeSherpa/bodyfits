@@ -41,14 +41,14 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (! $internal) {
+        if (!$internal) {
             $this->cast('Marked as read!', 'success');
         }
     }
 
     public function detail(Feedback $feedback)
     {
-        $data = clone $feedback->load('user');
+        $data = clone $feedback->load(['user' => fn ($q) => $q->withTrashed()]);
 
         $this->markAsRead($feedback, true);
 

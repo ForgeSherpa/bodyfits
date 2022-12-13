@@ -9,6 +9,8 @@ export default function useNextLeftPagination(data, perPage = 5) {
             perPage,
             startPage: 1,
             replace: true,
+            initialNotSame: true,
+            preserveState: true,
         });
 
     return {

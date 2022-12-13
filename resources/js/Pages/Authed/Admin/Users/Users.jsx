@@ -6,7 +6,8 @@ import useOpenDetail from "@/Hooks/Admin/useOpenDetail";
 import useTable from "@/Hooks/useTable";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Badge, Td, Text, Th, Tr } from "@chakra-ui/react";
-import { FiEdit, FiEye, FiPlus, FiTrash2 } from "react-icons/fi";
+import { Inertia } from "@inertiajs/inertia";
+import { FiEdit, FiEye, FiPlus, FiRefreshCcw, FiTrash2 } from "react-icons/fi";
 
 export default function Users({ data }) {
     const { Table, getCount, lists } = useTable(data, "admin.users.index");
@@ -18,6 +19,10 @@ export default function Users({ data }) {
         "admin.users.destroy",
         "User"
     );
+
+    const handleRestore = (id) => {
+        Inertia.put(route("admin.users.restore"), { user_id: id });
+    };
 
     return (
         <AdminLayout>
@@ -46,15 +51,19 @@ export default function Users({ data }) {
                                 <Td textAlign="center">{item.name}</Td>
                                 <Td textAlign="center">{item.email}</Td>
                                 <Td textAlign="center">
-                                    <Badge
-                                        colorScheme={
-                                            item.role === "admin"
-                                                ? "blue"
-                                                : "gray"
-                                        }
-                                    >
-                                        {item.role}
-                                    </Badge>
+                                    {item.deleted_at ? (
+                                        <Badge colorScheme="red">Deleted</Badge>
+                                    ) : (
+                                        <Badge
+                                            colorScheme={
+                                                item.role === "admin"
+                                                    ? "blue"
+                                                    : "gray"
+                                            }
+                                        >
+                                            {item.role}
+                                        </Badge>
+                                    )}
                                 </Td>
                                 <Td
                                     display="flex"
@@ -73,12 +82,25 @@ export default function Users({ data }) {
                                     >
                                         <FiEdit />
                                     </Button>
-                                    <Button
-                                        shadow="none"
-                                        onClick={() => openDeleteModal(item.id)}
-                                    >
-                                        <FiTrash2 />
-                                    </Button>
+                                    {!item.deleted_at ? (
+                                        <Button
+                                            shadow="none"
+                                            onClick={() =>
+                                                openDeleteModal(item.id)
+                                            }
+                                        >
+                                            <FiTrash2 />
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            shadow="none"
+                                            onClick={() =>
+                                                handleRestore(item.id)
+                                            }
+                                        >
+                                            <FiRefreshCcw />
+                                        </Button>
+                                    )}
                                 </Td>
                             </Tr>
                         );

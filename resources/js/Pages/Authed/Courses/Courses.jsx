@@ -7,7 +7,12 @@ import MainLayout from "@/Layouts/MainLayout";
 import { Box } from "@chakra-ui/react";
 
 export default function Courses({ auth, courses }) {
-    const { element, lists } = usePagination(courses);
+    const { element, lists } = usePagination(courses, {
+        perPage: 15,
+        startPage: 1,
+        initialNotSame: true,
+        preserveState: false,
+    });
 
     return (
         <MainLayout auth={auth}>

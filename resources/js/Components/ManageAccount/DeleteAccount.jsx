@@ -10,9 +10,16 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import WhiteText from "@/Components/WhiteText";
 import { COLORS } from "@/Utils/colors";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function DeleteAccount() {
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const deleteAccountHandler = () => {
+        Inertia.delete(route("profile.deleteAccount"));
+        onClose();
+    };
+
     return (
         <>
             <Button display="block" mt={3} colorScheme="red" onClick={onOpen}>
@@ -40,13 +47,13 @@ export default function DeleteAccount() {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Grid Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                        <Grid templateColumns="repeat(2, 1fr)" gap={2}>
                             <Button
                                 w="100%"
                                 colorScheme="red"
                                 alignItems="center"
                                 mr={150}
-                                onClick={onClose}
+                                onClick={deleteAccountHandler}
                             >
                                 Yes
                             </Button>

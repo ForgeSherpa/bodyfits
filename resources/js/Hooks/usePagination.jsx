@@ -33,7 +33,13 @@ const listsReducer = (state, action) => {
 
 export default function usePagination(
     item,
-    config = { initialNotSame: true, replace: false, perPage: 15, startPage: 0 }
+    config = {
+        initialNotSame: true,
+        replace: false,
+        perPage: 15,
+        startPage: 0,
+        preserveState: true,
+    }
 ) {
     const [hasNext, setHasNext] = useState(true);
     const [lists, dispatchLists] = useReducer(listsReducer, {
@@ -54,7 +60,7 @@ export default function usePagination(
                 setLink(item.path + "?");
             }
         }
-    }, []);
+    }, [item.path]);
 
     const next = async () => {
         setLoading(true);
@@ -91,32 +97,32 @@ export default function usePagination(
         dispatchLists({ type: "setData", payload: json.data });
     };
 
-    useEffect(() => {
-        const refetch = async () => {
-            try {
-                const res = await fetch(
-                    `${link}page=${current}&per_page=${config.perPage}`,
-                    {
-                        headers: {
-                            Accept: "application/json",
-                        },
-                    }
-                );
-                const json = await res.json();
-                dispatchLists({ type: "setData", payload: json.data });
-                setLimit(json.last_page);
-            } catch (err) {
-                console.error("Something went wrong: ", err);
-                setLimit(config.startPage);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const refetch = async () => {
+        try {
+            const res = await fetch(
+                `${link}page=${current}&per_page=${config.perPage}`,
+                {
+                    headers: {
+                        Accept: "application/json",
+                    },
+                }
+            );
+            const json = await res.json();
+            dispatchLists({ type: "setData", payload: json.data });
+            setLimit(json.last_page);
+        } catch (err) {
+            console.error("Something went wrong: ", err);
+            setLimit(config.startPage);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        if (item && link) {
+    useEffect(() => {
+        if (item && link && config.preserveState) {
             refetch();
         }
-    }, [item, config.perPage, link]);
+    }, [item, config.perPage, link, config.preserveState]);
 
     useEffect(() => {
         if (limit !== false && current === limit) {
