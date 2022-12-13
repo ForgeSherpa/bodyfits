@@ -6,7 +6,13 @@ import WhiteLink from "../Topbar/WhiteLink";
 
 export default function TopBar() {
     return (
-        <Flex px={65} py={25} flexDirection="row" alignItems="center" gap={10}>
+        <Flex
+            px={{ base: 3, lg: 65 }}
+            py={{ base: 3, lg: 25 }}
+            flexDirection="row"
+            alignItems="center"
+            gap={10}
+        >
             <Logo />
 
             <WhiteDivider borderBottomWidth={3} width="full" />

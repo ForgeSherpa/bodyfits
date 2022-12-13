@@ -33,7 +33,7 @@ class UserController extends Controller
     public function changeEmail(Request $request)
     {
         $data = $request->validate([
-            'email' => ['required', 'email', 'unique:users,id'],
+            'email' => ['required', 'email', 'unique:users,email'],
         ]);
 
         User::find(auth()->user()->id)->update($data);

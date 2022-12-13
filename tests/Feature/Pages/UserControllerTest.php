@@ -4,6 +4,8 @@ namespace Tests\Feature\Pages;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
@@ -34,33 +36,86 @@ class UserControllerTest extends TestCase
     /**
      * @test
      */
-    public function userCanUpdateProfile()
+    public function userCanChangeName()
     {
-        $response = $this->put('/profile', [
-            'name' => 'delvin',
-            'email' => 'delvinganteng@mail.com',
-        ]);
+        $response = $this->put(route("profile.changeName"), ['name' => 'New Name']);
 
-        $response->assertRedirect('/profile')->assertSessionHas('status', 'success');
+        $response->assertRedirect()->assertSessionHas('status', 'success');
     }
 
     /**
      * @test
      */
-    public function userUpdateProfileErrorValidation()
+    public function userChangeNameError()
     {
-        // buat random user
-        $dummyUser = User::factory()->create();
+        $response = $this->put(route("profile.changeName"));
+
+        $response->assertInvalid();
+    }
+
+    /**
+     * @test
+     */
+    public function userCanChangeEmail()
+    {
+        $response = $this->put(route("profile.changeEmail"), ['email' => 'new@email.com']);
+
+        $response->assertRedirect()->assertSessionHas('status', 'success');
+    }
+    /**
+     * @test
+     */
+    public function userChangeEmailError()
+    {
+        $response = $this->put(route("profile.changeEmail"));
+
+        $response->assertInvalid();
+    }
+
+    /**
+     * @test
+     */
+    public function userChangeEmailUnique()
+    {
         $user = User::factory()->create();
 
-        // make email si random user (duplikat)
-        $response = $this->actingAs($user)->put('/profile', [
-            // 'name' => 'delvin',
-            'email' => $dummyUser->email,
-        ]);
+        $response = $this->put(route("profile.changeEmail"), ['email' => $user->email]);
 
-        // cek ada ga error terkait email.
-        $response->assertSessionHasErrors(['email', 'name']);
+        $response->assertInvalid();
+    }
+
+    /**
+     * @test
+     */
+    public function userCanChangePhoto()
+    {
+        Storage::fake('propic');
+
+        $propic = UploadedFile::fake()->image('propic.jpg');
+
+        $response = $this->put(route("profile.changePhoto"), ['photo' => $propic]);
+
+        $response->assertRedirect()->assertSessionHas('status', 'success');
+    }
+
+    /**
+     * @test
+     */
+    public function userChangePhotoInvalid()
+    {
+        $response = $this->put(route("profile.changePhoto"));
+
+        $response->assertInvalid();
+    }
+
+    /**
+     * @test
+     */
+    public function userCanDeleteAcccount()
+    {
+        $this->delete(route("profile.deleteAccount"));
+
+        $this->assertGuest();
     }
 
     /**

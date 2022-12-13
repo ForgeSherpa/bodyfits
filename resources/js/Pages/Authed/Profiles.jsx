@@ -28,7 +28,11 @@ export default function Profile({ auth }) {
                 flexDir="column"
                 alignItems="center"
             >
-                <WhiteText mt={30} fontSize={50} fontWeight={700}>
+                <WhiteText
+                    mt={30}
+                    fontSize={{ base: 30, lg: 50 }}
+                    fontWeight={700}
+                >
                     YOUR ACCOUNT
                 </WhiteText>
 
