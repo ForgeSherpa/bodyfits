@@ -6,7 +6,7 @@ import GenericPreview from "@/Components/Admin/GenericPreview";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import Image from "@/Components/Image";
 import { Box, Progress, Text } from "@chakra-ui/react";
-import { useForm } from "@inertiajs/inertia-react";
+import { Head, useForm } from "@inertiajs/inertia-react";
 
 export default function Form({ trainer }) {
     const initial = {
@@ -50,6 +50,7 @@ export default function Form({ trainer }) {
 
     return (
         <GenericPreview name={`${trainer ? "Edit" : "Create"} Trainer`}>
+            <Head title={`${trainer ? "Edit" : "Create"} Trainer`} />
             <form id="formtrainer" onSubmit={submitHandler}>
                 <Text>{trainer ? "Current" : "Preview"} Photo</Text>
                 <Image

@@ -5,7 +5,7 @@ import GenericPreview from "@/Components/Admin/GenericPreview";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import query from "@/Utils/query";
 import { Box, Grid, Text } from "@chakra-ui/react";
-import { useForm } from "@inertiajs/inertia-react";
+import { Head, useForm } from "@inertiajs/inertia-react";
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -80,6 +80,7 @@ export default function Form({ lesson }) {
 
     return (
         <GenericPreview name={`${lesson ? "Edit" : "Create"} Lesson`}>
+            <Head title={`${lesson ? "Edit" : "Create"} Feedback`} />
             <form id="formlesson" onSubmit={submitHandler}>
                 <TwoColumn gap={3}>
                     <FormInput

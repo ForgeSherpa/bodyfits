@@ -30,6 +30,8 @@ class User extends Authenticatable
         'password',
         'photo',
         'role',
+        'last_course_visit',
+        'initial_streak',
     ];
 
     /**

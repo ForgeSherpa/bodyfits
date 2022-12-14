@@ -2,10 +2,12 @@ import GenericDetail from "@/Components/Admin/GenericDetail";
 import OutlineTextarea from "@/Components/Admin/OutlineTextarea";
 import Image from "@/Components/Image";
 import { Box, Flex, ListItem, Text, UnorderedList } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 
 export default function Detail({ data }) {
     return (
         <GenericDetail mainUrl="admin.trainers.index" name="Trainer">
+            <Head title="Trainer Detail" />
             <Flex
                 justifyContent={{ base: "initial", lg: "space-around" }}
                 alignItems={{ base: "initial", lg: "center" }}

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->text('photo')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
+            $table->date('last_course_visit')->nullable();
+            $table->date('initial_streak')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -7,6 +7,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { COLORS } from "@/Utils/colors";
 import { Td, Text, Th, Tr } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
+import { Head } from "@inertiajs/inertia-react";
 import { FiCheck, FiEye, FiTrash2 } from "react-icons/fi";
 
 export default function Feedback({ data }) {
@@ -28,6 +29,7 @@ export default function Feedback({ data }) {
 
     return (
         <AdminLayout>
+            <Head title="Manage Feedback" />
             {modal}
             <Text fontSize="3xl" mb={3} fontStyle="italic">
                 Feedback

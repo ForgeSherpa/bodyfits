@@ -2,10 +2,12 @@ import GenericDetail from "@/Components/Admin/GenericDetail";
 import OutlineInput from "@/Components/Admin/OutlineInput";
 import OutlineTextarea from "@/Components/Admin/OutlineTextarea";
 import { Badge, Text } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 
 export default function Detail({ data }) {
     return (
         <GenericDetail mainUrl="admin.feedback.index" name="Feedback">
+            <Head title="Feedback Detail" />
             <Text mb={3}>
                 Status:{" "}
                 <Badge

@@ -17,6 +17,7 @@ import {
     MenuList,
     Grid,
 } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import HTMLReactParser from "html-react-parser";
 import { FiChevronDown } from "react-icons/fi";
 
@@ -33,6 +34,7 @@ export default function Detail({
 
     return (
         <>
+            <Head title="Course Detail" />
             <Flex flexDir="column" display={{ base: "flex", lg: "none" }}>
                 <Flex
                     gap={3}
@@ -121,9 +123,6 @@ export default function Detail({
                         {randomCourses.map((item) => (
                             <MenuItem
                                 bg={COLORS.itemTerang}
-                                // _hover={{ bg: COLORS.itemSoft }}
-                                // className="transition-all delay-100"
-                                // rounded="xl"
                                 p={0}
                                 key={item.id}
                             >

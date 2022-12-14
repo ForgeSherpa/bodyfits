@@ -57,6 +57,7 @@ export default function Form({ course, trainers, categories }) {
 
     return (
         <GenericPreview name={`${course ? "Edit" : "Create"} Course`}>
+            <Head title={`${course ? "Edit" : "Create"} Course`} />
             <form id="formcourse" onSubmit={submitHandler}>
                 <Text>{course ? "Current" : "Preview"} Photo</Text>
                 <Image

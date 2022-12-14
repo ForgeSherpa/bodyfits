@@ -7,6 +7,7 @@ import useTable from "@/Hooks/useTable";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Badge, Td, Text, Th, Tr } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
+import { Head } from "@inertiajs/inertia-react";
 import { FiEdit, FiEye, FiPlus, FiRefreshCcw, FiTrash2 } from "react-icons/fi";
 
 export default function Users({ data }) {
@@ -26,6 +27,7 @@ export default function Users({ data }) {
 
     return (
         <AdminLayout>
+            <Head title="Manage Users" />
             {modal}
             <Text fontSize="3xl" mb={3} fontStyle="italic">
                 Manage Users

@@ -18,6 +18,7 @@ import {
     Tr,
     UnorderedList,
 } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import { FiEdit, FiEye, FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function Detail({ data, lessons }) {
@@ -35,6 +36,7 @@ export default function Detail({ data, lessons }) {
 
     return (
         <GenericDetail mainUrl="admin.courses.index" name="Course">
+            <Head title="Course Detail" />
             {modal}
             <Flex
                 justifyContent={{ base: "initial", lg: "space-around" }}

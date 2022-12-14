@@ -5,6 +5,7 @@ import useCheckQuery from "@/Hooks/Admin/useCheckQuery";
 import { COLORS } from "@/Utils/colors";
 import query from "@/Utils/query";
 import { Box, Divider, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import HTMLReactParser from "html-react-parser";
 import { FiArrowLeft } from "react-icons/fi";
 
@@ -15,6 +16,7 @@ export default function Detail({ data }) {
 
     return (
         <GenericPreview name="Lesson">
+            <Head title="Manage Lesson" />
             <UnorderedList mt={3}>
                 <ListItem>Title: {data.title}</ListItem>
                 <ListItem>Type: {data.type}</ListItem>

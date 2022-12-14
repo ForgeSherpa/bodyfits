@@ -21,6 +21,7 @@ export default function Trainers({ data }) {
 
     return (
         <AdminLayout>
+            <Head title="Manage Trainers" />
             {modal}
             <Text fontSize="3xl" mb={3} fontStyle="italic">
                 Manage Trainers

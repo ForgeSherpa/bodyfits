@@ -6,6 +6,7 @@ import useOpenDetail from "@/Hooks/Admin/useOpenDetail";
 import useTable from "@/Hooks/useTable";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Td, Text, Th, Tr } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function Categories({ data }) {
@@ -20,6 +21,7 @@ export default function Categories({ data }) {
 
     return (
         <AdminLayout>
+            <Head title="Categories List" />
             {modal}
             <Text fontSize="3xl" mb={3} fontStyle="italic">
                 Manage categories

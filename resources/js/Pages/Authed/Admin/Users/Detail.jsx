@@ -8,10 +8,12 @@ import {
     Text,
     UnorderedList,
 } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 
 export default function Detail({ data }) {
     return (
         <GenericDetail mainUrl="admin.users.index" name="Users">
+            <Head title="Detail Users" />
             <Flex
                 justifyContent={{ base: "initial", lg: "space-around" }}
                 alignItems={{ base: "initial", lg: "center" }}

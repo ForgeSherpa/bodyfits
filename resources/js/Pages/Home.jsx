@@ -18,8 +18,17 @@ import Course from "@/Components/Home/Course";
 import Trainer from "@/Components/Home/Trainer";
 import usePagination from "@/Hooks/usePagination";
 import useToast from "@/Hooks/useToast";
+import { Head } from "@inertiajs/inertia-react";
 
-export default function Home({ auth, trainers, courses }) {
+export default function Home({
+    auth,
+    trainers,
+    courses,
+    daysMissed,
+    daysStreak,
+}) {
+    console.log(daysMissed, daysStreak);
+
     const { lists: trainersList, element } = usePagination(trainers, {
         perPage: 15,
         startPage: 1,
@@ -31,6 +40,7 @@ export default function Home({ auth, trainers, courses }) {
     useToast();
     return (
         <MainLayout auth={auth}>
+            <Head title="Home" />
             <Flex flexDir={{ base: "column", lg: "row" }}>
                 <Card
                     py={77}
@@ -149,7 +159,23 @@ export default function Home({ auth, trainers, courses }) {
                                     textTransform="uppercase"
                                     textAlign="center"
                                 >
-                                    You are on <b>10</b> days streak
+                                    {daysMissed !== 0 && daysMissed !== null ? (
+                                        <>
+                                            You missed{" "}
+                                            <b style={{ color: "red" }}>
+                                                {daysMissed}
+                                            </b>{" "}
+                                            days.
+                                        </>
+                                    ) : daysStreak === 0 ||
+                                      daysStreak === null ? (
+                                        "You can do this!"
+                                    ) : (
+                                        <>
+                                            You are on <b>{daysStreak}</b> days
+                                            streak
+                                        </>
+                                    )}
                                 </WhiteText>
                                 <Divider />
                                 <WhiteText

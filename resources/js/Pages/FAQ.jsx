@@ -5,6 +5,7 @@ import WhiteText from "@/Components/WhiteText";
 import useCustomBg from "@/Hooks/useCustomBg";
 import { COLORS } from "@/Utils/colors";
 import { Box, Flex, Accordion, Grid } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 
 const questionsCollection = [
     {
@@ -39,6 +40,7 @@ export default function FAQ({ auth }) {
     return (
         <>
             <TopBar auth={auth} />
+            <Head title="FAQ" />
             <WhiteText
                 textDecoration="underline"
                 fontSize={{ base: 40, lg: 64 }}

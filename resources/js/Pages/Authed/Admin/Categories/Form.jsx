@@ -4,7 +4,7 @@ import FormInput from "@/Components/Admin/FormInput";
 import GenericPreview from "@/Components/Admin/GenericPreview";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import { Box } from "@chakra-ui/react";
-import { useForm } from "@inertiajs/inertia-react";
+import { Head, useForm } from "@inertiajs/inertia-react";
 
 export default function Form({ category }) {
     const initial = {
@@ -32,6 +32,7 @@ export default function Form({ category }) {
 
     return (
         <GenericPreview name={`${category ? "Edit" : "Create"} category`}>
+            <Head title={`${category ? "Edit" : "Create"} Category`} />
             <form id="formcategory" onSubmit={submitHandler}>
                 <TwoColumn gap={3}>
                     <FormInput

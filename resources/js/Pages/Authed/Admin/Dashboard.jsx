@@ -3,11 +3,13 @@ import OutlineCard from "@/Components/Admin/OutlineCard";
 import StatsCard from "@/Components/Admin/StatsCard";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Flex } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import { FiInfo } from "react-icons/fi";
 
 export default function Dashboard({ auth }) {
     return (
         <AdminLayout>
+            <Head title="Dashboard" />
             <div className="flex flex-col items-center lg:flex-row gap-3">
                 <OutlineCard
                     header="Admin Panel"

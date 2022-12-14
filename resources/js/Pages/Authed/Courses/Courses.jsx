@@ -5,6 +5,7 @@ import WhiteText from "@/Components/WhiteText";
 import usePagination from "@/Hooks/usePagination";
 import MainLayout from "@/Layouts/MainLayout";
 import { Box } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 
 export default function Courses({ auth, courses }) {
     const { element, lists } = usePagination(courses, {
@@ -16,6 +17,7 @@ export default function Courses({ auth, courses }) {
 
     return (
         <MainLayout auth={auth}>
+            <Head title="Course Lists" />
             <WhiteDivider />
             <Box textAlign="center" mx="auto" my="16">
                 <WhiteText fontSize={48} fontWeight={700}>
