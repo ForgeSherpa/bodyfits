@@ -56,7 +56,7 @@ class User extends Authenticatable
     protected function photo(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? "profiles/{$value}" : "profiles/default" . rand(1, 6) . ".jpg"
+            get: fn ($value) => $value ? "profiles/{$value}" : 'profiles/default'.rand(1, 6).'.jpg'
         );
     }
 
