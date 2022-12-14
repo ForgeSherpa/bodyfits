@@ -30,7 +30,6 @@ class HomeController extends Controller
             }
         }
 
-
         if ($request->wantsJson()) {
             return $trainers;
         }

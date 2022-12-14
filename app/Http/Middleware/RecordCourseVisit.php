@@ -22,9 +22,9 @@ class RecordCourseVisit
 
         $lastStreak = Carbon::parse($user->last_course_visit);
 
-        if (!$user->initial_streak) {
+        if (! $user->initial_streak) {
             $user->update(['initial_streak' => Carbon::now()->toDate(), 'last_course_visit' => Carbon::now()->toDate()]);
-        } else if (!($lastStreak->isYesterday() || $lastStreak->isToday())) {
+        } elseif (! ($lastStreak->isYesterday() || $lastStreak->isToday())) {
             $user->update(['last_course_visit' => Carbon::now()->toDate(), 'initial_streak' => Carbon::now()->toDate()]);
         } else {
             $user->update(['last_course_visit' => Carbon::now()->toDate()]);
