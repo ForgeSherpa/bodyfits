@@ -77,7 +77,7 @@ export default function Home({ auth, trainers, courses }) {
                     >
                         Choose Your Own Courses
                     </WhiteText>
-                    <UnderlineLink to="home">Show All</UnderlineLink>
+                    <UnderlineLink to="courses.index">Show All</UnderlineLink>
                 </Flex>
                 <Swiper
                     modules={[Pagination, FreeMode]}

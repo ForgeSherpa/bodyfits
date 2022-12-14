@@ -121,14 +121,23 @@ export default function Detail({
                         {randomCourses.map((item) => (
                             <MenuItem
                                 bg={COLORS.itemTerang}
-                                _hover={{ bg: COLORS.itemSoft }}
-                                className="transition-all delay-100"
-                                my={1}
-                                rounded="xl"
+                                // _hover={{ bg: COLORS.itemSoft }}
+                                // className="transition-all delay-100"
+                                // rounded="xl"
+                                p={0}
                                 key={item.id}
                             >
                                 <WhiteLink
                                     to="courses.detail"
+                                    h="full"
+                                    w="full"
+                                    py={2}
+                                    px={3}
+                                    my={1}
+                                    className="transition-all delay-100"
+                                    bg={COLORS.itemTerang}
+                                    _hover={{ bg: COLORS.itemSoft }}
+                                    rounded="xl"
                                     params={{
                                         courses: item.id,
                                         lessons: item.lessons[0].id,
@@ -170,9 +179,6 @@ export default function Detail({
                 </WhiteText>
                 <Flex alignItems="center" gap={5}>
                     <WhiteText fontSize={20}>{course.trainer.name}</WhiteText>
-                    <WhiteText fontWeight={700} fontSize={20}>
-                        Follow
-                    </WhiteText>
                 </Flex>
                 <Grid
                     h="70vh"
