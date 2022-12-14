@@ -152,7 +152,7 @@ export default function usePagination(
             >
                 <FiArrowDown />
             </Button>
-            <WhiteText textDecoration="underline">Show More</WhiteText>
+            <WhiteText>Show More</WhiteText>
         </Flex>
     );
 

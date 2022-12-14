@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\CheckOldPassword;
+use App\Rules\NoSamePassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordRequest extends FormRequest
@@ -26,7 +27,7 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'old_password' => ['required', 'min:8', 'string', new CheckOldPassword()],
-            'new_password' => ['required', 'confirmed', 'min:8'],
+            'new_password' => ['required', 'confirmed', 'min:8', new NoSamePassword()],
         ];
     }
 }

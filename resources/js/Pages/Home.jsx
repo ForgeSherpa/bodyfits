@@ -19,6 +19,7 @@ import usePagination from "@/Hooks/usePagination";
 import useToast from "@/Hooks/useToast";
 import { Head } from "@inertiajs/inertia-react";
 import Calendar from "@/Components/Home/Calendar";
+import Link from "@/Components/Link";
 
 export default function Home({
     auth,
@@ -60,9 +61,16 @@ export default function Home({
                     >
                         Get your body goals, start your journey with our help!
                     </WhiteText>
-                    <WhiteText fontWeight="bold" fontSize={25} mt={34} ml={10}>
-                        Start Now
-                    </WhiteText>
+                    <Link to={auth.user ? "courses.index" : "register"}>
+                        <WhiteText
+                            fontWeight="bold"
+                            fontSize={25}
+                            mt={34}
+                            ml={10}
+                        >
+                            Start Now
+                        </WhiteText>
+                    </Link>
                 </Card>
                 <Image
                     w="full"

@@ -12,7 +12,7 @@ import useToast from "@/Hooks/useToast";
 export default function Login() {
     useAuthBg();
     useToast();
-    
+
     const { data, setData, post, processing, reset } = useForm({
         email: "",
         password: "",
@@ -73,7 +73,6 @@ export default function Login() {
                 <Checkbox color="white" colorScheme="whiteAlpha">
                     Remember for 30 days
                 </Checkbox>
-                <WhiteText>Forgot Password?</WhiteText>
             </Flex>
             <PrimaryButton
                 isLoading={processing}

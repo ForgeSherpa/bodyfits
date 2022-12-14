@@ -6,6 +6,7 @@ import useOpenDetail from "@/Hooks/Admin/useOpenDetail";
 import useTable from "@/Hooks/useTable";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Td, Text, Th, Tr } from "@chakra-ui/react";
+import { Head } from "@inertiajs/inertia-react";
 import { FiEdit, FiEye, FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function Trainers({ data }) {
