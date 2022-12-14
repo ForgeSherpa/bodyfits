@@ -1,18 +1,39 @@
-import React from "react";
-import "video.js/dist/video-js.css";
+import React, { useEffect, useRef } from "react";
+import videojs from "video.js";
+import "videojs-youtube";
+import "video.js/dist/video-js.min.css";
 
-function Video({ src }) {
-    const renderVideoPlayer = () => {
-        return (
+const VideoPlayer = ({ src }) => {
+    const playerRef = useRef(null);
+
+    // Use the useEffect Hook to initialize the Video.js player
+    useEffect(() => {
+        // Initialize the Video.js player
+        const player = videojs(playerRef.current, {
+            // Include any options you want to set for the player
+            responsive: true,
+            fluid: true,
+            autoplay: 1,
+            controls: true,
+        });
+        // Set the source for the YouTube video
+        player.src({
+            src,
+            type: "video/youtube",
+        });
+        // Clean up the player when the component unmounts
+        return () => player.dispose();
+    }, []);
+
+    return (
+        <div>
+            {/* Use the ref to attach the Video.js player to the DOM */}
             <video
+                ref={playerRef}
                 className="video-js vjs-default-skin"
-                controls
-                autoPlay
-                data-setup={`{ "responsive": "true", "fluid": "true", "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "${src}"}] }`}
             ></video>
-        );
-    };
-    return <div>{renderVideoPlayer()}</div>;
-}
+        </div>
+    );
+};
 
-export default React.memo(Video);
+export default VideoPlayer;

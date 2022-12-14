@@ -27,9 +27,6 @@
 
 <body class="font-sans antialiased">
     @inertia
-
-    <script src="{{ asset('videojs/video.min.js') }}"></script>
-    <script src="{{ asset('videojs/Youtube.min.js') }}"></script>
 </body>
 
 </html>
