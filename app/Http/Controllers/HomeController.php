@@ -63,9 +63,9 @@ class HomeController extends Controller
     {
         $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
 
-        if (!$note) {
+        if (! $note) {
             return response()->json(['message' => 'Data not found', 'status' => 404], 404);
-        };
+        }
 
         return $note;
     }
