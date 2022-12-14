@@ -7,7 +7,6 @@ import { Box, Divider, Flex, Grid as ChakraGrid } from "@chakra-ui/react";
 import { FreeMode, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "@/Components/Card";
-import Calendar from "react-calendar";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -19,6 +18,7 @@ import Trainer from "@/Components/Home/Trainer";
 import usePagination from "@/Hooks/usePagination";
 import useToast from "@/Hooks/useToast";
 import { Head } from "@inertiajs/inertia-react";
+import Calendar from "@/Components/Home/Calendar";
 
 export default function Home({
     auth,
@@ -27,8 +27,6 @@ export default function Home({
     daysMissed,
     daysStreak,
 }) {
-    console.log(daysMissed, daysStreak);
-
     const { lists: trainersList, element } = usePagination(trainers, {
         perPage: 15,
         startPage: 1,
@@ -142,7 +140,7 @@ export default function Home({
                                     day: "numeric",
                                 })}
                             </WhiteText>
-                            <Calendar value={new Date()} />
+                            <Calendar />
                         </Box>
                         <Box
                             backgroundColor={COLORS.ijoSoft}
@@ -184,7 +182,9 @@ export default function Home({
                                     textAlign="center"
                                     mt={10}
                                 >
-                                    You haven't missed a day!
+                                    {daysMissed !== 0 && daysMissed !== null
+                                        ? "You missed some days..."
+                                        : "You haven't missed a day!"}
                                 </WhiteText>
                                 <WhiteText
                                     mt={30}

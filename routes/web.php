@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/img/{path}', [ImageController::class, 'show'])->name('image')->where('path', '.*');
 
-require __DIR__.'/courses.php';
+require __DIR__ . '/courses.php';
 
 Route::get('/faq', fn () => Inertia::render('FAQ'))->name('faq');
 
@@ -39,7 +39,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/changePassword', 'changePassword')->name('changePassword');
         Route::delete('/delete', 'deleteAccount')->name('deleteAccount');
     })->middleware('throttle:3,1');
+
+    Route::get("/notes", [HomeController::class, 'viewNotes'])->name('notes');
+    Route::get('/notes/find', [HomeController::class, 'findNotes'])->name('findNotes');
+    Route::post("/notes", [HomeController::class, 'addNotes']);
+    Route::put("/notes", [HomeController::class, 'editNote']);
+    Route::delete("/notes", [HomeController::class, 'deleteNote']);
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
