@@ -63,15 +63,19 @@ class HomeController extends Controller
     {
         $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
 
-        if (! $note) {
-            return response()->json(['message' => 'Data not found', 'status' => 404], 404);
-        }
+        if ($request->wantsJson()) {
+            if (!$note) {
+                return response()->json(['message' => 'Data not found', 'status' => 404], 404);
+            };
 
-        return $note;
+            return $note;
+        }
     }
 
-    public function viewNotes()
+    public function viewNotes(Request $request)
     {
-        return Notes::where('user_id', auth()->user()->id)->get();
+        if ($request->wantsJson()) {
+            return Notes::where('user_id', auth()->user()->id)->get();
+        }
     }
 }

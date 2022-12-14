@@ -13,7 +13,7 @@ import {
     useDisclosure,
 } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 import { Calendar as ReactCalendar } from "react-calendar";
 import FormControlTextarea from "../FormControlTextArea";
@@ -38,25 +38,41 @@ export default function Calandar() {
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchNotesList = async () => {
-        const res = await fetch(route("notes"));
+        const res = await fetch(route("notes"), {
+            headers: {
+                Accept: "application/json",
+            },
+        });
         const json = await res.json();
         setMarks(json.map((item) => item.date));
     };
 
+    const { auth } = usePage().props;
+
     useEffect(() => {
+        if (auth.user === null) return;
         setIsLoading(true);
         fetchNotesList();
         setIsLoading(false);
-    }, []);
+    }, [auth]);
 
     const onCalendarChange = async (data) => {
+        if (auth.user === null) {
+            makeToast("Login dlu mamank", "error");
+            return;
+        }
         onOpen();
         try {
             setIsLoading(true);
             const res = await fetch(
                 route("findNotes", {
                     date: formatter(data),
-                })
+                }),
+                {
+                    headers: {
+                        Accept: "application/json",
+                    },
+                }
             );
 
             if (!res.ok) {
