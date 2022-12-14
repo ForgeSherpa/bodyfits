@@ -44,7 +44,7 @@ class HomeController extends Controller
 
         Notes::create(['note' => $request->note, 'user_id' => auth()->user()->id, 'date' => $request->date]);
 
-        return to_route("home")->with(['status' => 'success', 'message' => 'Notes added!']);
+        return to_route('home')->with(['status' => 'success', 'message' => 'Notes added!']);
     }
 
     public function editNote(Request $request)
@@ -53,7 +53,7 @@ class HomeController extends Controller
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
         $notes->update($validated);
 
-        return to_route("home")->with(['status' => 'success', 'message' => 'Notes updated!']);
+        return to_route('home')->with(['status' => 'success', 'message' => 'Notes updated!']);
     }
 
     public function deleteNote(Request $request)
@@ -62,7 +62,7 @@ class HomeController extends Controller
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
         $notes->delete();
 
-        return to_route("home")->with(['status' => 'success', 'message' => 'Notes deleted!']);
+        return to_route('home')->with(['status' => 'success', 'message' => 'Notes deleted!']);
     }
 
     public function findNotes(Request $request)
