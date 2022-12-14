@@ -43,8 +43,6 @@ class HomeController extends Controller
         $request->validate(['note' => ['required', 'string'], 'date' => ['required', 'date']]);
 
         Notes::create(['note' => $request->note, 'user_id' => auth()->user()->id, 'date' => $request->date]);
-
-        return to_route('home')->with(['status' => 'success', 'message' => 'Notes added!']);
     }
 
     public function editNote(Request $request)
@@ -52,8 +50,6 @@ class HomeController extends Controller
         $validated = $request->validate(['note' => ['required', 'string'], 'date' => ['required', 'date']]);
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
         $notes->update($validated);
-
-        return to_route('home')->with(['status' => 'success', 'message' => 'Notes updated!']);
     }
 
     public function deleteNote(Request $request)
@@ -61,13 +57,17 @@ class HomeController extends Controller
         $request->validate(['date' => ['required', 'date']]);
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
         $notes->delete();
-
-        return to_route('home')->with(['status' => 'success', 'message' => 'Notes deleted!']);
     }
 
     public function findNotes(Request $request)
     {
-        return Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
+        $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
+
+        if (!$note) {
+            return response()->json(['message' => 'Data not found', 'status' => 404], 404);
+        };
+
+        return $note;
     }
 
     public function viewNotes()

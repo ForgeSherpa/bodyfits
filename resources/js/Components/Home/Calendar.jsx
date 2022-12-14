@@ -1,4 +1,5 @@
 import { COLORS } from "@/Utils/colors";
+import { makeToast } from "@/Utils/toast";
 import {
     Button,
     Modal,
@@ -8,6 +9,7 @@ import {
     ModalFooter,
     ModalHeader,
     ModalOverlay,
+    Spinner,
     useDisclosure,
 } from "@chakra-ui/react";
 import { Inertia } from "@inertiajs/inertia";
@@ -32,25 +34,50 @@ export default function Calandar() {
     });
 
     const [isModify, setIsModify] = useState(false);
+    const [marks, setMarks] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchNotesList = async () => {
+        const res = await fetch(route("notes"));
+        const json = await res.json();
+        setMarks(json.map((item) => item.date));
+    };
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetchNotesList();
+        setIsLoading(false);
+    }, []);
 
     const onCalendarChange = async (data) => {
+        onOpen();
         try {
+            setIsLoading(true);
             const res = await fetch(
                 route("findNotes", {
                     date: formatter(data),
                 })
             );
+
+            if (!res.ok) {
+                throw Error("awokowkowk");
+            }
+
             const json = await res.json();
             setIsModify(true);
             setData({
                 note: json.note,
                 date: json.date,
             });
-        } catch {
+        } catch (err) {
             setIsModify(false);
-            setData("date", formatter(data));
+            setData({
+                note: "",
+                date: formatter(data),
+            });
+        } finally {
+            setIsLoading(false);
         }
-        onOpen();
     };
 
     const onNoteChange = (e) => {
@@ -58,7 +85,13 @@ export default function Calandar() {
     };
 
     const addNoteHandler = () => {
-        post(route("notes"));
+        post(route("notes"), {
+            preserveScroll: true,
+        });
+        makeToast("Notes added.", "success");
+        setIsLoading(true);
+        fetchNotesList();
+        setIsLoading(false);
         if (!errors.note) {
             reset();
             onClose();
@@ -66,81 +99,106 @@ export default function Calandar() {
     };
 
     const editNoteHandler = () => {
-        put(route("notes"));
+        put(route("notes"), {
+            preserveScroll: true,
+        });
+        makeToast("Notes edited.", "success");
+        setIsLoading(true);
+        fetchNotesList();
+        setIsLoading(false);
         if (!errors.note) {
             reset();
             onClose();
         }
     };
 
-    const deleteNoteHandler = () => {
+    const deleteNoteHandler = async () => {
         Inertia.delete(route("notes"), {
             data: {
                 date: data.date,
             },
+            preserveScroll: true,
         });
         reset();
+        makeToast("Notes deleted.", "success");
+        setIsLoading(true);
+        fetchNotesList();
+        setIsLoading(false);
         onClose();
     };
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    const tileClassier = ({ date, view }) => {
+        if (view === "month" && marks.includes(formatter(date))) {
+            return "event-calendar";
+        }
+    };
 
     return (
         <>
             <Modal isCentered isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent bg={COLORS.ijoBuatModal}>
-                    <ModalHeader>
-                        <WhiteText>Add Note</WhiteText>
-                    </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <FormControlTextarea
-                            inputProps={{
-                                value: data.note,
-                                onChange: onNoteChange,
-                                color: COLORS.putih,
-                            }}
-                            validation={errors.note}
-                        />
-                    </ModalBody>
+                    {isLoading ? (
+                        <Spinner m={14} mx="auto" />
+                    ) : (
+                        <>
+                            <ModalHeader>
+                                <WhiteText>Add Note</WhiteText>
+                            </ModalHeader>
+                            <ModalCloseButton color="white" />
+                            <ModalBody>
+                                <FormControlTextarea
+                                    inputProps={{
+                                        value: data.note,
+                                        onChange: onNoteChange,
+                                        color: COLORS.putih,
+                                    }}
+                                    validation={errors.note}
+                                />
+                            </ModalBody>
 
-                    <ModalFooter display="flex" gap={3}>
-                        <Button
-                            colorScheme="green"
-                            alignItems="center"
-                            onClick={
-                                isModify ? editNoteHandler : addNoteHandler
-                            }
-                            isLoading={processing}
-                        >
-                            {isModify ? "Edit It" : "Add it"}
-                        </Button>
-                        {isModify && (
-                            <Button
-                                colorScheme="red"
-                                alignItems="center"
-                                onClick={deleteNoteHandler}
-                            >
-                                Delete Note
-                            </Button>
-                        )}
-                        <Button
-                            bg={COLORS.putihTransparan}
-                            alignItems="center"
-                            onClick={onClose}
-                            textColor={COLORS.putih}
-                            _hover={{ opacity: 0.8 }}
-                            disabled={processing}
-                        >
-                            Ah no.
-                        </Button>
-                    </ModalFooter>
+                            <ModalFooter display="flex" gap={3}>
+                                <Button
+                                    colorScheme="green"
+                                    alignItems="center"
+                                    onClick={
+                                        isModify
+                                            ? editNoteHandler
+                                            : addNoteHandler
+                                    }
+                                    isLoading={processing || isLoading}
+                                >
+                                    {isModify ? "Edit It" : "Add it"}
+                                </Button>
+                                {isModify && (
+                                    <Button
+                                        colorScheme="red"
+                                        alignItems="center"
+                                        onClick={deleteNoteHandler}
+                                    >
+                                        Delete Note
+                                    </Button>
+                                )}
+                                <Button
+                                    bg={COLORS.putihTransparan}
+                                    alignItems="center"
+                                    onClick={onClose}
+                                    textColor={COLORS.putih}
+                                    _hover={{ opacity: 0.8 }}
+                                    disabled={processing || isLoading}
+                                >
+                                    Ah no.
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
                 </ModalContent>
             </Modal>
-            <ReactCalendar onChange={onCalendarChange} value={new Date()} />;
+            <ReactCalendar
+                tileClassName={tileClassier}
+                onChange={onCalendarChange}
+                value={new Date()}
+            />
         </>
     );
 }

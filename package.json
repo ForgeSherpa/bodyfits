@@ -31,7 +31,6 @@
         "picocolors": "^1.0.0",
         "react-calendar": "^4.0.0",
         "react-icons": "^4.6.0",
-        "react-video-js-player": "^1.1.1",
         "swiper": "^8.4.4",
         "video.js": "^7.20.3",
         "videojs-youtube": "^2.6.1"
