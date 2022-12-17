@@ -32,7 +32,7 @@ class LessonsRequest extends FormRequest
             'link' => ['required_if:type,video', 'nullable', 'string', 'url'],
             'length' => ['string', 'required', 'regex:/[0-9]/'],
             'title' => ['required', 'string'],
-            'duration' => ['string', 'required']
+            'duration' => ['string', 'required'],
         ];
     }
 }
