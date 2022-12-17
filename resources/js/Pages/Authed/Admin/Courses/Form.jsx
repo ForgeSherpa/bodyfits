@@ -7,7 +7,7 @@ import SelectAutocomplete from "@/Components/Admin/SelectAutocomplete";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import Image from "@/Components/Image";
 import { Box, Progress, Text } from "@chakra-ui/react";
-import { useForm } from "@inertiajs/inertia-react";
+import { Head, useForm } from "@inertiajs/inertia-react";
 
 export default function Form({ course, trainers, categories }) {
     const initial = {
