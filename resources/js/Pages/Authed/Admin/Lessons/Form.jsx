@@ -6,7 +6,7 @@ import TwoColumn from "@/Components/Admin/TwoColumn";
 import query from "@/Utils/query";
 import { Box, Grid, Text } from "@chakra-ui/react";
 import { Head, useForm } from "@inertiajs/inertia-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -21,13 +21,11 @@ export default function Form({ lesson }) {
         link: lesson ? lesson.link : "",
         length: lesson ? lesson["length"] : "",
         title: lesson ? lesson.title : "",
+        duration: lesson ? lesson.duration : "second",
     };
 
     const { data, errors, post, put, processing, setData } = useForm(initial);
     const [append, setAppend] = useState(lesson ? lesson.durationPlural : "");
-    const [duration, setDuration] = useState(
-        lesson ? lesson.duration : "second"
-    );
 
     const { element } = useCheckQuery();
 
@@ -38,7 +36,7 @@ export default function Form({ lesson }) {
     };
 
     const onDurationChange = (e) => {
-        setDuration(e.target.value);
+        setData("duration", e.target.value);
     };
 
     const lengthChangeHandler = (e) => {
@@ -62,12 +60,7 @@ export default function Form({ lesson }) {
                 route("admin.lessons.update", {
                     lessons: lesson.id,
                     from: query("from"),
-                }),
-                {
-                    data: {
-                        length: `${data["length"]} ${duration}${append}`,
-                    },
-                }
+                })
             );
         } else {
             post(route("admin.lessons.store", { from: query("from") }));
@@ -122,7 +115,7 @@ export default function Form({ lesson }) {
                                 title="Duration"
                                 mt={3}
                                 onChange={onDurationChange}
-                                value={duration}
+                                value={data.duration}
                             >
                                 <option value={`second`}>Second{append}</option>
                                 <option value={`minute`}>Minute{append}</option>

@@ -42,7 +42,10 @@ class LessonController extends Controller
      */
     public function store(LessonsRequest $request)
     {
-        Lessons::create($request->validated());
+        $data = $request->validated();
+
+        $data['length'] = $request->length . " {$request->duration}";
+        Lessons::create($data);
 
         $this->cast('Lesson Created!', 'success');
 
@@ -72,7 +75,7 @@ class LessonController extends Controller
     {
         $data = $lessons->load('course')->toArray();
         $data['durationPlural'] = str_ends_with($data['length'], 's') ? 's' : '';
-        $data['duration'] = strtolower(substr(explode(' ', $data['length'])[1], 0, -1));
+        $data['duration'] = strtolower(explode(" ", $data['length'])[1]);
         $data['length'] = parseInt($data['length']);
 
         return Inertia::render('Authed/Admin/Lessons/Form', [
@@ -89,7 +92,10 @@ class LessonController extends Controller
      */
     public function update(LessonsRequest $request, Lessons $lessons)
     {
-        $lessons->update($request->validated());
+        $data = $request->validated();
+        $data['length'] = $request->length . " {$request->duration}";
+
+        $lessons->update($data);
 
         $this->cast('Lesson updated', 'success');
 
@@ -111,13 +117,13 @@ class LessonController extends Controller
 
     public function check(Request $request)
     {
-        if (! $request->from) {
+        if (!$request->from) {
             return response()->json(['check' => false], 400);
         }
 
         $find = Courses::where('id', $request->from)->first();
 
-        if (! $find) {
+        if (!$find) {
             return response()->json(['check' => false], 404);
         }
 
