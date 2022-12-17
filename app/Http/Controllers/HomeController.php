@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $trainers = Trainers::paginate($request->per_page ?? 3);
-        $courses = Courses::with('lessons')->limit(4)->inRandomOrder()->get();
+        $courses = Courses::has('lessons')->with('lessons')->limit(4)->inRandomOrder()->get();
         $daysStreak = null;
         $daysMissed = null;
 
@@ -64,7 +64,7 @@ class HomeController extends Controller
         $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
 
         if ($request->wantsJson()) {
-            if (! $note) {
+            if (!$note) {
                 return response()->json(['message' => 'Data not found', 'status' => 404], 404);
             }
 
