@@ -31,10 +31,10 @@ class CoursesController extends Controller
     private function findNextLesson($currentId)
     {
         $searchId = $currentId + 1;
-        $query = Courses::with('lessons')->whereHas('lessons')->find($searchId);
-        if (! $query) {
-            return $this->findNextLesson($searchId + 1);
-        }
+        $query = Courses::has('lessons')->with('lessons')->find($searchId);
+        // if (!$query) {
+        // return $this->findNextLesson($searchId + 1);
+        // }
 
         return $query;
     }
@@ -57,11 +57,11 @@ class CoursesController extends Controller
 
         return Inertia::render('Authed/Courses/Detail', [
             'course' => $course,
-            'randomCourses' => Courses::with('lessons')->limit(4)->inRandomOrder()->get(),
+            'randomCourses' => Courses::has('lessons')->with('lessons')->limit(4)->inRandomOrder()->get(),
             'lesson' => $lessons,
-            'nextCourseId' => $next->id,
-            'nextLessonId' => $next->lessons->first()->id,
-            'totalDuration' => $totalDuration.'m',
+            'nextCourseId' => $next->id ?? false,
+            'nextLessonId' => $next ? $next->lessons->first()->id : false,
+            'totalDuration' => $totalDuration . 'm',
         ]);
     }
 
