@@ -28,8 +28,8 @@ class TrainersRequest extends FormRequest
             'job' => ['required', 'string'],
             'age' => ['required', 'numeric', 'min:18'],
             'nationality' => ['required', 'string'],
-            'contact' => ['required', 'numeric', 'regex:[-]'],
-            'description' => ['required', 'numeric'],
+            'contact' => ['required', 'regex:[-]'],
+            'description' => ['required', 'string'],
             'photo' => ['nullable', 'mimes:png,jpg,webp', 'max:4096'],
         ];
     }
