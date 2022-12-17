@@ -30,7 +30,7 @@ export default function Home({
 }) {
     const { lists: trainersList, element } = usePagination(trainers, {
         perPage: 15,
-        startPage: 1,
+        startPage: 0,
         initialNotSame: true,
         preserveState: false,
     });
