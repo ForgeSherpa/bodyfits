@@ -61,7 +61,7 @@ class CoursesController extends Controller
             'lesson' => $lessons,
             'nextCourseId' => $next->id ?? false,
             'nextLessonId' => $next ? $next->lessons->first()->id : false,
-            'totalDuration' => $totalDuration . 'm',
+            'totalDuration' => $totalDuration.'m',
         ]);
     }
 
