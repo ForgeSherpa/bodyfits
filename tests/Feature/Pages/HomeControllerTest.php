@@ -29,16 +29,16 @@ class HomeControllerTest extends TestCase
      */
     public function homeIsRendered()
     {
-        $response = $this->get(route("home"));
+        $response = $this->get(route('home'));
 
         $response->assertOk();
     }
 
     private function addNote()
     {
-        $res = $this->postJson(route("notes"), [
+        $res = $this->postJson(route('notes'), [
             'note' => 'Halo Dunia!',
-            'date' => now()->toDateString()
+            'date' => now()->toDateString(),
         ]);
     }
 
@@ -49,7 +49,7 @@ class HomeControllerTest extends TestCase
     {
         $this->addNote();
 
-        $this->assertTrue(Notes::count() > 0, "Notes nya kok ilang?");
+        $this->assertTrue(Notes::count() > 0, 'Notes nya kok ilang?');
     }
 
     /**
@@ -58,7 +58,7 @@ class HomeControllerTest extends TestCase
     public function userCanViewNotes()
     {
         $this->addNote();
-        $response = $this->getJson(route("notes"));
+        $response = $this->getJson(route('notes'));
 
         $response->assertJson(fn (AssertableJson $json) => $json->count(0, 6));
     }
@@ -68,7 +68,7 @@ class HomeControllerTest extends TestCase
      */
     public function userAddNoteErrorValidation()
     {
-        $response = $this->post(route("notes"));
+        $response = $this->post(route('notes'));
 
         $response->assertInvalid();
     }
@@ -80,11 +80,11 @@ class HomeControllerTest extends TestCase
     {
         $this->addNote();
 
-        define("ISI_NOTE", "baru!!");
+        define('ISI_NOTE', 'baru!!');
 
-        $this->put(route("notes"), [
+        $this->put(route('notes'), [
             'note' => ISI_NOTE,
-            'date' => now()->toDateString()
+            'date' => now()->toDateString(),
         ]);
 
         $this->assertTrue(Notes::first()->note === ISI_NOTE, 'Ndak sama :(');
@@ -95,7 +95,7 @@ class HomeControllerTest extends TestCase
      */
     public function userEditNoteValidation()
     {
-        $res = $this->put(route("notes"));
+        $res = $this->put(route('notes'));
 
         $res->assertInvalid();
     }
@@ -107,7 +107,7 @@ class HomeControllerTest extends TestCase
     {
         $this->addNote();
 
-        $this->delete(route("notes"), ['date' => now()->toDateString()]);
-        $this->assertTrue(Notes::count() === 0, "Yah ndak kedelete.");
+        $this->delete(route('notes'), ['date' => now()->toDateString()]);
+        $this->assertTrue(Notes::count() === 0, 'Yah ndak kedelete.');
     }
 }
