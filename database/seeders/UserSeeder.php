@@ -22,9 +22,9 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'email' => 'albet@mail.com',
-            'password' => bcrypt("albet12345"),
+            'password' => bcrypt('albet12345'),
             'name' => 'Albet Novendo',
-            'role' => User::ROLE_USER
+            'role' => User::ROLE_USER,
         ]);
     }
 }

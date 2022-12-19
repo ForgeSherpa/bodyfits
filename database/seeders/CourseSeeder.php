@@ -12,6 +12,7 @@ class CourseSeeder extends Seeder
     {
         return ['title' => $title, 'description' => $desc, 'trainer_id' => Trainers::factory()->create(), 'category_id' => $categoryid, 'photo' => $photo];
     }
+
     /**
      * Run the database seeds.
      *

@@ -12,6 +12,7 @@ class TrainersFactory extends Factory
     private function getRandomTrainerPic(): int
     {
         $rand = rand(1, 5);
+
         return "gymnist{$rand}.jpg";
     }
 
