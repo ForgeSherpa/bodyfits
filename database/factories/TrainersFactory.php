@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TrainersFactory extends Factory
 {
+    private function getRandomTrainerPic(): int
+    {
+        $rand = rand(1, 5);
+        return "gymnist{$rand}.jpg";
+    }
+
     /**
      * Define the model's default state.
      *
@@ -23,7 +29,7 @@ class TrainersFactory extends Factory
             'job' => fake()->jobTitle(),
             'contact' => fake()->phoneNumber(),
             'description' => fake()->paragraph(1),
-            'photo' => null,
+            'photo' => $this->getRandomTrainerPic(),
         ];
     }
 }
