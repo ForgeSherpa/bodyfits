@@ -24,7 +24,7 @@ class DeleteNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => ['required', 'date']
+            'date' => ['required', 'date'],
         ];
     }
 }

@@ -68,7 +68,7 @@ class UserController extends Controller
         $data = $request->except(['password_confirmation', 'photo']);
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -120,7 +120,7 @@ class UserController extends Controller
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
             autoRemovePhoto($user->photo);
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }

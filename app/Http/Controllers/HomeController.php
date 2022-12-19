@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Notes\{DeleteNoteRequest, NoteRequest};
+use App\Http\Requests\Notes\DeleteNoteRequest;
+use App\Http\Requests\Notes\NoteRequest;
 use App\Models\Courses;
 use App\Models\Notes;
 use App\Models\Trainers;
@@ -61,7 +62,7 @@ class HomeController extends Controller
         $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
 
         if ($request->wantsJson()) {
-            if (!$note) {
+            if (! $note) {
                 return response()->json(['message' => 'Data not found', 'status' => 404], 404);
             }
 

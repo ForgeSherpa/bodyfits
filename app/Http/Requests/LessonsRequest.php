@@ -32,7 +32,7 @@ class LessonsRequest extends FormRequest
             'length' => ['numeric', 'required'],
             'title' => ['required', 'string'],
             'duration' => ['string', 'required'],
-            'isPlural' => ['required', 'boolean']
+            'isPlural' => ['required', 'boolean'],
         ];
     }
 }

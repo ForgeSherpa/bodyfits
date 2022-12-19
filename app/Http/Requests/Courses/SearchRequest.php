@@ -25,7 +25,7 @@ class SearchRequest extends FormRequest
     {
         return [
             'course_id' => ['required_if:type,lesson', 'exists:courses,id'],
-            'search' => ['nullable', 'string']
+            'search' => ['nullable', 'string'],
         ];
     }
 }

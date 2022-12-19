@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         return Inertia::render('Authed/Admin/Dashboard', [
             'feedbacks' => Feedback::whereDate('created_at', Carbon::now())->count(),
-            'users' => User::whereBetween('created_at', [now()->subWeek(), now()])->count()
+            'users' => User::whereBetween('created_at', [now()->subWeek(), now()])->count(),
         ]);
     }
 
@@ -31,7 +31,7 @@ class DashboardController extends Controller
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
             autoRemovePhoto($user->photo);
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }

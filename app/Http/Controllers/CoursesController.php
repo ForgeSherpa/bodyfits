@@ -38,7 +38,7 @@ class CoursesController extends Controller
         $searchId = $currentId + 1;
         $query = Courses::has('lessons')->with('lessons')->find($searchId);
 
-        if (!$query) {
+        if (! $query) {
             $this->findNextLesson($searchId, $num + 1);
         }
 
@@ -50,13 +50,13 @@ class CoursesController extends Controller
         if ($duration >= 3600) {
             $hours = floor($duration / 3600);
             $minutes = floor(($duration % 3600) / 60);
-            $formattedLength = sprintf("%dh %dm", $hours, $minutes);
-        } else if ($duration >= 60) {
+            $formattedLength = sprintf('%dh %dm', $hours, $minutes);
+        } elseif ($duration >= 60) {
             $minutes = floor($duration / 60);
             $seconds = $duration % 60;
-            $formattedLength = sprintf("%dm %ds", $minutes, $seconds);
+            $formattedLength = sprintf('%dm %ds', $minutes, $seconds);
         } else {
-            $formattedLength = sprintf("%ds", $duration);
+            $formattedLength = sprintf('%ds', $duration);
         }
 
         return $formattedLength;
@@ -75,11 +75,11 @@ class CoursesController extends Controller
         $totalDuration = $course->lessons->map(function ($item) {
             $length = parseInt($item->length);
 
-            if (str_contains($item->length, "minute")) {
+            if (str_contains($item->length, 'minute')) {
                 return $length * 60;
             }
 
-            if (str_contains($item->length, "hour")) {
+            if (str_contains($item->length, 'hour')) {
                 return $length * 3600;
             }
 

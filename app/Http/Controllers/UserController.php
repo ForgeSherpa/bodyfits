@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\ManageAccount\{ChangeEmailRequest, ChangeNameRequest, ChangePhotoRequest};
+use App\Http\Requests\ManageAccount\ChangeEmailRequest;
+use App\Http\Requests\ManageAccount\ChangeNameRequest;
+use App\Http\Requests\ManageAccount\ChangePhotoRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -43,7 +44,7 @@ class UserController extends Controller
 
         autoRemovePhoto($user->photo);
 
-        $name = time() . $request->photo->getClientOriginalName();
+        $name = time().$request->photo->getClientOriginalName();
         Storage::putFileAs('images/profiles', $request->photo, $name);
         $data['photo'] = $name;
 

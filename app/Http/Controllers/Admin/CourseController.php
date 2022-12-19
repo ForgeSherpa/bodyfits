@@ -70,7 +70,7 @@ class CourseController extends Controller
         $data = $request->except('photo');
 
         if ($photo && trim($photo) !== '') {
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/courses', $photo, $name);
             $data['photo'] = $name;
         }
@@ -138,7 +138,7 @@ class CourseController extends Controller
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
             autoRemovePhoto($courses->photo);
-            $name = time() . $photo->getClientOriginalName();
+            $name = time().$photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }

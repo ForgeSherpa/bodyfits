@@ -25,7 +25,7 @@ class NoteRequest extends FormRequest
     {
         return [
             'note' => ['required', 'string'],
-            'date' => ['required', 'date']
+            'date' => ['required', 'date'],
         ];
     }
 }

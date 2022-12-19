@@ -37,8 +37,9 @@ class LessonController extends Controller
 
     private function parseLength(LessonsRequest $request): string
     {
-        $plural = $request->isPlural ? "s" : "";
-        return $request->length . " {$request->duration}{$plural}";
+        $plural = $request->isPlural ? 's' : '';
+
+        return $request->length." {$request->duration}{$plural}";
     }
 
     /**
@@ -125,13 +126,13 @@ class LessonController extends Controller
 
     public function check(Request $request)
     {
-        if (!$request->from) {
+        if (! $request->from) {
             return response()->json(['check' => false], 400);
         }
 
         $find = Courses::where('id', $request->from)->first();
 
-        if (!$find) {
+        if (! $find) {
             return response()->json(['check' => false], 404);
         }
 
