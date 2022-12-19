@@ -30,6 +30,8 @@ export default function Detail({ data }) {
                     minH="full"
                     border="1px solid"
                     borderColor={COLORS.admin.black}
+                    p={5}
+                    rounded="lg"
                 >
                     {HTMLReactParser(data.content)}
                 </Box>

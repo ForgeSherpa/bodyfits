@@ -18,6 +18,7 @@ import {
 import { Link as InertiaLink } from "@inertiajs/inertia-react";
 import {
     FiBookmark,
+    FiExternalLink,
     FiHome,
     FiList,
     FiLogOut,
@@ -28,6 +29,11 @@ import {
 import { GrUserWorker } from "react-icons/gr";
 
 const menus = [
+    {
+        icon: FiExternalLink,
+        name: "Home (User)",
+        link: "home",
+    },
     {
         icon: FiHome,
         name: "Dashboard",

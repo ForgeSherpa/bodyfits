@@ -20,6 +20,7 @@ import useToast from "@/Hooks/useToast";
 import { Head } from "@inertiajs/inertia-react";
 import Calendar from "@/Components/Home/Calendar";
 import Link from "@/Components/Link";
+import NoData from "@/Components/NoData";
 
 export default function Home({
     auth,
@@ -93,30 +94,40 @@ export default function Home({
                     >
                         Choose Your Own Courses
                     </WhiteText>
-                    <UnderlineLink to="courses.index">Show All</UnderlineLink>
+                    {courses.length > 0 && (
+                        <UnderlineLink to="courses.index">
+                            Show All
+                        </UnderlineLink>
+                    )}
                 </Flex>
-                <Swiper
-                    modules={[Pagination, FreeMode]}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    slidesPerView="auto"
-                    spaceBetween={10}
-                    style={{
-                        marginBottom: 135,
-                        paddingLeft: 5,
-                    }}
-                    freeMode={true}
+                <NoData
+                    modifier={courses}
+                    fallbackTitle="Ups No courses yet. Maybe coming later?"
+                    mb={20}
                 >
-                    {courses.map((item) => (
-                        <SwiperSlide
-                            style={{ width: "fit-content" }}
-                            key={item.id}
-                        >
-                            <Course item={item} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                    <Swiper
+                        modules={[Pagination, FreeMode]}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        slidesPerView="auto"
+                        spaceBetween={10}
+                        style={{
+                            marginBottom: 135,
+                            paddingLeft: 5,
+                        }}
+                        freeMode={true}
+                    >
+                        {courses.map((item) => (
+                            <SwiperSlide
+                                style={{ width: "fit-content" }}
+                                key={item.id}
+                            >
+                                <Course item={item} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </NoData>
             </Box>
             <Box pr={{ base: 0, lg: 39 }}>
                 <WhiteText
@@ -211,16 +222,24 @@ export default function Home({
                 <WhiteText fontWeight="bold" fontSize={{ base: 40, lg: 60 }}>
                     OUR TRAINERS
                 </WhiteText>
-                <ChakraGrid
-                    templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
-                    gap={10}
-                    justifyContent="center"
-                    justifyItems="center"
+                <NoData
+                    fallbackTitle=" Hah... This is bad. We don't have any trainers right
+                        now."
+                    mt={5}
+                    mb={20}
+                    modifier={trainersList}
                 >
-                    {trainersList.map((item) => (
-                        <Trainer key={item.id} data={item} />
-                    ))}
-                </ChakraGrid>
+                    <ChakraGrid
+                        templateColumns={{ base: "1fr", lg: "repeat(3, 1fr)" }}
+                        gap={10}
+                        justifyContent="center"
+                        justifyItems="center"
+                    >
+                        {trainersList.map((item) => (
+                            <Trainer key={item.id} data={item} />
+                        ))}
+                    </ChakraGrid>
+                </NoData>
             </Box>
             {element}
         </MainLayout>

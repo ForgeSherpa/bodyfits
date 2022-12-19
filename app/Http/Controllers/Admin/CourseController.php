@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\SearchableModel;
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoursesRequest;
 use App\Http\Requests\UpdateCoursesRequest;
@@ -68,7 +70,7 @@ class CourseController extends Controller
         $data = $request->except('photo');
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/courses', $photo, $name);
             $data['photo'] = $name;
         }
@@ -135,12 +137,10 @@ class CourseController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            autoRemovePhoto($courses->photo);
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
-            if ($courses->photo && trim($courses->photo) !== '') {
-                Storage::delete('images/courses/'.$courses->photo);
-            }
         }
 
         $courses->update($data);
@@ -156,6 +156,8 @@ class CourseController extends Controller
      */
     public function destroy(Courses $courses)
     {
+        autoRemovePhoto($courses->photo);
+
         if ($courses->loadCount('lessons')->lessons_count > 0) {
             $courses->lessons()->delete(); // delete semua course nya dulu
         }

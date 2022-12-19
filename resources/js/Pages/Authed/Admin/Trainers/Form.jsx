@@ -3,17 +3,18 @@ import Button from "@/Components/Admin/Button";
 import FormInput from "@/Components/Admin/FormInput";
 import FormTextarea from "@/Components/Admin/FormTextarea";
 import GenericPreview from "@/Components/Admin/GenericPreview";
+import MemoizedImage from "@/Components/Admin/MemoizedImage";
 import TwoColumn from "@/Components/Admin/TwoColumn";
-import Image from "@/Components/Image";
 import { Box, Progress, Text } from "@chakra-ui/react";
 import { Head, useForm } from "@inertiajs/inertia-react";
+import React from "react";
 
 export default function Form({ trainer }) {
     const initial = {
         name: trainer ? trainer.name : "",
         age: trainer ? trainer.age : 18,
         nationality: trainer ? trainer.nationality : "",
-        photo: trainer ? trainer.photo : "",
+        photo: "",
         contact: trainer ? trainer.contact : "",
         description: trainer ? trainer.description : "",
         job: trainer ? trainer.job : "",
@@ -53,14 +54,7 @@ export default function Form({ trainer }) {
             <Head title={`${trainer ? "Edit" : "Create"} Trainer`} />
             <form id="formtrainer" onSubmit={submitHandler}>
                 <Text>{trainer ? "Current" : "Preview"} Photo</Text>
-                <Image
-                    outSide={
-                        (data.photo && URL.createObjectURL(data.photo)) ||
-                        (trainer
-                            ? route("image", trainer.photo)
-                            : route("image", "fallback.webp"))
-                    }
-                />
+                <MemoizedImage photo={data.photo} data={trainer} />
                 <FormInput
                     title="Photo"
                     placeholder="Your photo"

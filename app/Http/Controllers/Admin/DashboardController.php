@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Feedback;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -12,7 +14,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Authed/Admin/Dashboard');
+        return Inertia::render('Authed/Admin/Dashboard', [
+            'feedbacks' => Feedback::whereDate('created_at', Carbon::now())->count(),
+            'users' => User::whereBetween('created_at', [now()->subWeek(), now()])->count()
+        ]);
     }
 
     public function updateProfile(UpdateProfileRequest $updateProfileRequest)
@@ -25,12 +30,10 @@ class DashboardController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            autoRemovePhoto($user->photo);
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
-            if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/'.$user->photo);
-            }
         }
 
         User::find(auth()->user()->id)->update($data);

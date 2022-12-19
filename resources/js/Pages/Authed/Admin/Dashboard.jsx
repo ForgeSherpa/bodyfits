@@ -6,7 +6,7 @@ import { Flex } from "@chakra-ui/react";
 import { Head } from "@inertiajs/inertia-react";
 import { FiInfo } from "react-icons/fi";
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, feedbacks, users }) {
     return (
         <AdminLayout>
             <Head title="Dashboard" />
@@ -22,12 +22,12 @@ export default function Dashboard({ auth }) {
                 <StatsCard
                     header="Feedbacks"
                     body="New Feedback Arrived"
-                    count={3}
+                    count={feedbacks}
                 />
                 <StatsCard
                     header="Users"
                     body="Users Counts last 1 week"
-                    count={10}
+                    count={users}
                 />
             </div>
             <ManageAccount auth={auth} />

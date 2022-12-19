@@ -34,7 +34,7 @@ class Setup extends Command
         if ($this->option('init')) {
             Artisan::call('key:generate');
             Artisan::call('migrate:photo');
-            $this->info("Done, you now start installing Node dependencies by running 'yarn'.");
+            $this->info("Done, You can start installing Node dependencies by running 'yarn'.");
         }
 
         Artisan::call('migrate:fresh --seed');

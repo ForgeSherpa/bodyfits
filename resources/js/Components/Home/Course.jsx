@@ -13,6 +13,8 @@ export default function Course({ item }) {
                     query="fit=crop-top&crop=577,159&w=577&h=159"
                     rounded={40}
                     borderBottomRadius={0}
+                    w={577}
+                    h={159}
                 />
                 <Box position="relative" px={35} py={3}>
                     <WhiteText fontWeight="bold" fontSize={36}>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\SearchableModel;
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriesRequest;
 use App\Models\Categories;

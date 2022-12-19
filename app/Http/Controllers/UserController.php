@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\ManageAccount\{ChangeEmailRequest, ChangeNameRequest, ChangePhotoRequest};
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,13 +17,9 @@ class UserController extends Controller
         return Inertia::render('Authed/Profiles');
     }
 
-    public function changeName(Request $request)
+    public function changeName(ChangeNameRequest $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string'],
-        ]);
-
-        User::find(auth()->user()->id)->update($data);
+        User::find(auth()->user()->id)->update($request->validated());
 
         return to_route('profile.index')->with([
             'message' => 'Profile Name changed!',
@@ -30,13 +27,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function changeEmail(Request $request)
+    public function changeEmail(ChangeEmailRequest $request)
     {
-        $data = $request->validate([
-            'email' => ['required', 'email', 'unique:users,email'],
-        ]);
-
-        User::find(auth()->user()->id)->update($data);
+        User::find(auth()->user()->id)->update($request->validated());
 
         return to_route('profile.index')->with([
             'message' => 'Profile Email changed!',
@@ -44,21 +37,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function changePhoto(Request $request)
+    public function changePhoto(ChangePhotoRequest $request)
     {
-        $data = $request->validate([
-            'photo' => ['required', 'image', 'mimes:png,jpg,webp', 'max:4096'],
-        ]);
-
-        $name = time().$request->photo->getClientOriginalName();
-        Storage::putFileAs('images/profiles', $request->photo, $name);
-        $data['photo'] = $name;
-
         $user = auth()->user();
 
-        if ($user->photo && trim($user->photo) !== '') {
-            Storage::delete('images/'.$user->photo);
-        }
+        autoRemovePhoto($user->photo);
+
+        $name = time() . $request->photo->getClientOriginalName();
+        Storage::putFileAs('images/profiles', $request->photo, $name);
+        $data['photo'] = $name;
 
         User::find(auth()->user()->id)->update($data);
 
@@ -80,7 +67,13 @@ class UserController extends Controller
 
     public function deleteAccount()
     {
-        User::find(auth()->user()->id)->delete();
+        $user = User::find(auth()->user()->id);
+
+        autoRemovePhoto($user->photo);
+
+        $user->update(['photo' => null]); // as we used soft delete. It's better to put the image to null.
+
+        $user->delete();
 
         return (new AuthenticatedSessionController())->destroy(request())->with([
             'message' => 'Account Deleted',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonsRequest;
 use App\Models\Courses;
@@ -34,6 +35,12 @@ class LessonController extends Controller
         return to_route('admin.courses.index');
     }
 
+    private function parseLength(LessonsRequest $request): string
+    {
+        $plural = $request->isPlural ? "s" : "";
+        return $request->length . " {$request->duration}{$plural}";
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,7 +51,7 @@ class LessonController extends Controller
     {
         $data = $request->validated();
 
-        $data['length'] = $request->length." {$request->duration}";
+        $data['length'] = $this->parseLength($request);
         Lessons::create($data);
 
         $this->cast('Lesson Created!', 'success');
@@ -74,8 +81,9 @@ class LessonController extends Controller
     public function edit(Lessons $lessons)
     {
         $data = $lessons->load('course')->toArray();
-        $data['durationPlural'] = str_ends_with($data['length'], 's') ? 's' : '';
+        $data['isPlural'] = str_ends_with($data['length'], 's');
         $data['duration'] = strtolower(explode(' ', $data['length'])[1]);
+        $data['duration'] = $data['isPlural'] ? substr($data['duration'], 0, -1) : $data['duration'];
         $data['length'] = parseInt($data['length']);
 
         return Inertia::render('Authed/Admin/Lessons/Form', [
@@ -93,7 +101,7 @@ class LessonController extends Controller
     public function update(LessonsRequest $request, Lessons $lessons)
     {
         $data = $request->validated();
-        $data['length'] = $request->length." {$request->duration}";
+        $data['length'] = $this->parseLength($request);
 
         $lessons->update($data);
 
@@ -117,13 +125,13 @@ class LessonController extends Controller
 
     public function check(Request $request)
     {
-        if (! $request->from) {
+        if (!$request->from) {
             return response()->json(['check' => false], 400);
         }
 
         $find = Courses::where('id', $request->from)->first();
 
-        if (! $find) {
+        if (!$find) {
             return response()->json(['check' => false], 404);
         }
 

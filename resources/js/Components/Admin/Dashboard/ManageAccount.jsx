@@ -3,6 +3,7 @@ import { useForm } from "@inertiajs/inertia-react";
 import { useEffect } from "react";
 import Image from "../../Image";
 import Button from "../Button";
+import MemoizedImage from "../MemoizedImage";
 import OutlineInput from "../OutlineInput";
 import ShadowBox from "../ShadowBox";
 import TwoColumn from "../TwoColumn";
@@ -65,13 +66,7 @@ export default function ManageAccount({ auth }) {
                     </GridItem>
                     <GridItem>
                         <Text>{data.photo ? "Preview" : "Current"} Photo:</Text>
-                        <Image
-                            outSide={
-                                (data.photo &&
-                                    URL.createObjectURL(data.photo)) ||
-                                route("image", auth.user.photo)
-                            }
-                        />
+                        <MemoizedImage data={auth.user} photo={data.photo} />
                         <OutlineInput
                             mt={5}
                             placeholder="Your new photo"

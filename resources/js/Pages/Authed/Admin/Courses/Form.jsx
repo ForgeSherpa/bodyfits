@@ -3,6 +3,7 @@ import Button from "@/Components/Admin/Button";
 import FormInput from "@/Components/Admin/FormInput";
 import FormTextarea from "@/Components/Admin/FormTextarea";
 import GenericPreview from "@/Components/Admin/GenericPreview";
+import MemoizedImage from "@/Components/Admin/MemoizedImage";
 import SelectAutocomplete from "@/Components/Admin/SelectAutocomplete";
 import TwoColumn from "@/Components/Admin/TwoColumn";
 import Image from "@/Components/Image";
@@ -60,14 +61,7 @@ export default function Form({ course, trainers, categories }) {
             <Head title={`${course ? "Edit" : "Create"} Course`} />
             <form id="formcourse" onSubmit={submitHandler}>
                 <Text>{course ? "Current" : "Preview"} Photo</Text>
-                <Image
-                    outSide={
-                        (data.photo && URL.createObjectURL(data.photo)) ||
-                        (course
-                            ? route("image", course.photo)
-                            : route("image", "fallback.webp"))
-                    }
-                />
+                <MemoizedImage photo={data.photo} data={course} />
                 <FormInput
                     title="Photo"
                     placeholder="Your photo"

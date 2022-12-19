@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Courses\SearchRequest;
 use App\Models\Categories;
 use App\Models\Courses;
 use App\Models\Lessons;
@@ -28,15 +29,37 @@ class CoursesController extends Controller
         ]);
     }
 
-    private function findNextLesson($currentId)
+    private function findNextLesson($currentId, $num = 0)
     {
+        if ($num >= Courses::count()) {
+            return false;
+        }
+
         $searchId = $currentId + 1;
         $query = Courses::has('lessons')->with('lessons')->find($searchId);
-        // if (!$query) {
-        // return $this->findNextLesson($searchId + 1);
-        // }
+
+        if (!$query) {
+            $this->findNextLesson($searchId, $num + 1);
+        }
 
         return $query;
+    }
+
+    private function parseDurationType($duration)
+    {
+        if ($duration >= 3600) {
+            $hours = floor($duration / 3600);
+            $minutes = floor(($duration % 3600) / 60);
+            $formattedLength = sprintf("%dh %dm", $hours, $minutes);
+        } else if ($duration >= 60) {
+            $minutes = floor($duration / 60);
+            $seconds = $duration % 60;
+            $formattedLength = sprintf("%dm %ds", $minutes, $seconds);
+        } else {
+            $formattedLength = sprintf("%ds", $duration);
+        }
+
+        return $formattedLength;
     }
 
     /**
@@ -49,9 +72,21 @@ class CoursesController extends Controller
     {
         $course = $courses->load('trainer', 'lessons');
 
-        $totalDuration = $course->lessons->map(fn ($item) => parseInt($item->length))->reduce(function ($first, $second) {
-            return $first + $second;
-        }, 0);
+        $totalDuration = $course->lessons->map(function ($item) {
+            $length = parseInt($item->length);
+
+            if (str_contains($item->length, "minute")) {
+                return $length * 60;
+            }
+
+            if (str_contains($item->length, "hour")) {
+                return $length * 3600;
+            }
+
+            return $length;
+        })->reduce(fn ($first, $second) => $first + $second, 0);
+
+        $totalDuration = $this->parseDurationType($totalDuration);
 
         $next = $this->findNextLesson($course->id);
 
@@ -61,22 +96,25 @@ class CoursesController extends Controller
             'lesson' => $lessons,
             'nextCourseId' => $next->id ?? false,
             'nextLessonId' => $next ? $next->lessons->first()->id : false,
-            'totalDuration' => $totalDuration.'m',
+            'totalDuration' => $totalDuration,
         ]);
     }
 
-    public function search(Request $request)
+    private function lessonSearch(SearchRequest $searchRequest)
+    {
+        return Courses::with(['lessons' => fn ($q) => $q->where('title', 'LIKE', "%{$searchRequest->search}%")])
+            ->where('id', $searchRequest->course_id)
+            ->get()
+            ->filter(fn ($item) => count($item->lessons->toArray()) > 0)
+            ->map(fn ($item) => $item->lessons)
+            ->values()
+            ->flatten();
+    }
+
+    public function search(SearchRequest $request)
     {
         if (isset($request->type) && $request->type === 'lesson') {
-            $request->validate(['course_id' => 'required|exists:courses,id']);
-
-            return Courses::with(['lessons' => fn ($q) => $q->where('title', 'LIKE', "%{$request->search}%")])
-                ->where('id', $request->course_id)
-                ->get()
-                ->filter(fn ($item) => count($item->lessons->toArray()) > 0)
-                ->map(fn ($item) => $item->lessons)
-                ->values()
-                ->flatten();
+            return $this->lessonSearch($request);
         }
 
         $courses = collect(Courses::where('title', 'LIKE', "%{$request->search}%")->limit(20)->get())

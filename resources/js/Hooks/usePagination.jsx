@@ -125,6 +125,13 @@ export default function usePagination(
     }, [item, config.perPage, link, config.preserveState]);
 
     useEffect(() => {
+        if (item.next_page_url === null) {
+            setLimit(1); // override limit jadi sama dengan current page
+            setCurrent(1);
+        }
+    }, []);
+
+    useEffect(() => {
         if (limit !== false && current === limit) {
             setHasNext(false);
         } else {

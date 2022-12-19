@@ -51,7 +51,9 @@ If you're using sail (docker) then:
 
 Command above will run installation it's needs to make sure your app up and running.
 
-Finally, if you get vite manifest error, make sure to run `yarn dev` or `sail yarn dev`.
+Finally, if you get vite manifest error, make sure to run `yarn dev`.
+
+Sail should do this automatically for you, In case it's not. You can run `sail yarn dev`.
 
 # Credits
 

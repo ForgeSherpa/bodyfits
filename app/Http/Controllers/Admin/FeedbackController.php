@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\SearchableModel;
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
@@ -9,8 +11,7 @@ use Inertia\Inertia;
 
 class FeedbackController extends Controller
 {
-    use ToastTrait;
-    use SearchableModel;
+    use ToastTrait, SearchableModel;
 
     public function index(Request $request)
     {
@@ -41,7 +42,7 @@ class FeedbackController extends Controller
             $feedback->update(['status' => Feedback::FEEDBACK_READ]);
         }
 
-        if (! $internal) {
+        if (!$internal) {
             $this->cast('Marked as read!', 'success');
         }
     }

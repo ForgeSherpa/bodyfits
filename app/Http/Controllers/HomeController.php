@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Notes\{DeleteNoteRequest, NoteRequest};
 use App\Models\Courses;
 use App\Models\Notes;
 use App\Models\Trainers;
@@ -38,23 +39,19 @@ class HomeController extends Controller
         return Inertia::render('Home', compact('trainers', 'courses', 'daysStreak', 'daysMissed'));
     }
 
-    public function addNotes(Request $request)
+    public function addNotes(NoteRequest $request)
     {
-        $request->validate(['note' => ['required', 'string'], 'date' => ['required', 'date']]);
-
         Notes::create(['note' => $request->note, 'user_id' => auth()->user()->id, 'date' => $request->date]);
     }
 
-    public function editNote(Request $request)
+    public function editNote(NoteRequest $request)
     {
-        $validated = $request->validate(['note' => ['required', 'string'], 'date' => ['required', 'date']]);
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
-        $notes->update($validated);
+        $notes->update($request->validated());
     }
 
-    public function deleteNote(Request $request)
+    public function deleteNote(DeleteNoteRequest $request)
     {
-        $request->validate(['date' => ['required', 'date']]);
         $notes = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date);
         $notes->delete();
     }
@@ -64,7 +61,7 @@ class HomeController extends Controller
         $note = Notes::where('user_id', auth()->user()->id)->whereDate('date', $request->date)->first();
 
         if ($request->wantsJson()) {
-            if (! $note) {
+            if (!$note) {
                 return response()->json(['message' => 'Data not found', 'status' => 404], 404);
             }
 

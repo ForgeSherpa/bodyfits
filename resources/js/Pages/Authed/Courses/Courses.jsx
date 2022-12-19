@@ -1,4 +1,5 @@
 import List from "@/Components/Courses/List";
+import NoData from "@/Components/NoData";
 import SearchBar from "@/Components/Searchbar";
 import WhiteDivider from "@/Components/WhiteDivider";
 import WhiteText from "@/Components/WhiteText";
@@ -26,11 +27,18 @@ export default function Courses({ auth, courses }) {
                 <SearchBar path="courses.search" placeholder="Search courses" />
             </Box>
             <WhiteDivider />
-            {lists.map((item) => (
-                <List key={item.id} item={item} />
-            ))}
+            <NoData
+                modifier={lists}
+                fallbackTitle="This is embrassing, but we don't have any courses right now."
+                mt={5}
+                mb={10}
+            >
+                {lists.map((item) => (
+                    <List key={item.id} item={item} />
+                ))}
+            </NoData>
             <Box my={100} />
             {element}
-        </MainLayout>
+    </MainLayout>
     );
 }

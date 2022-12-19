@@ -22,14 +22,20 @@ export default function Form({ lesson }) {
         length: lesson ? lesson["length"] : "",
         title: lesson ? lesson.title : "",
         duration: lesson ? lesson.duration : "second",
+        isPlural: lesson && lesson.isPlural ? true : false,
     };
 
     const { data, errors, post, put, processing, setData } = useForm(initial);
-    const [append, setAppend] = useState(lesson ? lesson.durationPlural : "");
 
     const { element } = useCheckQuery();
 
-    if (element) return element;
+    useEffect(() => {
+        if (data["length"] > 1) {
+            setData("isPlural", true);
+        } else {
+            setData("isPlural", false);
+        }
+    }, [data["length"]]);
 
     const inputChangeHandler = (e) => {
         setData(e.target.name, e.target.value);
@@ -39,16 +45,6 @@ export default function Form({ lesson }) {
         setData("duration", e.target.value);
     };
 
-    const lengthChangeHandler = (e) => {
-        if (e.target.value > 1) {
-            setAppend("s");
-        } else {
-            setAppend("");
-        }
-
-        setData("length", e.target.value);
-    };
-
     const contentChangeHandler = (value) => {
         setData("content", value);
     };
@@ -56,6 +52,7 @@ export default function Form({ lesson }) {
     const submitHandler = (e) => {
         e.preventDefault();
         if (lesson) {
+            console.log(data);
             put(
                 route("admin.lessons.update", {
                     lessons: lesson.id,
@@ -71,9 +68,11 @@ export default function Form({ lesson }) {
         }
     };
 
+    if (element) return element;
+
     return (
         <GenericPreview name={`${lesson ? "Edit" : "Create"} Lesson`}>
-            <Head title={`${lesson ? "Edit" : "Create"} Feedback`} />
+            <Head title={`${lesson ? "Edit" : "Create"} Lesson`} />
             <form id="formlesson" onSubmit={submitHandler}>
                 <TwoColumn gap={3}>
                     <FormInput
@@ -97,7 +96,7 @@ export default function Form({ lesson }) {
                                 value={data["length"]}
                                 type="number"
                                 name="length"
-                                onChange={lengthChangeHandler}
+                                onChange={inputChangeHandler}
                                 mt={3}
                                 borderColor={
                                     errors["length"]
@@ -117,9 +116,15 @@ export default function Form({ lesson }) {
                                 onChange={onDurationChange}
                                 value={data.duration}
                             >
-                                <option value={`second`}>Second{append}</option>
-                                <option value={`minute`}>Minute{append}</option>
-                                <option value={`hour`}>Hour{append}</option>
+                                <option value={`second`}>
+                                    Second{data.isPlural ? "s" : ""}
+                                </option>
+                                <option value={`minute`}>
+                                    Minute{data.isPlural ? "s" : ""}
+                                </option>
+                                <option value={`hour`}>
+                                    Hour{data.isPlural ? "s" : ""}
+                                </option>
                             </FormSelect>
                         </Grid>
                         {errors["length"] && (

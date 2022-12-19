@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\SearchableModel;
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainersRequest;
 use App\Models\Trainers;
@@ -64,7 +66,7 @@ class TrainerController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
         }
@@ -109,14 +111,14 @@ class TrainerController extends Controller
 
         $photo = $request->photo;
 
+        unset($data['photo']);
+
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            autoRemovePhoto($trainers->photo);
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
-            if ($trainers->photo && trim($trainers->photo) !== '') {
-                Storage::delete('images/trainers/'.$trainers->photo);
-            }
         }
 
         if ($request->password && trim($request->password) !== '') {
@@ -136,6 +138,8 @@ class TrainerController extends Controller
      */
     public function destroy(Trainers $trainers)
     {
+        autoRemovePhoto($trainers->photo);
+
         $trainers->delete();
         $this->deleted('Trainer');
     }

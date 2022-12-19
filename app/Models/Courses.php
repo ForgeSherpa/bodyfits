@@ -30,7 +30,7 @@ class Courses extends Model
     protected function photo(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? "courses/{$value}" : 'courses/example.jpg'
+            get: fn ($value) => $value ? "courses/{$value}" : 'courses/default.jpg'
         );
     }
 }

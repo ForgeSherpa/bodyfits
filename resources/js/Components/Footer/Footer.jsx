@@ -34,7 +34,11 @@ export default function Footer() {
                 borderLeft="1px solid white"
                 px={{ base: 10, lg: 41 }}
             >
-                <WhiteText letterSpacing={5} fontSize={36} textAlign="center">
+                <WhiteText
+                    letterSpacing={5}
+                    fontSize={{ base: 24, lg: 36 }}
+                    textAlign="center"
+                >
                     Menu
                 </WhiteText>
                 <UnorderedList listStyleType="none" textAlign="left" ml={0}>

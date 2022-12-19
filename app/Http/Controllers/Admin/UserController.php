@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Traits\SearchableModel;
+use App\Http\Controllers\Admin\Traits\ToastTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\RestoreUserRequest;
@@ -66,7 +68,7 @@ class UserController extends Controller
         $data = $request->except(['password_confirmation', 'photo']);
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
         }
@@ -117,12 +119,10 @@ class UserController extends Controller
 
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            autoRemovePhoto($user->photo);
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/profiles', $photo, $name);
             $data['photo'] = $name;
-            if ($user->photo && trim($user->photo) !== '') {
-                Storage::delete('images/'.$user->photo);
-            }
         }
 
         if ($updateUserRequest->password && trim($updateUserRequest->password) !== '') {
@@ -142,6 +142,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        autoRemovePhoto($user->photo);
+
+        $user->update(['photo' => null]); // ikutin rule manage account user
         $user->delete();
 
         return $this->deleted('User');

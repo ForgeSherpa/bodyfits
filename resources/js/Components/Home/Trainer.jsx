@@ -51,6 +51,7 @@ export default function Trainer({ data }) {
                     colorScheme="whiteAlpha"
                     px={7}
                     onClick={onOpen}
+                    mt={5}
                 >
                     See Profile
                 </Button>
