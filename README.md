@@ -20,6 +20,18 @@ Installation
 -   execute `./vendor/bin/sail build && ./vendor/bin/sail up`.
 -   Your app should up and running. Don't forget to execute `./vendor/bin/sail yarn dev` to start vite server.
 
+# Installation (WSL / Ubuntu)
+
+> This script only work for Ubuntu and it's derivatives with minimum 22.04. Older version of Ubuntu need to add [ondrej-ppa](https://launchpad.net/~ondrej/+archive/ubuntu/php) first.
+
+BodyFits also provide install on Ubuntu WSL if you want to. Simply execute `./bin/autosetup.sh`. And your setup is done.
+
+> In case executing `autosetup.sh` not working, it may be caused by permission. You can fix it by: `chmod u+x ./bin/autosetup.sh` (use sudo if needed).
+
+> You may also need to setup your MySQL manually. As from what I remember, newer version of MySQL disallow root login.
+
+> Other distribution require manual install and need adjustment in package manager. Or use docker for multiplatform.
+
 # Manual Installation
 
 Requirements:
