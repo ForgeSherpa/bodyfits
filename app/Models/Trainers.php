@@ -17,11 +17,6 @@ class Trainers extends Model
         return $this->hasMany(Courses::class, 'trainer_id');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'trainer_user', 'user_id', 'trainer_id');
-    }
-
     protected function photo(): Attribute
     {
         return Attribute::make(

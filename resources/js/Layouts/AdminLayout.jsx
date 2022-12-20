@@ -98,27 +98,31 @@ export default function AdminLayout({ children }) {
                             gap={3}
                         >
                             <item.icon />
-                            <Link to={item.link}>{item.name}</Link>
+                            <Link w="full" h="full" to={item.link}>
+                                {item.name}
+                            </Link>
                         </Flex>
                     ))}
-                    <Flex
-                        bg={COLORS.admin.selected}
-                        className="border border-zinc-500"
-                        rounded="lg"
-                        alignItems="center"
-                        py={2}
-                        px={3}
-                        gap={3}
+                    <InertiaLink
+                        as="button"
+                        method="post"
+                        href={route("logout")}
+                        width="full"
+                        height="full"
                     >
-                        <FiLogOut />
-                        <InertiaLink
-                            as="button"
-                            method="post"
-                            href={route("logout")}
+                        <Flex
+                            bg={COLORS.admin.selected}
+                            className="border border-zinc-500"
+                            rounded="lg"
+                            alignItems="center"
+                            py={2}
+                            px={3}
+                            gap={3}
                         >
-                            Logout
-                        </InertiaLink>
-                    </Flex>
+                            <FiLogOut />
+                            <Text>Logout</Text>
+                        </Flex>
+                    </InertiaLink>
                 </Box>
                 <Flex
                     display={{ base: "flex", lg: "none" }}
@@ -152,7 +156,11 @@ export default function AdminLayout({ children }) {
                                             key={i}
                                         >
                                             <item.icon />
-                                            <Link to={item.link}>
+                                            <Link
+                                                w="full"
+                                                h="full"
+                                                to={item.link}
+                                            >
                                                 {item.name}
                                             </Link>
                                         </MenuItem>
@@ -163,12 +171,12 @@ export default function AdminLayout({ children }) {
                                         gap={3}
                                         as={List}
                                     >
-                                        <FiLogOut />
                                         <InertiaLink
                                             as="button"
                                             method="post"
                                             href={route("logout")}
                                         >
+                                            <FiLogOut />
                                             Logout
                                         </InertiaLink>
                                     </MenuItem>

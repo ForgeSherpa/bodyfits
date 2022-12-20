@@ -59,9 +59,4 @@ class User extends Authenticatable
             get: fn ($value) => $value ? "profiles/{$value}" : 'profiles/default'.rand(1, 6).'.jpg'
         );
     }
-
-    public function trainers()
-    {
-        return $this->hasManyThrough(Trainers::class, 'trainer_user', 'trainer_id', 'user_id');
-    }
 }

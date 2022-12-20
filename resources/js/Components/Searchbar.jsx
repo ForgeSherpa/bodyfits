@@ -87,11 +87,15 @@ export default function SearchBar({
                                 params={
                                     customParam
                                         ? customParam(item)
-                                        : { courses: item.id, lessons: 1 }
+                                        : {
+                                              courses: item.id,
+                                              lessons: item.lessons[0].id,
+                                          }
                                 }
                                 key={item.id}
                                 rounded="lg"
                                 py={2}
+                                px={3}
                             >
                                 {item.title}
                             </Link>

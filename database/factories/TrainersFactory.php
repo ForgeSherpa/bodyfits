@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TrainersFactory extends Factory
 {
-    private function getRandomTrainerPic(): int
+    private function getRandomTrainerPic(): string
     {
         $rand = rand(1, 5);
 

@@ -38,7 +38,7 @@ class CoursesController extends Controller
         $searchId = $currentId + 1;
         $query = Courses::has('lessons')->with('lessons')->find($searchId);
 
-        if (! $query) {
+        if (!$query) {
             $this->findNextLesson($searchId, $num + 1);
         }
 
@@ -117,8 +117,7 @@ class CoursesController extends Controller
             return $this->lessonSearch($request);
         }
 
-        $courses = collect(Courses::where('title', 'LIKE', "%{$request->search}%")->limit(20)->get())
-            ->filter(fn ($item) => count($item->lessons->toArray()) > 0);
+        $courses = Courses::has('lessons')->where('title', 'LIKE', "%{$request->search}%")->limit(20)->get();
 
         return $courses;
     }

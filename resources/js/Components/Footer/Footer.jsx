@@ -46,13 +46,13 @@ export default function Footer() {
                         <WhiteLink to="home">Home</WhiteLink>
                     </List>
                     <List>
-                        <WhiteLink to="home">Courses</WhiteLink>
+                        <WhiteLink to="courses.index">Courses</WhiteLink>
                     </List>
                     <List>
-                        <WhiteLink to="home">FAQ</WhiteLink>
+                        <WhiteLink to="faq">FAQ</WhiteLink>
                     </List>
                     <List>
-                        <WhiteLink to="home">Sign Up</WhiteLink>
+                        <WhiteLink to="register">Sign Up</WhiteLink>
                     </List>
                 </UnorderedList>
             </Box>

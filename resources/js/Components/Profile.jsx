@@ -21,7 +21,7 @@ export default function Profile({ auth, isMobile = false }) {
                 <Flex alignItems="center" gap={3}>
                     <Image
                         src={auth.user.photo}
-                        className="w-14 rounded-full"
+                        className="w-14 h-14 object-cover rounded-full"
                     />
                     {isMobile ? (
                         <FiChevronUp color={COLORS.putih} />
@@ -44,7 +44,7 @@ export default function Profile({ auth, isMobile = false }) {
                         </WhiteText>
                         <Image
                             src={auth.user.photo}
-                            className="w-24 rounded-full"
+                            className="w-24 h-24 object-cover rounded-full"
                         />
                     </Flex>
                 </MenuItem>

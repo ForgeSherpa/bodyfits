@@ -1,4 +1,4 @@
-import { GridItem, Progress, Text } from "@chakra-ui/react";
+import { Alert, GridItem, Progress, Text } from "@chakra-ui/react";
 import { useForm } from "@inertiajs/inertia-react";
 import { useEffect } from "react";
 import Image from "../../Image";
@@ -65,6 +65,16 @@ export default function ManageAccount({ auth }) {
                         />
                     </GridItem>
                     <GridItem>
+                        {!data.photo && auth.user.photo.includes("default") && (
+                            <Alert
+                                w="fit-content"
+                                rounded="xl"
+                                status="info"
+                                my={3}
+                            >
+                                Currently using default photo.
+                            </Alert>
+                        )}
                         <Text>{data.photo ? "Preview" : "Current"} Photo:</Text>
                         <MemoizedImage data={auth.user} photo={data.photo} />
                         <OutlineInput
