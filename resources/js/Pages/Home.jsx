@@ -19,7 +19,6 @@ import usePagination from "@/Hooks/usePagination";
 import useToast from "@/Hooks/useToast";
 import { Head } from "@inertiajs/inertia-react";
 import Calendar from "@/Components/Home/Calendar";
-import Link from "@/Components/Link";
 import NoData from "@/Components/NoData";
 
 export default function Home({
@@ -62,7 +61,9 @@ export default function Home({
                     >
                         Get your body goals, start your journey with our help!
                     </WhiteText>
-                    <Link to={auth.user ? "courses.index" : "register"}>
+                    <UnderlineLink
+                        to={auth.user ? "courses.index" : "register"}
+                    >
                         <WhiteText
                             fontWeight="bold"
                             fontSize={25}
@@ -71,7 +72,7 @@ export default function Home({
                         >
                             Start Now
                         </WhiteText>
-                    </Link>
+                    </UnderlineLink>
                 </Card>
                 <Image
                     w="full"

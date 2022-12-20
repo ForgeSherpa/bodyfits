@@ -16,7 +16,7 @@ import WhiteText from "../WhiteText";
 
 export default function ChangePassword() {
     const { onOpen, onClose, isOpen } = useDisclosure();
-    const { processing, data, setData, put, errors, reset } = useForm({
+    const { processing, data, setData, post, errors, reset } = useForm({
         old_password: "",
         new_password: "",
         new_password_confirmation: "",
@@ -28,7 +28,7 @@ export default function ChangePassword() {
 
     const passwordChangeHandler = (e) => {
         e.preventDefault();
-        put(route("profile.changePassword"));
+        post(route("profile.changePassword"));
         reset();
     };
 

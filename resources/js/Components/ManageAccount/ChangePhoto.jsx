@@ -21,7 +21,7 @@ export default function ChangePhoto({ photo }) {
             route("profile.changePhoto"),
             {
                 photo: file,
-                _method: "put",
+                _method: "post",
             },
             {
                 forceFormData: true,

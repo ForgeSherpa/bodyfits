@@ -101,6 +101,10 @@ class CategoryController extends Controller
      */
     public function destroy(Categories $categories)
     {
+        if ($categories->has('courses')) {
+            $this->cast('Delete course first!', 'warning');
+            return;
+        }
         $categories->delete();
 
         $this->deleted('Category');

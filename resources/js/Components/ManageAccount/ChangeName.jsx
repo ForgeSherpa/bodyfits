@@ -22,7 +22,7 @@ export default function ChangeName({ name }) {
             return makeToast("Something went wrong", "error");
         }
 
-        Inertia.put(route("profile.changeName"), {
+        Inertia.post(route("profile.changeName"), {
             name: newName,
         });
 

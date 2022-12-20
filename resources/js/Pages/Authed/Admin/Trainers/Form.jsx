@@ -108,7 +108,7 @@ export default function Form({ trainer }) {
                     />
                     <FormInput
                         title="Phone Number"
-                        placeholder="Your Phone Number "
+                        placeholder="Your Phone Number (E.g. 0839-xxxx-xxxx) "
                         value={data.contact}
                         name="contact"
                         onChange={inputChangeHandler}

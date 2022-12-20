@@ -15,6 +15,7 @@ import {
     MenuList,
     Text,
 } from "@chakra-ui/react";
+import { Inertia } from "@inertiajs/inertia";
 import { Link as InertiaLink } from "@inertiajs/inertia-react";
 import {
     FiBookmark,
@@ -170,15 +171,13 @@ export default function AdminLayout({ children }) {
                                         alignItems="center"
                                         gap={3}
                                         as={List}
+                                        onClick={() =>
+                                            Inertia.post(route("logout"))
+                                        }
+                                        _hover={{ cursor: "pointer" }}
                                     >
-                                        <InertiaLink
-                                            as="button"
-                                            method="post"
-                                            href={route("logout")}
-                                        >
-                                            <FiLogOut />
-                                            Logout
-                                        </InertiaLink>
+                                        <FiLogOut />
+                                        <Text>Logout</Text>
                                     </MenuItem>
                                 </MenuList>
                             </>

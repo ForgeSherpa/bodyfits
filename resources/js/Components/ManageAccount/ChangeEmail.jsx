@@ -22,7 +22,7 @@ export default function ChangeEmail({ email }) {
             return makeToast("Something went wrong", "error");
         }
 
-        Inertia.put(route("profile.changeEmail"), {
+        Inertia.post(route("profile.changeEmail"), {
             email: newEmail,
         });
 

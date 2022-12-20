@@ -47,4 +47,30 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        $response = parent::render($request, $e);
+
+        if ($response->status() === 429) {
+            return back()->with([
+                'status' => 'error',
+                'message' => 'Too many request. Slow down!',
+            ]);
+        }
+
+        if ($response->status() === 500) {
+            $log = config('app.env') !== "production" ? json_encode($e) : '';
+            return back()->with([
+                'status' => 'error',
+                'message' => 'Ups Something went wrong ' . $log
+            ]);
+        }
+
+        if ($response->status() === 404) {
+            return back()->with(['status' => 'error', 'message' => 'Page not found!']);
+        }
+
+        return $response;
+    }
 }
