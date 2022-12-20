@@ -38,7 +38,7 @@ class CoursesController extends Controller
         $searchId = $currentId + 1;
         $query = Courses::has('lessons')->with('lessons')->find($searchId);
 
-        if (!$query) {
+        if (! $query) {
             $this->findNextLesson($searchId, $num + 1);
         }
 
