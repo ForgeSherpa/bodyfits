@@ -51,25 +51,26 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         $response = parent::render($request, $e);
+        if (config('app.env') === "production") {
+            if ($response->getStatusCode() === 429) {
+                return back()->with([
+                    'status' => 'error',
+                    'message' => 'Too many request. Slow down!',
+                ]);
+            }
 
-        if ($response->getStatusCode() === 429) {
-            return back()->with([
-                'status' => 'error',
-                'message' => 'Too many request. Slow down!',
-            ]);
-        }
+            if ($response->getStatusCode() === 500) {
+                $log = config('app.env') !== 'production' ? json_encode($e) : '';
 
-        if ($response->getStatusCode() === 500) {
-            $log = config('app.env') !== 'production' ? json_encode($e) : '';
+                return back()->with([
+                    'status' => 'error',
+                    'message' => 'Ups Something went wrong ' . $log,
+                ]);
+            }
 
-            return back()->with([
-                'status' => 'error',
-                'message' => 'Ups Something went wrong '.$log,
-            ]);
-        }
-
-        if ($response->getStatusCode() === 404) {
-            return back()->with(['status' => 'error', 'message' => 'Page not found!']);
+            if ($response->getStatusCode() === 404) {
+                return back()->with(['status' => 'error', 'message' => 'Page not found!']);
+            }
         }
 
         return $response;

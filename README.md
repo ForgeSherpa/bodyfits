@@ -67,6 +67,12 @@ Finally, if you get vite manifest error, make sure to run `yarn dev`.
 
 Sail should do this automatically for you, In case it's not. You can run `sail yarn dev`.
 
+## Production Build
+
+To get the best out of BodyFits. Don't forget to setup your `APP_ENV` to `production` and `APP_DEBUG` to `false`.
+
+You might also want to bundle the assets by running `yarn build` though.
+
 # Credits
 
 -   [Albet](https://github.com/albetnov) (Developer)

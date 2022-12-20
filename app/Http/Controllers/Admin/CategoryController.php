@@ -101,7 +101,7 @@ class CategoryController extends Controller
      */
     public function destroy(Categories $categories)
     {
-        if ($categories->has('courses')) {
+        if ($categories->loadCount('courses')->courses_count > 0) {
             $this->cast('Delete course first!', 'warning');
 
             return;

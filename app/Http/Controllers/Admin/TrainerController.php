@@ -66,7 +66,7 @@ class TrainerController extends Controller
         $photo = $request->photo;
 
         if ($photo && trim($photo) !== '') {
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
         }
@@ -116,7 +116,7 @@ class TrainerController extends Controller
         // handle kalau ada foto.
         if ($photo && trim($photo) !== '') {
             autoRemovePhoto($trainers->photo);
-            $name = time().$photo->getClientOriginalName();
+            $name = time() . $photo->getClientOriginalName();
             Storage::putFileAs('images/trainers', $photo, $name);
             $data['photo'] = $name;
         }
@@ -138,7 +138,7 @@ class TrainerController extends Controller
      */
     public function destroy(Trainers $trainers)
     {
-        if ($trainers->has('courses')) {
+        if ($trainers->loadCount('courses')->courses_count > 0) {
             $this->cast('Delete courses first!', 'warning');
 
             return;
