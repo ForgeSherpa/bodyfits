@@ -29,7 +29,7 @@ export default function Trainer({ data }) {
             overflow="hidden"
         >
             <CardBody>
-                <Image src={data.photo} mx="auto" />
+                <Image src={data.photo} rounded={10} mx="auto" />
             </CardBody>
             <Box
                 position="absolute"

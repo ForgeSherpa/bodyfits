@@ -99,6 +99,7 @@ export default function usePagination(
 
     const refetch = async () => {
         try {
+            setLoading(true);
             const res = await fetch(
                 `${link}page=${current}&per_page=${config.perPage}`,
                 {

@@ -223,7 +223,7 @@ export default function Home({
                     OUR TRAINERS
                 </WhiteText>
                 <NoData
-                    fallbackTitle=" Hah... This is bad. We don't have any trainers right
+                    fallbackTitle="Hah... This is bad. We don't have any trainers right
                         now."
                     mt={5}
                     mb={20}
