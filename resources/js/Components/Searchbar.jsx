@@ -38,6 +38,7 @@ export default function SearchBar({
         });
 
         const json = await res.json();
+        console.log(json);
         onToggle();
         setLists(json);
     };

@@ -58,7 +58,7 @@ export default function Calandar() {
 
     const onCalendarChange = async (data) => {
         if (auth.user === null) {
-            makeToast("Login dlu mamank", "error");
+            makeToast("Hey! Please login!", "error");
             return;
         }
         onOpen();

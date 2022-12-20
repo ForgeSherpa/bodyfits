@@ -152,7 +152,7 @@ export default function Home({
                                 Activity Tracking
                             </WhiteText>
                             <WhiteText>
-                                {new Date().toLocaleString("id-ID", {
+                                {new Date().toLocaleString("en-US", {
                                     weekday: "long",
                                     year: "numeric",
                                     month: "long",

@@ -40,6 +40,6 @@ class NoSamePassword implements Rule
      */
     public function message()
     {
-        return 'Password kamu sama loh pack. Mau ganti kan ya?';
+        return 'Your password is just as the same as previous...';
     }
 }
