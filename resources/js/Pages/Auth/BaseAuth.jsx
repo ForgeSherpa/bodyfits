@@ -3,6 +3,7 @@ import TransparentInput from "@/Components/TransparentInput";
 import WhiteLabel from "@/Components/WhiteLabel";
 import WhiteText from "@/Components/WhiteText";
 import { Box, Flex, FormControl, FormErrorMessage } from "@chakra-ui/react";
+import { Inertia } from "@inertiajs/inertia";
 import React from "react";
 
 export default function BaseAuth({
@@ -30,6 +31,8 @@ export default function BaseAuth({
                     position="absolute"
                     top={33}
                     left={66}
+                    onClick={() => Inertia.get(route("home"))}
+                    _hover={{ cursor: "pointer" }}
                 >
                     BodyFits
                 </WhiteText>

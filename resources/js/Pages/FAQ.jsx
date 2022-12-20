@@ -10,23 +10,23 @@ import { Head } from "@inertiajs/inertia-react";
 const questionsCollection = [
     {
         question: "Is there any free trial?",
-        answer: "Are you dump? Did you ever see pricing page? No right! Because we're free.",
+        answer: "Are you dumb? Did you ever see pricing page? No right? Because we're free!",
     },
     {
         question: "Can't I change my plan later?",
-        answer: "To what? what kind of plan we're talking about?",
+        answer: "To what? what kind of plan we're talking about? Please refer to left question!",
     },
     {
         question: "What can I get from the course?",
-        answer: "A video and a text.",
+        answer: "A video and a text. Basically just that?",
     },
     {
         question: "What is tracking fits?",
-        answer: "It's our tracking system. It's just a decoration though.",
+        answer: "It's our tracking system. It's just tracking days though. We're not tracking masses etc (PLEASE UNDER ANY CIRCUMSTANCE BODYFITS IS A GYM APP. NOT DIET APP!!!).",
     },
     {
         question: "How does bodyfits work?",
-        answer: "We built on top of Laravel, Inertia, and React. And We are not the developers of these technology. Better ask Taylor eh?",
+        answer: "We built on top of Laravel, Inertia, and React. And We are not the developers of these technology. Better ask Taylor eh? or maybe visit our source code.",
     },
     {
         question: "How long the course will take?",
