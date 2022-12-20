@@ -38,7 +38,7 @@ class UserControllerTest extends TestCase
      */
     public function userCanChangeName()
     {
-        $response = $this->put(route('profile.changeName'), ['name' => 'New Name']);
+        $response = $this->post(route('profile.changeName'), ['name' => 'New Name']);
 
         $response->assertRedirect()->assertSessionHas('status', 'success');
     }
@@ -48,7 +48,7 @@ class UserControllerTest extends TestCase
      */
     public function userChangeNameError()
     {
-        $response = $this->put(route('profile.changeName'));
+        $response = $this->post(route('profile.changeName'));
 
         $response->assertInvalid();
     }
@@ -58,7 +58,7 @@ class UserControllerTest extends TestCase
      */
     public function userCanChangeEmail()
     {
-        $response = $this->put(route('profile.changeEmail'), ['email' => 'new@email.com']);
+        $response = $this->post(route('profile.changeEmail'), ['email' => 'new@email.com']);
 
         $response->assertRedirect()->assertSessionHas('status', 'success');
     }
@@ -68,7 +68,7 @@ class UserControllerTest extends TestCase
      */
     public function userChangeEmailError()
     {
-        $response = $this->put(route('profile.changeEmail'));
+        $response = $this->post(route('profile.changeEmail'));
 
         $response->assertInvalid();
     }
@@ -80,7 +80,7 @@ class UserControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->put(route('profile.changeEmail'), ['email' => $user->email]);
+        $response = $this->post(route('profile.changeEmail'), ['email' => $user->email]);
 
         $response->assertInvalid();
     }
@@ -94,7 +94,7 @@ class UserControllerTest extends TestCase
 
         $propic = UploadedFile::fake()->image('propic.jpg');
 
-        $response = $this->put(route('profile.changePhoto'), ['photo' => $propic]);
+        $response = $this->post(route('profile.changePhoto'), ['photo' => $propic]);
 
         $response->assertRedirect()->assertSessionHas('status', 'success');
     }
@@ -104,7 +104,7 @@ class UserControllerTest extends TestCase
      */
     public function userChangePhotoInvalid()
     {
-        $response = $this->put(route('profile.changePhoto'));
+        $response = $this->post(route('profile.changePhoto'));
 
         $response->assertInvalid();
     }
@@ -131,7 +131,7 @@ class UserControllerTest extends TestCase
 
         $password = 'okelaaaaaaa';
 
-        $response = $this->actingAs($user)->put('/profile/changePassword', [
+        $response = $this->actingAs($user)->post('/profile/changePassword', [
             'old_password' => 'password',
             'new_password' => $password,
             'new_password_confirmation' => $password,
@@ -145,7 +145,7 @@ class UserControllerTest extends TestCase
      */
     public function userCantChangePasswordDueValidation()
     {
-        $response = $this->put('/profile/changePassword', [
+        $response = $this->post('/profile/changePassword', [
             'old_password' => 'aowkowkowkoaowkokfoker',
             'new_password' => 'capek',
             'new_password_confirmation' => 'capekuy',
