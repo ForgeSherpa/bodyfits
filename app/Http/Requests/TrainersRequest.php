@@ -26,7 +26,7 @@ class TrainersRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'job' => ['required', 'string'],
-            'age' => ['required', 'numeric', 'min:18'],
+            'age' => ['required', 'integer', 'min:18'],
             'nationality' => ['required', 'string'],
             'contact' => ['required', 'regex:[-]'],
             'description' => ['required', 'string'],

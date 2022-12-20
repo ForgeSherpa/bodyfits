@@ -29,7 +29,7 @@ class LessonsRequest extends FormRequest
             'type' => ['required', Rule::in(['text', 'video'])],
             'content' => ['required_if:type,text', 'nullable', 'min:10', 'string'],
             'link' => ['required_if:type,video', 'nullable', 'string', 'url'],
-            'length' => ['numeric', 'required'],
+            'length' => ['integer', 'required'],
             'title' => ['required', 'string'],
             'duration' => ['string', 'required'],
             'isPlural' => ['required', 'boolean'],

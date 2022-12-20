@@ -61,6 +61,7 @@ class LessonsSeeder extends Seeder
             The problem that often arises is that even with a light load, you cannot focus the movement on the chest muscles. Most still rely on the shoulder muscles when doing flyes.", length: '5 Minutes'),
             $this->buildVideo(courseId: 4, title: 'Leg Basic', link: 'https://www.youtube.com/embed/whlS08AiiBk', length: '10 Minutes'),
             $this->buildVideo(courseId: 5, title: 'Abs Basic', link: 'https://www.youtube.com/embed/wx0t9DxLL9U', length: '8 Minutes'),
+            $this->buildVideo(courseId: 5, title: "Abs With Delvin", link: "https://www.youtube.com/embed/GoasKCqk8Gk", length: "2 Minutes"),
             $this->buildText(courseId: 6, title: 'Cardio Ez Pz', content: 'Untuk cardio, ya cukup cardio.', length: '5 Seconds'),
             $this->buildText(courseId: 7, title: 'Cardio Part 2', content: 'Selamat datang di cardio part 2 guys guys ku sekalian aokwokwowk', length: '10 Seconds'),
             $this->buildText(courseId: 8, title: 'Kungfu Panda', content: 'And we got kungfu pandaaaaa huh yeahhh kungfuuu pandaaaaa', length: '20 Seconds'),

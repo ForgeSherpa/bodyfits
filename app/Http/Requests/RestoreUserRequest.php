@@ -25,7 +25,7 @@ class RestoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'numeric', 'exists:users,id', new CheckUserDeletedOrNot()],
+            'user_id' => ['required', 'integer', 'exists:users,id', new CheckUserDeletedOrNot()],
         ];
     }
 }
