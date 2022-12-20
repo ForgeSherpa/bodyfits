@@ -60,10 +60,11 @@ class Handler extends ExceptionHandler
         }
 
         if ($response->getStatusCode() === 500) {
-            $log = config('app.env') !== "production" ? json_encode($e) : '';
+            $log = config('app.env') !== 'production' ? json_encode($e) : '';
+
             return back()->with([
                 'status' => 'error',
-                'message' => 'Ups Something went wrong ' . $log
+                'message' => 'Ups Something went wrong '.$log,
             ]);
         }
 

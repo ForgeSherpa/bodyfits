@@ -103,6 +103,7 @@ class CategoryController extends Controller
     {
         if ($categories->has('courses')) {
             $this->cast('Delete course first!', 'warning');
+
             return;
         }
         $categories->delete();

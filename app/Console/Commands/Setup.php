@@ -33,7 +33,9 @@ class Setup extends Command
         $this->info('Setting Up...');
         $this->info('BodyFits by Kelompok 2: Albet, Vincent, Wira, Delvin, Atnan, Jeffry');
         if ($this->option('init')) {
-            if (!File::exists('.env')) File::copy('.env.example', '.env');
+            if (! File::exists('.env')) {
+                File::copy('.env.example', '.env');
+            }
             Artisan::call('key:generate');
             Artisan::call('migrate:photo');
             $this->info("Done, You can start installing Node dependencies by running 'yarn'.");
