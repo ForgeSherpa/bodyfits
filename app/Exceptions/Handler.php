@@ -52,14 +52,14 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
-        if ($response->status() === 429) {
+        if ($response->getStatusCode() === 429) {
             return back()->with([
                 'status' => 'error',
                 'message' => 'Too many request. Slow down!',
             ]);
         }
 
-        if ($response->status() === 500) {
+        if ($response->getStatusCode() === 500) {
             $log = config('app.env') !== "production" ? json_encode($e) : '';
             return back()->with([
                 'status' => 'error',
@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-        if ($response->status() === 404) {
+        if ($response->getStatusCode() === 404) {
             return back()->with(['status' => 'error', 'message' => 'Page not found!']);
         }
 
