@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         $response = parent::render($request, $e);
-        if (config('app.env') === "production") {
+        if (config('app.env') === 'production') {
             if ($response->getStatusCode() === 429) {
                 return back()->with([
                     'status' => 'error',
@@ -64,7 +64,7 @@ class Handler extends ExceptionHandler
 
                 return back()->with([
                     'status' => 'error',
-                    'message' => 'Ups Something went wrong ' . $log,
+                    'message' => 'Ups Something went wrong '.$log,
                 ]);
             }
 
